@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ShoppingCMS_V002.Models.Blog
 {
-    public class NewsModel
+    public class PostModel
     {
         public int  Id { get; set; }
         public string title { get; set; }

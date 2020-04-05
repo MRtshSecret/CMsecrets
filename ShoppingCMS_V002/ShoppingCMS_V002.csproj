@@ -148,7 +148,7 @@
     <Compile Include="Models\Blog\Customer.cs" />
     <Compile Include="Models\Blog\CustomerMessage.cs" />
     <Compile Include="Models\Blog\LatestNewsModel.cs" />
-    <Compile Include="Models\Blog\NewsModel.cs" />
+    <Compile Include="Models\Blog\PostModel.cs" />
     <Compile Include="Models\Blog\PageSeparateModel.cs" />
     <Compile Include="Models\Blog\Reply.cs" />
     <Compile Include="Models\Blog\TeamMembers.cs" />
@@ -177,6 +177,7 @@
     <Compile Include="ModelViews\AddProductModelV_3.cs" />
     <Compile Include="ModelViews\AddProductModelV_4.cs" />
     <Compile Include="ModelViews\AddProductModelV_5.cs" />
+    <Compile Include="ModelViews\Blog_Post_insert_Model.cs" />
     <Compile Include="ModelViews\ProductListModelView.cs" />
     <Compile Include="OtherClasses\Blog\Blog_ModelFiller.cs" />
     <Compile Include="OtherClasses\Blog\Date_TimeStamp.cs" />
@@ -6698,6 +6699,7 @@
     <Content Include="SQL\FAR99\10\pandaAll_DB.sql" />
     <Content Include="SQL\FAR99\10\PandaDB_Changes.sql" />
     <Content Include="SQL\FAR99\17\PandaMarket.sql" />
+    <Content Include="SQL\FAR99\18\PandaMarket.sql" />
     <Content Include="SQL\FAR99\7\PandaScript.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -7064,13 +7066,13 @@
     <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
     <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
   </Target>
-<Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
     <ItemGroup>
       <RoslynFiles Include="$(CscToolPath)\*" />
     </ItemGroup>
     <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
     <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
-</Target>
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -7,6 +7,7 @@
 
     <div class="kt-portlet">
         <div class="kt-portlet__body">
+            <div id="tag5" style="display:none"></div>
             <!--begin::Section-->
             <div class="kt-section">
 
@@ -274,6 +275,7 @@
         $('#KTPortletSection_BodyLoad_TSHPanda-' + param).show();
 
         var tg = $("#SelectTagsID-" + param).val();
+        $('#tag').text(tg);
         console.log('SelectVahedQuntID- : ' + $("#SelectVahedQuntID-" + param + " option:selected").val());
         console.log('SelectVahedPriceID- : ' + $("#SelectVahedPriceID-" + param + " option:selected").val());
         console.log('SelectOffID : ' + $("#SelectOffID-" + param + " option:selected").val());
@@ -301,7 +303,7 @@
             'id_MainStarTag': $("#MainTagID-" + param + " option:selected").val(),
             'PriceModule': $("#SelectVahedPriceID-" + param + " option:selected").val(),
             'PriceShow': $("#SelectShowPriceID-" + param + " option:selected").val(),
-            'tgs': tg
+            'tgs': $('#tag').text()
         };
 
         $.ajax({

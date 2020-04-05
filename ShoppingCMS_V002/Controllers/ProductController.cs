@@ -618,29 +618,29 @@ namespace ShoppingCMS_V002.Controllers
 
 
 
-                        //string[] str = tgs.Split(',');
+                        string[] str = tgs.Split(',');
 
-                        //for (int i = 0; i < str.Length; i++)
-                        //{
-                        //    
-                        //        db.Script("INSERT INTO [tbl_Product_tagConnector] VALUES(" + itemid + "," + str[i] + ")");
-                        //    
-                        //}
+                        for (int i = 0; i < str.Length; i++)
+                        {
+
+                            db.Script("INSERT INTO [tbl_Product_tagConnector] VALUES(" + itemid + "," + str[i] + ")");
+
+                        }
                     }
                 }
                 else if (ActTodo == "update")
                 {
                     MF.MainProduct_Actions(ActTodo, id_MProduct, Quantity, QuantityModule, PriceXquantity, PricePerquantity, PriceOff, offTypeValue, OffType, id_MainStarTag, PriceModule, PriceShow);
 
-                    //string[] str = tgs.Split(',');
+                    string[] str = tgs.Split(',');
 
-                    //for (int i = 0; i < str.Length; i++)
-                    //{
-                    //    
-                    //        db.Script("DELETE FROM [tbl_Product_tagConnector] WHERE id_MPC=" + id_MProduct);
-                    //        db.Script("INSERT INTO [tbl_Product_tagConnector] VALUES(" + id_MProduct + "," + str[i] + ")");
-                    //    
-                    //}
+                    for (int i = 0; i < str.Length; i++)
+                    {
+
+                        db.Script("DELETE FROM [tbl_Product_tagConnector] WHERE id_MPC=" + id_MProduct);
+                        db.Script("INSERT INTO [tbl_Product_tagConnector] VALUES(" + id_MProduct + "," + str[i] + ")");
+
+                    }
                 }
 
                 return Content("Success");

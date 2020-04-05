@@ -175,6 +175,7 @@
                             <div class="col-6 offset-3">
                                 <button style="margin-right: 45%;cursor: default;" class="btn btn-success btn-icon btn-circle kt-spinner kt-spinner--center kt-spinner--sm kt-spinner--light"></button>
                             </div>
+                            <div id="tag" style="display:none"></div>
                         </div>
                     </div>
                 </div>
@@ -393,6 +394,7 @@
         $('#KTPortletSection_BodyLoad_TSHPanda-' + param).show();
 
         var tg = $("#SelectTagsID-" + param).val();
+        $('#tag').text(tg);
         console.log('SelectVahedQuntID- : ' + $("#SelectVahedQuntID-" + param+" option:selected").val());
         console.log('SelectVahedPriceID- : ' + $("#SelectVahedPriceID-" + param+" option:selected").val());
         console.log('SelectOffID : ' + $("#SelectOffID-" + param+" option:selected").val());
@@ -420,8 +422,7 @@
             'id_MainStarTag': $("#MainTagID-" + param + " option:selected").val(),
             'PriceModule': $("#SelectVahedPriceID-" + param + " option:selected").val(),
             'PriceShow': $("#SelectShowPriceID-" + param + " option:selected").val(),
-            'tgs': tg
-            
+            'tgs': $('#tag').text()
         };
         var aaa = JSON.stringify(PostJson);
         console.log("aaa : " + aaa);

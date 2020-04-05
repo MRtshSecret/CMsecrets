@@ -1,8 +1,138 @@
 /*
-Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 */
 
+
+@font-face {
+	font-family: BZiba;
+	src: url('../../../../../css/Font/BSeries/BZiba.ttf') format('truetype');
+}
+@font-face {
+	font-family: BZar;
+	src: url('../../../../../css/Font/BSeries/BZar.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: BYekan;
+	src: url('../../../../../css/Font/BSeries/BYekan.ttf') format('truetype');
+}
+@font-face {
+	font-family: BYas;
+	src: url('../../../../../css/Font/BSeries/BYas.ttf') format('truetype');
+}
+@font-face {
+	font-family: BYagut;
+	src: url('../../../../../css/Font/BSeries/BYagut.ttf') format('truetype');
+}
+@font-face {
+	font-family: BVahidBold;
+	src: url('../../../../../css/Font/BSeries/BVahidBold.ttf') format('truetype');
+}
+@font-face {
+	font-family: BTraffic;
+	src: url('../../../../../css/Font/BSeries/BTraffic.ttf') format('truetype');
+}
+@font-face {
+	font-family: BFarnaz;
+	src: url('../../../../../css/Font/BSeries/BFarnaz.ttf') format('truetype');
+}
+@font-face {
+	font-family: BFerdosi;
+	src: url('../../../../../css/Font/BSeries/BFerdosi.ttf') format('truetype');
+}
+@font-face {
+	font-family: BHamid;
+	src: url('../../../../../css/Font/BSeries/BHamid.ttf') format('truetype');
+}
+@font-face {
+	font-family: BHelal;
+	src: url('../../../../../css/Font/BSeries/BHelal.ttf') format('truetype');
+}
+@font-face {
+	font-family: BHoma;
+	src: url('../../../../../css/Font/BSeries/BHoma.ttf') format('truetype');
+}
+@font-face {
+	font-family: BJadidBold;
+	src: url('../../../../../css/Font/BSeries/BJadidBold.ttf') format('truetype');
+}
+@font-face {
+	font-family: BJalal;
+	src: url('../../../../../css/Font/BSeries/BJalal.ttf') format('truetype');
+}
+@font-face {
+	font-family: BKoodakBold;
+	src: url('../../../../../css/Font/BSeries/BKoodakBold.ttf') format('truetype');
+}
+@font-face {
+	font-family: BKourosh;
+	src: url('../../../../../css/Font/BSeries/BKourosh.ttf') format('truetype');
+}
+@font-face {
+	font-family: BLotus;
+	src: url('../../../../../css/Font/BSeries/BLotus.ttf') format('truetype');
+}
+@font-face {
+	font-family: BMahsa;
+	src: url('../../../../../css/Font/BSeries/BMahsa.ttf') format('truetype');
+}
+@font-face {
+	font-family: BMehrBold;
+	src: url('../../../../../css/Font/BSeries/BMehrBold.ttf') format('truetype');
+}
+@font-face {
+	font-family: BMitra;
+	src: url('../../../../../css/Font/BSeries/BMitra.ttf') format('truetype');
+}
+@font-face {
+	font-family: BMorvarid;
+	src: url('../../../../../css/Font/BSeries/BMorvarid.ttf') format('truetype');
+}
+@font-face {
+	font-family: BNarm;
+	src: url('../../../../../css/Font/BSeries/BNarm.ttf') format('truetype');
+}
+@font-face {
+	font-family: BNasimBold;
+	src: url('../../../../../css/Font/BSeries/BNasimBold.ttf') format('truetype');
+}
+@font-face {
+	font-family: BNazanin;
+	src: url('../../../../../css/Font/BSeries/BNazanin.ttf') format('truetype');
+}
+@font-face {
+	font-family: BRoya;
+	src: url('../../../../../css/Font/BSeries/BRoya.ttf') format('truetype');
+}
+@font-face {
+	font-family: BSetarehBold;
+	src: url('../../../../../css/Font/BSeries/BSetarehBold.ttf') format('truetype');
+}
+@font-face {
+	font-family: BShiraz;
+	src: url('../../../../../css/Font/BSeries/BShiraz.ttf') format('truetype');
+}
+@font-face {
+	font-family: BTitrTGEBold;
+	src: url('../../../../../css/Font/BSeries/BTitrTGEBold.ttf') format('truetype');
+}
+@font-face {
+	font-family: BTitrBold;
+	src: url('../../../../../css/Font/BSeries/BTitrBold.ttf') format('truetype');
+}
+@font-face {
+	font-family: BTehran;
+	src: url('../../../../../css/Font/BSeries/BTehran.ttf') format('truetype');
+}
+@font-face {
+	font-family: BTabassom;
+	src: url('../../../../../css/Font/BSeries/BTabassom.ttf') format('truetype');
+}
+@font-face {
+	font-family: BSinaBold;
+	src: url('../../../../../css/Font/BSeries/BSinaBold.ttf') format('truetype');
+}
 body
 {
 	/* Font */

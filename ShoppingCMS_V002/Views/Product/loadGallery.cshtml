@@ -14,7 +14,7 @@
             </div>
             <div class="kt-portlet__head-label" style="width: 100%;">
                 <h3 class="kt-portlet__head-title" style="width: 100%;">
-                    <img src="@mymodel.Address" style="width: 100%; border-radius: 5px;" onclick="SelectPicID('@mymodel.id')">
+                    <img src="@mymodel.Address" id="IMGktportlet-@mymodel.id" style="width: 100%; border-radius: 5px;" onclick="SelectPicID('@mymodel.id')">
                 </h3>
             </div>
         </div>
@@ -24,7 +24,7 @@
                     <div class="input-group">
                         <span class="input-group-text w-100">نام عکس</span>
                     </div>
-                    <input type="text" class="form-control" readonly="readonly" value="@mymodel.ImageName" style="direction: rtl;text-align: right;">
+                    <input type="text" id="PicSelectedIDNAme-@mymodel.id" class="form-control" readonly="readonly" value="@mymodel.ImageName" style="direction: rtl;text-align: right;">
                     <div class="input-group pt-1">
 
                         <span class="input-group-text w-100">لیبل</span>

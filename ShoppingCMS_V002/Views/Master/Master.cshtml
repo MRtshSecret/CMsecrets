@@ -1,7 +1,5 @@
 ﻿
-@{
-    ViewBag.Title = "Master";
-}
+@{ }
 
 <!DOCTYPE html>
 <html direction="rtl" style="direction: rtl;">
@@ -14,9 +12,9 @@
     @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">*@
     @Styles.Render("~/assets/CoreAdmin.css")
     @Scripts.Render("~/bundles/jqueryCore.js")
-
+    @Scripts.Render("~/bundles/AddProScript.js")
     <title>
-
+        @ViewBag.Title
     </title>
 </head>
 <!-- begin::Body -->
@@ -1053,7 +1051,7 @@
     </div>
     <!--ENd:: Chat-->
     <!-- begin::Global Config(global config for global JS sciprts) -->
-    @Scripts.Render("~/bundles/AddProScript.js");
+    
     <script>
         var KTAppOptions = {
             "colors": {
@@ -1086,8 +1084,15 @@
     </script>
 
     <script>
+            $('kt-menu__item').click(function (e) {
+                console.log("hey");
+                e.stopPropagation();
+            });
+            $(document).on('click', '.kt-menu__item', function(e) {
+                if ($(this).hasClass('kt-menu__item--open')) { e.stopPropagation(); }
+                console.log("heyDun");
+            });
         $(document).ready(function () {
-
              var cookie = getCookie("AddProCookie");
         if (cookie == "") {
 

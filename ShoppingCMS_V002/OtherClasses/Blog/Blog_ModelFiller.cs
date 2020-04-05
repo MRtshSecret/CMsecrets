@@ -196,6 +196,132 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return res;
         }
 
+        public string Add_Update_Category(string Action,string Name,int id=0)
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            if(Action=="insert")
+            {
+                db.Script("INSERT INTO [tbl_BLOG_Categories] VALUES (N'"+Name+"',0,0)");
+            }else if(Action=="Update")
+            {
+                db.Script("UPDATE [tbl_BLOG_Categories] SET [name] =N'"+Name+"' WHERE Id=" + id);
+            }
+
+            return "Success";
+        }
+
+        public string Add_Update_Group(string Action, string Name, int id = 0)
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            if (Action == "insert")
+            {
+                db.Script("INSERT INTO [tbl_BLOG_Groups] VALUES (N'" + Name + "',0,0)");
+            }
+            else if (Action == "Update")
+            {
+                db.Script("UPDATE [tbl_BLOG_Groups] SET [name] =N'" + Name + "' WHERE G_Id=" + id);
+            }
+
+            return "Success";
+        }
+
+        public string Add_Update_Tag(string Action, string Name,int CatId, int id = 0)
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            if (Action == "insert")
+            {
+                db.Script("INSERT INTO [tbl_BLOG_Tags] VALUES (N'" + Name + "',"+CatId+",0,0)");
+            }
+            else if (Action == "Update")
+            {
+                db.Script("UPDATE [tbl_BLOG_Tags] SET [Name] = N'"+Name+"',[CtegoryId] = "+CatId+" WHERE Id="+id);
+            }
+
+            return "Success";
+        }
+
+        public List<CategoryModel> Blog_CategoryTable()
+        {
+            var res = new List<CategoryModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [Id],[name],[Is_Disabled],[Is_Deleted]FROM [tbl_BLOG_Categories]");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new CategoryModel()
+                {
+                    Num = i + 1,
+                    Id=Convert.ToInt32(dt.Rows[i]["Id"]),
+                    Name= dt.Rows[i]["name"].ToString(),
+                    Deleted= Convert.ToInt32(dt.Rows[i]["Is_Deleted"]),
+                    Disabled= Convert.ToInt32(dt.Rows[i]["Is_Disabled"])
+                };
+                res.Add(model);
+            }
+
+
+            return res;
+        }
+
+        public List<CategoryModel> Blog_GroupTable()
+        {
+            var res = new List<CategoryModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [G_Id],[name],[Is_Disabled],[Is_Deleted]FROM [tbl_BLOG_Groups]");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new CategoryModel()
+                {
+                    Num = i + 1,
+                    Id = Convert.ToInt32(dt.Rows[i]["G_Id"]),
+                    Name = dt.Rows[i]["name"].ToString(),
+                    Deleted = Convert.ToInt32(dt.Rows[i]["Is_Deleted"]),
+                    Disabled = Convert.ToInt32(dt.Rows[i]["Is_Disabled"])
+                };
+                res.Add(model);
+            }
+
+
+            return res;
+        }
+
+        public List<CategoryModel> Blog_TagTable()
+        {
+            var res = new List<CategoryModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT A.[Id],A.[Name],A.[CtegoryId],A.[Is_Disabled],A.[Is_Deleted],B.[Name] as CatName FROM [tbl_BLOG_Tags] as A inner join [tbl_BLOG_Categories] as B on A.CtegoryId=B.Id");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new CategoryModel()
+                {
+                    Num = i + 1,
+                    Id = Convert.ToInt32(dt.Rows[i]["Id"]),
+                    Name = dt.Rows[i]["Name"].ToString(),
+                    Deleted = Convert.ToInt32(dt.Rows[i]["Is_Deleted"]),
+                    Disabled = Convert.ToInt32(dt.Rows[i]["Is_Disabled"]),
+                    CatId = Convert.ToInt32(dt.Rows[i]["CtegoryId"]),
+                    Category = dt.Rows[i]["CatName"].ToString()
+                };
+                res.Add(model);
+            }
+
+
+            return res;
+        }
     }
 
 }

@@ -159,6 +159,74 @@
                                     </ul>
                                 </div>
                             </li>
+                            
+                            <li class="kt-menu__section ">
+                                <h4 class="kt-menu__section-text">بلاگ</h4>
+                                <i class="kt-menu__section-icon flaticon-more-v2"></i>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                                <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                                    <i class="kt-menu__link-icon flaticon-browser"></i>
+                                    <span class="kt-menu__link-text">بلاگ</span>
+                                    <i class="kt-menu__ver-arrow la la-angle-right"></i>
+                                </a>
+                                <div class="kt-menu__submenu ">
+                                    <span class="kt-menu__arrow"></span>
+                                    <ul class="kt-menu__subnav">
+                                        <li class="kt-menu__item " aria-haspopup="true">
+                                            <a href="@Url.Action("NewBlogPost","BlogMain")" class="kt-menu__link ">
+                                                <i class="kt-menu__link-bullet flaticon-add">
+                                                    <span></span>
+                                                </i>
+                                                <span class="kt-menu__link-text">افزودن پست جدید</span>
+                                                <span class="kt-menu__link-badge">
+                                                    <span style="display:none" id="NewProBTN" onclick="return new_Product()" class="kt-badge kt-badge--success kt-badge--inline">افزودن</span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-menu__item " aria-haspopup="true">
+                                            <a href="@Url.Action("Product_List","Product")" class="kt-menu__link ">
+                                                <i class="kt-menu__link-bullet flaticon-signs-1">
+                                                    <span></span>
+                                                </i>
+                                                <span class="kt-menu__link-text">لیست تمامی پست ها</span>
+
+                                            </a>
+                                        </li>
+
+                                        <li class="kt-menu__item " aria-haspopup="true">
+                                            <a href="@Url.Action("Add_Blog_Group","BlogMain")" class="kt-menu__link ">
+                                                <i class="kt-menu__link-bullet flaticon2-pen">
+                                                    <span></span>
+                                                </i>
+                                                <span class="kt-menu__link-text">تعریف گروه پست ها</span>
+
+                                            </a>
+                                        </li>
+
+                                        <li class="kt-menu__item " aria-haspopup="true">
+                                            <a href="@Url.Action("Add_Blog_Category","BlogMain")" class="kt-menu__link ">
+                                                <i class="kt-menu__link-bullet flaticon2-pen">
+                                                    <span></span>
+                                                </i>
+                                                <span class="kt-menu__link-text">تعریف دسته بندی پست ها</span>
+
+                                            </a>
+                                        </li>
+
+                                        <li class="kt-menu__item " aria-haspopup="true">
+                                            <a href="@Url.Action("Add_Blog_Tags","BlogMain")" class="kt-menu__link ">
+                                                <i class="kt-menu__link-bullet flaticon2-pen">
+                                                    <span></span>
+                                                </i>
+                                                <span class="kt-menu__link-text">تعریف برچسب پست ها</span>
+
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
 
                             <li class="kt-menu__section ">
                                 <h4 class="kt-menu__section-text">مالی</h4>
@@ -267,7 +335,7 @@
                                         </li>
                                         <li class="kt-menu__item " aria-haspopup="true">
                                             <a href="@Url.Action("Product_List","Product")" class="kt-menu__link ">
-                                                <i class="kt-menu__link-bullet flaticon2-pen">
+                                                <i class="kt-menu__link-bullet flaticon-signs-1">
                                                     <span></span>
                                                 </i>
                                                 <span class="kt-menu__link-text">لیست تمامی محصولات</span>
@@ -277,7 +345,7 @@
 
                                         <li class="kt-menu__item " aria-haspopup="true">
                                             <a href="@Url.Action("ShowCatTree","Product")" class="kt-menu__link ">
-                                                <i class="kt-menu__link-bullet flaticon2-pen">
+                                                <i class="kt-menu__link-bullet flaticon-map">
                                                     <span></span>
                                                 </i>
                                                 <span class="kt-menu__link-text">نمایش تمامی دسته بندی ها</span>

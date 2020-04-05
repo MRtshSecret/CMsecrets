@@ -76,7 +76,7 @@ function Des(str) {
         contentType: "application/json; charset=utf-8",
         success: function (response) {
             var res = response;
-           alert(res);
+           //alert(res);
             // alert(res.Page);
             fillItms(res);
         },

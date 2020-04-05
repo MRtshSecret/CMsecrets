@@ -6767,6 +6767,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\BlogMain\Index.cshtml" />
     <Content Include="Views\BlogMain\NewBlogPost.cshtml" />
+    <Content Include="Views\BlogMain\Add_Blog_Category.cshtml" />
+    <Content Include="Views\BlogMain\Add_Blog_Group.cshtml" />
+    <Content Include="Views\BlogMain\Add_Blog_Tags.cshtml" />
+    <Content Include="Views\BlogMain\Blog_catTable.cshtml" />
+    <Content Include="Views\BlogMain\Blog_GroupTable.cshtml" />
+    <Content Include="Views\BlogMain\Blog_TagTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

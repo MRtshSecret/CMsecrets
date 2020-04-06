@@ -51,15 +51,15 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Add_Update_AdminType(string ActToDo, string Ad_Name,string Routes,int id=0)
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
+            //string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            //if (check.HasAccess)
+            //{
                 ModelFiller MF = new ModelFiller();
 
                 return Content(MF.Add_Update_AdType_( ActToDo, Ad_Name, Routes, id));
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
+            //}
+            //else
+            //    return RedirectToAction("NotAccess", "MS");
         }
     }
 }

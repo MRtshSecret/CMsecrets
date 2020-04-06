@@ -89,19 +89,19 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Add_Page1()
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
+            //string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+            //if (check.HasAccess)
+            //{
                 return View();
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
+            //}
+            //else
+            //    return RedirectToAction("NotAccess", "MS");
         }
         public ActionResult Add_Page2(int Id)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
+            //string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+            //if (check.HasAccess)
+            //{
                 ModelFiller MF = new ModelFiller();
 
                 AddProductModelV_2 model = new AddProductModelV_2()
@@ -111,29 +111,29 @@ namespace ShoppingCMS_V002.Controllers
                 };
 
                 return View(model);
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
+            //}
+            //else
+            //    return RedirectToAction("NotAccess", "MS");
         }
         [HttpPost]
         public ActionResult DropListFiller(string drop, int id = 0)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
+            //string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+            //if (check.HasAccess)
+            //{
                 ModelFiller MF = new ModelFiller();
                 var model = MF.DropFiller(drop, id);
                 return Json(model);
                 //return Content("hello");
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
+            //}
+            //else
+            //    return RedirectToAction("NotAccess", "MS");
         }
         public ActionResult Add_Page3(string Ids, int id)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
+            //string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+            //if (check.HasAccess)
+            //{
                 ModelFiller MF = new ModelFiller();
                 PDBC db = new PDBC("PandaMarketCMS", true);
                 db.Connect();
@@ -160,9 +160,9 @@ namespace ShoppingCMS_V002.Controllers
 
 
                 return View(result);
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
+            //}
+            //else
+            //    return RedirectToAction("NotAccess", "MS");
         }
 
         public ActionResult Options_Table(int id)

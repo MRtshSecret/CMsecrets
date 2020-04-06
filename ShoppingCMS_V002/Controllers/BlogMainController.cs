@@ -48,43 +48,43 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult Add_Edit_Post(string ActTodo, int WrittenBy_AdminId, string Title, string Text_min, string Text, int weight, int Cat_Id, int IsImportant, int GroupId, string Pictures, string Blog_Tags, int id_pr = 0)
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
+            //string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            //if (check.HasAccess)
+            //{
                 Blog_ModelFiller BMF = new Blog_ModelFiller();
 
                 return Content(BMF.Post_Action(ActTodo, WrittenBy_AdminId, Title, Text_min, Text, weight, Cat_Id, IsImportant, GroupId, Pictures, Blog_Tags, id_pr));
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
+            //}
+            //else
+            //    return RedirectToAction("NotAccess", "MS");
         }
 
         [HttpPost]
         public ActionResult TagFiller(int CatId)
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
+            //string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            //if (check.HasAccess)
+            //{
                 Blog_ModelFiller BMF = new Blog_ModelFiller();
                 var model = BMF.B_Tags_Filler(CatId);
                 return Json(model);
                 //return Content("hello");
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
+            //}
+            //else
+            //    return RedirectToAction("NotAccess", "MS");
         }
         public ActionResult Add_Update_Category(string ActToDo,string Cat_Name,int id=0)
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
+            //string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            //if (check.HasAccess)
+            //{
                 Blog_ModelFiller BMF = new Blog_ModelFiller();
                // var model = BMF.B_Tags_Filler(CatId);
                 return Content(BMF.Add_Update_Category(ActToDo,Cat_Name,id));
                 //return Content("hello");
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
+            //}
+            //else
+            //    return RedirectToAction("NotAccess", "MS");
         }
 
         public ActionResult Add_Blog_Category()
@@ -100,16 +100,16 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Add_Update_Group(string ActToDo, string G_Name, int id = 0)
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
+            //string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            //if (check.HasAccess)
+            //{
                 Blog_ModelFiller BMF = new Blog_ModelFiller();
                 // var model = BMF.B_Tags_Filler(CatId);
                 return Content(BMF.Add_Update_Group(ActToDo, G_Name, id));
                 //return Content("hello");
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
+            //}
+            //else
+            //    return RedirectToAction("NotAccess", "MS");
         }
 
         public ActionResult Add_Blog_Group()
@@ -125,16 +125,16 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Add_Update_Tags(string ActToDo, string T_Name,int CatId, int id = 0)
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
+            //string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            //if (check.HasAccess)
+            //{
                 Blog_ModelFiller BMF = new Blog_ModelFiller();
                 // var model = BMF.B_Tags_Filler(CatId);
                 return Content(BMF.Add_Update_Tag(ActToDo, T_Name, CatId, id));
                 //return Content("hello");
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
+            //}
+            //else
+            //    return RedirectToAction("NotAccess", "MS");
         }
 
         public ActionResult Add_Blog_Tags()

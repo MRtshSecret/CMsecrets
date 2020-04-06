@@ -13,6 +13,10 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 {
     public class Blog_ModelFiller
     {
+        public static string AppendServername(string url)
+        {
+            return "https://" + HttpContext.Current.Request.Url.Authority + "/" + url;
+        }
         public List<Id_ValueModel> Groups_Filler()
         {
             PDBC db = new PDBC("PandaMarketCMS", true);
@@ -189,9 +193,40 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
         public PostModel EditModelFiller(int id)
         {
             var res = new PostModel();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [Id],[Title],[Text_min],[Text],[weight],[IsImportant],[Cat_Id],[GroupId] FROM [tbl_BLOG_Post] where Id="+id);
+            if(dt.Rows.Count!=0)
+            {
+                res.Id = Convert.ToInt32(dt.Rows[0]["Id"]);
+                res.title = dt.Rows[0]["Title"].ToString();
+                res.text_min = dt.Rows[0]["Text_min"].ToString();
+                res.text = dt.Rows[0]["Text"].ToString();
+                res.IsImportant = Convert.ToInt32(dt.Rows[0]["IsImportant"]);
+                res.SearchGravity= Convert.ToInt32(dt.Rows[0]["weight"]);
+                res.Category= dt.Rows[0]["Cat_Id"].ToString();
+                res.InGroup= dt.Rows[0]["GroupId"].ToString();
 
 
+                DataTable dt2 = db.Select("SELECT[PicId]FROM [tbl_BLOG_Pic_Connector] where [PostId]="+res.Id);
+                StringBuilder s =new StringBuilder();
+                for (int i = 0; i < dt2.Rows.Count; i++)
+                {
+                    s.Append(dt2.Rows[i]["PicId"]);
+                    s.Append(",");
+                }
+                res.ImagePath = s.ToString();
 
+                DataTable dt3 = db.Select("SELECT [Tag_Id] FROM [tbl_BLOG_TagConnector]where[Post_Id]=" + res.Id);
+                StringBuilder Tag = new StringBuilder();
+                for (int i = 0; i < dt3.Rows.Count; i++)
+                {
+                    Tag.Append(dt3.Rows[i]["Tag_Id"]);
+                    Tag.Append(",");
+                }
+                res.tags = Tag.ToString();
+            }
 
             return res;
         }
@@ -322,6 +357,38 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 
             return res;
         }
+        
+        public List<PostModel> Posttable()
+        {
+            var res = new List<PostModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [Id],[Title],[Text_min],[Text],(SELECT [ad_firstname]+ ' '+ [ad_lastname] as name FROM [tbl_ADMIN_main]where id_Admin=[WrittenBy_AdminId])as adminName ,[Date],[IsImportant],[Is_Deleted],[Is_Disabled],(SELECT [name]FROM [tbl_BLOG_Categories] where Id=[Cat_Id]) as Category,(SELECT [name]FROM [tbl_BLOG_Groups] where G_Id=[GroupId]) as GroupName,(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic FROM [tbl_BLOG_Post] order by(date)desc");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DateTime date = Convert.ToDateTime(dt.Rows[i]["Date"]);
+                PersianDateTime persianDateTime = new PersianDateTime(date);
+                var model = new PostModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[i]["Id"]),
+                    by = dt.Rows[i]["adminName"].ToString(),
+                    Category = dt.Rows[i]["Category"].ToString(),
+                    InGroup = dt.Rows[i]["GroupName"].ToString(),
+                    ImagePath = AppendServername(dt.Rows[i]["Pic"].ToString()),
+                    IsDeleted = Convert.ToInt32(dt.Rows[i]["Is_Deleted"]),
+                    IsDisabled = Convert.ToInt32(dt.Rows[i]["Is_Disabled"]),
+                    text = dt.Rows[i]["Text"].ToString(),
+                    title = dt.Rows[i]["Title"].ToString(),
+                    text_min = dt.Rows[i]["Text_min"].ToString(),
+                    date = persianDateTime.ToLongDateString()
+                };
+                res.Add(model);
+            }
+            return res;
+        }
+
     }
 
 }

@@ -9,26 +9,20 @@ namespace ShoppingCMS_V002.Models.Blog
     {
         public int  Id { get; set; }
         public string title { get; set; }
-        public string day { get; set; }
-        public string year_month { get; set; }
-        public string DayOfWeek { get; set; }
+        public string date { get; set; }
         public string by { get; set; }
         public string text_min { get; set; }
         public string text { get; set; }
         public string tags { get; set; }
         public string ImagePath { get; set; }
         public string InGroup { get; set; }
-        public List<Comment> Comments { get; set; }
         public int Comments__ { get; set; }
         public List<string> Tags { get; set; }
-        public bool IsImportant { get; set; }
+        public int IsImportant { get; set; }
         public string Category { get; set; }
-        public int Id_pre { get; set; }
-        public string Title_pre { get; set; }
-        public string Category_pre { get; set; }
-        public int Id_next { get; set; }
-        public string Title_next { get; set; }
-        public string Category_next { get; set; }
+        public int IsDeleted { get; set; }
+        public int IsDisabled { get; set; }
+        public int SearchGravity { get; set; }
 
     }
 }

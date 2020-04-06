@@ -262,5 +262,45 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
+
+        public ActionResult PostTable()
+        {
+            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            if (check.HasAccess)
+            {
+                Blog_ModelFiller BMF = new Blog_ModelFiller();
+                return View(BMF.Posttable());
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+             
+           
+        }
+
+        public ActionResult Post_Actions(string ActToDo, int id)
+        {
+            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            if (check.HasAccess)
+            {
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+                if (ActToDo == "Delete")
+                {
+                    db.Script("UPDATE [tbl_BLOG_Post] SET [Is_Deleted] = 1 WHERE Id=" + id);
+                }
+                else if (ActToDo == "Active")
+                {
+                    db.Script("UPDATE [tbl_BLOG_Post] SET[Is_Disabled] = 0 WHERE Id=" + id);
+                }
+                else if (ActToDo == "DeActive")
+                {
+                    db.Script("UPDATE [tbl_BLOG_Post] SET[Is_Disabled] = 1 WHERE Id=" + id);
+                }
+                return Content("Success");
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+
     }
 }

@@ -23,6 +23,7 @@ namespace ShoppingCMS_V002.Models.Blog
         public int IsDeleted { get; set; }
         public int IsDisabled { get; set; }
         public int SearchGravity { get; set; }
+        public string AdminPic { get; set; }
 
     }
 }

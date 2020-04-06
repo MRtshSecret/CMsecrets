@@ -389,6 +389,154 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return res;
         }
 
+        public List<Id_ValueModel> B_AllTags_Filler()
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            var res = new List<Id_ValueModel>();
+
+            DataTable dt = db.Select("SELECT [Id],[name] FROM [tbl_BLOG_Tags] WHERE [Is_Disabled]=0 AND [Is_Deleted]=0 ");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new Id_ValueModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[i]["Id"]),
+                    Value = dt.Rows[i]["name"].ToString()
+                };
+                res.Add(model);
+            }
+
+            return res;
+        }
+
+
+
+        public List<PostModel> UserPostModels(string Cat,int Page,int Id,string search)
+        {
+            var res = new List<PostModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            DataTable dt = db.Select(QueryMaker_BlogPost(Cat, Page , Id, search));
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DateTime date = Convert.ToDateTime(dt.Rows[i]["Date"]);
+                PersianDateTime persianDateTime = new PersianDateTime(date);
+                var model = new PostModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[i]["Id"]),
+                    by = dt.Rows[i]["adminName"].ToString(),
+                    Category = dt.Rows[i]["Category"].ToString(),
+                    InGroup = dt.Rows[i]["GroupName"].ToString(),
+                    ImagePath = AppendServername(dt.Rows[i]["Pic"].ToString()),
+                    IsDeleted = Convert.ToInt32(dt.Rows[i]["Is_Deleted"]),
+                    IsDisabled = Convert.ToInt32(dt.Rows[i]["Is_Disabled"]),
+                    text = dt.Rows[i]["Text"].ToString(),
+                    title = dt.Rows[i]["Title"].ToString(),
+                    text_min = dt.Rows[i]["Text_min"].ToString(),
+                    date = persianDateTime.ToLongDateString(),
+                    AdminPic= AppendServername(dt.Rows[i]["AdminPic"].ToString())
+                };
+                res.Add(model);
+            }
+            return res;
+        }
+
+
+        public string QueryMaker_BlogPost(string Cat, int Page , int Id,string search)
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            int num = 1;
+            if (Cat == "همه")
+            {
+                num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post]  where Is_Deleted=0 AND Is_Disabled=0").Rows[0][0]);
+            }
+            else if (Cat == "دسته بندی")
+            {
+                num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post] where Is_Deleted=0 AND Is_Disabled=0 AND Cat_Id=" + Id).Rows[0][0]);
+            }
+            else if (Cat == "برچسب")
+            {
+                num = Convert.ToInt32(db.Select("SELECT COUNT(*) FROM [tbl_BLOG_TagConnector] as A inner join [tbl_BLOG_Post] as B on A.Post_Id=B.Id where Is_Deleted=0 AND Is_Disabled=0 AND Tag_Id=" + Id).Rows[0][0]);
+            }
+            else if (Cat == "جست و جو")
+            {
+                num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post] where Is_Deleted=0 AND Is_Disabled=0 AND Title Like N'%" + search + "%' OR Text_min Like N'%" + search + "%' OR [Text] Like N'%" + search + "%' ").Rows[0][0]);
+            }
+
+            if (num % 15 == 0)
+            {
+                num = (num / 15);
+            }
+            else
+            {
+                num = (num / 15) + 1;
+            }
+
+
+            StringBuilder Query = new StringBuilder();
+            Query.Append("select * from(SELECT NTILE(");
+            Query.Append(num);
+            Query.Append(")over(order by(Date)DESC)as tile, [Id],[Title],[Text_min],[Text],(SELECT [ad_firstname]+ ' '+ [ad_lastname] as name FROM [tbl_ADMIN_main]where id_Admin=[WrittenBy_AdminId])as adminName ,[Date],[IsImportant],[Is_Deleted],[Is_Disabled],(SELECT [name]FROM [tbl_BLOG_Categories] where Id=[Cat_Id]) as Category,(SELECT [name]FROM [tbl_BLOG_Groups] where G_Id=[GroupId]) as GroupName,(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic,(SELECT [ad_avatarprofile] FROM[tbl_ADMIN_main] where id_Admin=WrittenBy_AdminId) as AdminPic FROM [tbl_BLOG_Post]");
+
+            if (Cat == "همه")
+            {
+                Query.Append(" where Is_Deleted=0 AND Is_Disabled=0");
+                Query.Append(")b where b.tile=");
+                Query.Append(Page);
+            }
+            else if (Cat == "دسته بندی")
+            {
+                Query.Append(" where Is_Deleted=0 AND Is_Disabled=0 AND Cat_Id=");
+                Query.Append(Id);
+                Query.Append(")b where b.tile=");
+                Query.Append(Page);
+
+            }
+            else if (Cat == "برچسب")
+            {
+                Query.Append(" as B1 inner join [tbl_BLOG_TagConnector] as B2 on B1.Id=B2.Post_Id where Is_Deleted=0 AND Is_Disabled=0 AND B2.Tag_Id=");
+                Query.Append(Id);
+                Query.Append(")b where b.tile=");
+                Query.Append(Page);
+            }else if(Cat=="جست و جو")
+            {
+                Query.Append(" where Is_Deleted=0 AND Is_Disabled=0 AND Title Like N'%");
+                Query.Append(search);
+                Query.Append("%' OR Text_min Like N'%");
+                Query.Append(search);
+                Query.Append("%' OR [Text] Like N'%");
+                Query.Append(search);
+                Query.Append("%')b where b.tile=");
+                Query.Append(Page);
+            }
+
+            return Query.ToString();
+        }
+
+        public List<TableModel> SearchResult(string search)
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT top 10 [Id],[Title],(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic FROM [tbl_BLOG_Post] where Is_Deleted=0 AND Is_Disabled=0 AND Title Like N'%" + search + "%' OR Text_min Like N'%" + search + "%' OR [Text] Like N'%" + search + "%' order by([weight])DESC,[date] DESC");
+
+            var res = new List<TableModel>();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new TableModel()
+                {
+                    Group1= AppendServername(dt.Rows[i]["Pic"].ToString()),
+                    Group2=dt.Rows[i]["Title"].ToString(),
+                    Id=Convert.ToInt32(dt.Rows[i]["Id"])
+                };
+                res.Add(model);
+            }
+            return res;
+        }
     }
 
 }

@@ -14,6 +14,21 @@ namespace ShoppingCMS_V002
                 "~/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js",
                 "~/assets/js/pages/dashboard.js"
             ));
+
+            bundles.Add(new ScriptBundle("~/bundles/Afra.js").Include(
+                "~/assetsAfra/js/jquery.min.js",
+                "~/assetsAfra/js/bootstrap.min.js",
+                "~/assetsAfra/js/plugins.min.js",
+                "~/assetsAfra/js/main-scripts.js"));
+
+            bundles.Add(new StyleBundle("~/assets/Afra.css").Include(
+               "~/assetsAfra/css/icons.min.css",
+               "~/assetsAfra/css/bootstrap.min.css",
+               "~/assetsAfra/css/plugins.min.css",
+               "~/assetsAfra/css/colors.css",
+               "~/assetsAfra/css/styles.css"
+           ));
+
             bundles.Add(new ScriptBundle("~/bundles/Ckeditor.js").Include(
                 "~/assets/js/pages/custom/Plugins/ckeditor/ckeditor.js"
             ));

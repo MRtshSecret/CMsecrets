@@ -13,6 +13,16 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 {
     public class Blog_ModelFiller
     {
+        private int TopSelector=0;
+        public Blog_ModelFiller()
+        {
+            TopSelector = 0;
+        }
+
+        public Blog_ModelFiller(int top)
+        {
+            TopSelector = top;
+        }
         public static string AppendServername(string url)
         {
             return "https://" + HttpContext.Current.Request.Url.Authority + "/" + url;
@@ -63,7 +73,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             db.Connect();
             var res = new List<Id_ValueModel>();
 
-            DataTable dt = db.Select("SELECT [Id],[name] FROM [tbl_BLOG_Tags] WHERE [Is_Disabled]=0 AND [Is_Deleted]=0 AND [CtegoryId]="+CatId);
+            DataTable dt = db.Select("SELECT [Id],[name] FROM [tbl_BLOG_Tags] WHERE [Is_Disabled]=0 AND [Is_Deleted]=0 AND [CtegoryId]=" + CatId);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 var model = new Id_ValueModel()
@@ -77,7 +87,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return res;
         }
 
-        public string Post_Action(string Action, int WrittenBy_AdminId, string Title, string Text_min, string Text, int weight, int Cat_Id, int IsImportant,int GroupId, string Pictures,string Blog_Tags, int id_pr = 0)
+        public string Post_Action(string Action, int WrittenBy_AdminId, string Title, string Text_min, string Text, int weight, int Cat_Id, int IsImportant, int GroupId, string Pictures, string Blog_Tags, int id_pr = 0)
         {
             List<ExcParameters> paramss = new List<ExcParameters>();
             PDBC db = new PDBC("PandaMarketCMS", true);
@@ -153,15 +163,15 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 
             if (query != "")
             {
-                id= db.Script(query, paramss);
+                id = db.Script(query, paramss);
             }
 
-            if(id!="0" && Action.Equals("insert"))
+            if (id != "0" && Action.Equals("insert"))
             {
                 var Post_picturse = Pictures.Split(',');
                 for (int i = 0; i < Post_picturse.Length; i++)
                 {
-                    db.Script("INSERT INTO [tbl_BLOG_Pic_Connector]VALUES("+id+","+Post_picturse[i]+")");
+                    db.Script("INSERT INTO [tbl_BLOG_Pic_Connector]VALUES(" + id + "," + Post_picturse[i] + ")");
                 }
 
                 var Tags = Blog_Tags.Split(',');
@@ -169,7 +179,8 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                 {
                     db.Script("INSERT INTO [tbl_BLOG_TagConnector] VALUES(" + id + "," + Tags[j] + ")");
                 }
-            }else if(Action == "update")
+            }
+            else if (Action == "update")
             {
                 db.Script("DELETE FROM [tbl_BLOG_Pic_Connector] WHERE PostId=" + id_pr);
                 var Post_picturse = Pictures.Split(',');
@@ -185,7 +196,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                     db.Script("INSERT INTO [tbl_BLOG_TagConnector] VALUES(" + id_pr + "," + Tags[j] + ")");
                 }
             }
-            
+
 
             return "Success";
         }
@@ -196,21 +207,21 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
 
-            DataTable dt = db.Select("SELECT [Id],[Title],[Text_min],[Text],[weight],[IsImportant],[Cat_Id],[GroupId] FROM [tbl_BLOG_Post] where Id="+id);
-            if(dt.Rows.Count!=0)
+            DataTable dt = db.Select("SELECT [Id],[Title],[Text_min],[Text],[weight],[IsImportant],[Cat_Id],[GroupId] FROM [tbl_BLOG_Post] where Id=" + id);
+            if (dt.Rows.Count != 0)
             {
                 res.Id = Convert.ToInt32(dt.Rows[0]["Id"]);
                 res.title = dt.Rows[0]["Title"].ToString();
                 res.text_min = dt.Rows[0]["Text_min"].ToString();
                 res.text = dt.Rows[0]["Text"].ToString();
                 res.IsImportant = Convert.ToInt32(dt.Rows[0]["IsImportant"]);
-                res.SearchGravity= Convert.ToInt32(dt.Rows[0]["weight"]);
-                res.Category= dt.Rows[0]["Cat_Id"].ToString();
-                res.InGroup= dt.Rows[0]["GroupId"].ToString();
+                res.SearchGravity = Convert.ToInt32(dt.Rows[0]["weight"]);
+                res.Category = dt.Rows[0]["Cat_Id"].ToString();
+                res.InGroup = dt.Rows[0]["GroupId"].ToString();
 
 
-                DataTable dt2 = db.Select("SELECT[PicId]FROM [tbl_BLOG_Pic_Connector] where [PostId]="+res.Id);
-                StringBuilder s =new StringBuilder();
+                DataTable dt2 = db.Select("SELECT[PicId]FROM [tbl_BLOG_Pic_Connector] where [PostId]=" + res.Id);
+                StringBuilder s = new StringBuilder();
                 for (int i = 0; i < dt2.Rows.Count; i++)
                 {
                     s.Append(dt2.Rows[i]["PicId"]);
@@ -231,17 +242,18 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return res;
         }
 
-        public string Add_Update_Category(string Action,string Name,int id=0)
+        public string Add_Update_Category(string Action, string Name, int id = 0)
         {
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
 
-            if(Action=="insert")
+            if (Action == "insert")
             {
-                db.Script("INSERT INTO [tbl_BLOG_Categories] VALUES (N'"+Name+"',0,0)");
-            }else if(Action=="Update")
+                db.Script("INSERT INTO [tbl_BLOG_Categories] VALUES (N'" + Name + "',0,0)");
+            }
+            else if (Action == "Update")
             {
-                db.Script("UPDATE [tbl_BLOG_Categories] SET [name] =N'"+Name+"' WHERE Id=" + id);
+                db.Script("UPDATE [tbl_BLOG_Categories] SET [name] =N'" + Name + "' WHERE Id=" + id);
             }
 
             return "Success";
@@ -264,18 +276,18 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return "Success";
         }
 
-        public string Add_Update_Tag(string Action, string Name,int CatId, int id = 0)
+        public string Add_Update_Tag(string Action, string Name, int CatId, int id = 0)
         {
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
 
             if (Action == "insert")
             {
-                db.Script("INSERT INTO [tbl_BLOG_Tags] VALUES (N'" + Name + "',"+CatId+",0,0)");
+                db.Script("INSERT INTO [tbl_BLOG_Tags] VALUES (N'" + Name + "'," + CatId + ",0,0)");
             }
             else if (Action == "Update")
             {
-                db.Script("UPDATE [tbl_BLOG_Tags] SET [Name] = N'"+Name+"',[CtegoryId] = "+CatId+" WHERE Id="+id);
+                db.Script("UPDATE [tbl_BLOG_Tags] SET [Name] = N'" + Name + "',[CtegoryId] = " + CatId + " WHERE Id=" + id);
             }
 
             return "Success";
@@ -294,10 +306,10 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                 var model = new CategoryModel()
                 {
                     Num = i + 1,
-                    Id=Convert.ToInt32(dt.Rows[i]["Id"]),
-                    Name= dt.Rows[i]["name"].ToString(),
-                    Deleted= Convert.ToInt32(dt.Rows[i]["Is_Deleted"]),
-                    Disabled= Convert.ToInt32(dt.Rows[i]["Is_Disabled"])
+                    Id = Convert.ToInt32(dt.Rows[i]["Id"]),
+                    Name = dt.Rows[i]["name"].ToString(),
+                    Deleted = Convert.ToInt32(dt.Rows[i]["Is_Deleted"]),
+                    Disabled = Convert.ToInt32(dt.Rows[i]["Is_Disabled"])
                 };
                 res.Add(model);
             }
@@ -357,7 +369,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 
             return res;
         }
-        
+
         public List<PostModel> Posttable()
         {
             var res = new List<PostModel>();
@@ -411,12 +423,12 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 
 
 
-        public List<PostModel> UserPostModels(string Cat,int Page,int Id,string search)
+        public List<PostModel> UserPostModels(string Cat, int Page, int Id, string search)
         {
             var res = new List<PostModel>();
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
-            DataTable dt = db.Select(QueryMaker_BlogPost(Cat, Page , Id, search));
+            DataTable dt = db.Select(QueryMaker_BlogPost(Cat, Page, Id, search));
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -435,7 +447,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                     title = dt.Rows[i]["Title"].ToString(),
                     text_min = dt.Rows[i]["Text_min"].ToString(),
                     date = persianDateTime.ToLongDateString(),
-                    AdminPic= AppendServername(dt.Rows[i]["AdminPic"].ToString())
+                    AdminPic = AppendServername(dt.Rows[i]["AdminPic"].ToString())
                 };
                 res.Add(model);
             }
@@ -443,7 +455,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
         }
 
 
-        public string QueryMaker_BlogPost(string Cat, int Page , int Id,string search)
+        public string QueryMaker_BlogPost(string Cat, int Page, int Id, string search)
         {
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
@@ -477,7 +489,16 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 
 
             StringBuilder Query = new StringBuilder();
-            Query.Append("select * from(SELECT NTILE(");
+            if (TopSelector == 0)
+            {
+                Query.Append("select * from(SELECT NTILE(");
+            }
+            else
+            {
+                Query.Append("select TOP(");
+                Query.Append(TopSelector);
+                Query.Append(") * from(SELECT NTILE(");
+            }
             Query.Append(num);
             Query.Append(")over(order by(Date)DESC)as tile, [Id],[Title],[Text_min],[Text],(SELECT [ad_firstname]+ ' '+ [ad_lastname] as name FROM [tbl_ADMIN_main]where id_Admin=[WrittenBy_AdminId])as adminName ,[Date],[IsImportant],[Is_Deleted],[Is_Disabled],(SELECT [name]FROM [tbl_BLOG_Categories] where Id=[Cat_Id]) as Category,(SELECT [name]FROM [tbl_BLOG_Groups] where G_Id=[GroupId]) as GroupName,(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic,(SELECT [ad_avatarprofile] FROM[tbl_ADMIN_main] where id_Admin=WrittenBy_AdminId) as AdminPic FROM [tbl_BLOG_Post]");
 
@@ -501,7 +522,8 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                 Query.Append(Id);
                 Query.Append(")b where b.tile=");
                 Query.Append(Page);
-            }else if(Cat=="جست و جو")
+            }
+            else if (Cat == "جست و جو")
             {
                 Query.Append(" where Is_Deleted=0 AND Is_Disabled=0 AND Title Like N'%");
                 Query.Append(search);
@@ -521,7 +543,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
 
-            DataTable dt = db.Select("SELECT top 10 [Id],[Title],(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic FROM [tbl_BLOG_Post] where Is_Deleted=0 AND Is_Disabled=0 AND Title Like N'%" + search + "%' OR Text_min Like N'%" + search + "%' OR [Text] Like N'%" + search + "%' order by([weight])DESC,[date] DESC");
+            DataTable dt = db.Select("SELECT top 100 [Id],[Title],(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic FROM [tbl_BLOG_Post] where Is_Deleted=0 AND Is_Disabled=0 AND Title Like N'%" + search + "%' OR Text_min Like N'%" + search + "%' OR [Text] Like N'%" + search + "%' order by([weight])DESC,[date] DESC");
 
             var res = new List<TableModel>();
 
@@ -529,13 +551,69 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             {
                 var model = new TableModel()
                 {
-                    Group1= AppendServername(dt.Rows[i]["Pic"].ToString()),
-                    Group2=dt.Rows[i]["Title"].ToString(),
-                    Id=Convert.ToInt32(dt.Rows[i]["Id"])
+                    Group1 = AppendServername(dt.Rows[i]["Pic"].ToString()),
+                    Group2 = dt.Rows[i]["Title"].ToString(),
+                    Id = Convert.ToInt32(dt.Rows[i]["Id"])
                 };
                 res.Add(model);
             }
             return res;
+        }
+
+        public List<BlogPics> GetAllBlogPostPics(int postid)
+        {
+            List<BlogPics> result = new List<BlogPics>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT * FROM [v_Blog_AllImages] WHERE ISDELETE<>1 AND PostID = " + postid))
+            {
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    BlogPics BP =new BlogPics();
+                    BP.PicAddress = AppendServername( dt.Rows[i]["PicAddress"].ToString());
+                    BP.alt = dt.Rows[i]["alt"].ToString();
+                    BP.uploadPicName = dt.Rows[i]["uploadPicName"].ToString();
+                    BP.Descriptions = dt.Rows[i]["Descriptions"].ToString();
+                    result.Add(BP);
+                }
+            }
+            return result;
+        }
+
+        public SinglePostPostDetail SinglePostFiller(int idPost)
+        {
+            SinglePostPostDetail result =new SinglePostPostDetail();
+            PDBC db=new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT * FROM [v_Blog_SinglePost] WHERE PostID = "+idPost))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    result.Cat_Id = dt.Rows[0]["Cat_Id"].ToString();
+                    result.GroupId = dt.Rows[0]["GroupId"].ToString();
+                    result.Gpname = dt.Rows[0]["Gpname"].ToString();
+                    result.CatName = dt.Rows[0]["CatName"].ToString();
+                    result.Title = dt.Rows[0]["Title"].ToString();
+                    result.Text_min = dt.Rows[0]["Text_min"].ToString();
+                    result.Text = dt.Rows[0]["Text"].ToString();
+                    DateTime date = Convert.ToDateTime(dt.Rows[0]["Date"]);
+                    PersianDateTime persianDateTime = new PersianDateTime(date);
+                    result.Date = persianDateTime.ToLongDateString();
+                    result.weight = dt.Rows[0]["weight"].ToString();
+                    result.IsImportant = dt.Rows[0]["IsImportant"].ToString();
+                    result.PostID = dt.Rows[0]["PostID"].ToString();
+                    result.WrittenBy_AdminId = dt.Rows[0]["WrittenBy_AdminId"].ToString();
+                    result.ad_firstname = dt.Rows[0]["ad_firstname"].ToString();
+                    result.ad_lastname = dt.Rows[0]["ad_lastname"].ToString();
+                    result.ad_avatarprofile = AppendServername(dt.Rows[0]["ad_avatarprofile"].ToString());
+                }
+                else
+                {
+                    result.PostID = "0";
+                }
+            }
+            return result;
         }
     }
 

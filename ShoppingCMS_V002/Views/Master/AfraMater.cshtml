@@ -1,10 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "AfraMater";
+  
 }
 
-@Styles.Render("~/assets/Afra.css")
-@Scripts.Render("~/bundles/Afra.js")
 
 
 
@@ -12,14 +10,15 @@
 <html dir="rtl" lang="en">
 
 
-<!-- Mirrored from rtl-temp.ir/Theme/Afra/blog-right-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Apr 2020 09:33:20 GMT -->
 <head>
-    <title>آفرا - قالب شرکتی و آژانسی چند منظوره</title>
+    <title>@ViewBag.Title</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1">
     <meta name="description" content="">
     <meta name="keywords" content="">
     <link rel="shortcut icon" href="favicon.ico">
+    @Styles.Render("~/assets/Afra.css")
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:100,300,500,600,700&amp;display=swap">
 </head>
 <body>
@@ -30,7 +29,7 @@
         <div class="container">
             <nav class="main-bar">
                 <div class="logo">
-                    <a href="index-2.html">
+                    <a href="@Url.Action("MainPage","BlogAPI_Designer")">
                         <img src="~/assetsAfra/images/logo/logo-light.png" alt=" " />
                     </a>
                 </div>
@@ -42,17 +41,18 @@
                         <a href="#">صفحه اصلی</a>
                         <ul class="mega-menu">
                             <li>
-                                <a href="index-2.html">صفحه اصلی 1</a>
+                                <a href="@Url.Action("MainPage","BlogAPI_Designer")">صفحه اصلی</a>
                             </li>
-                            <li>
+                            @*<li>
                                 <a href="index-3.html">صفحه اصلی 2</a>
                             </li>
                             <li>
                                 <a href="index-4.html">صفحه اصلی 3</a>
-                            </li>
+                            </li>*@
                         </ul>
                     </li>
-                    <li>
+
+                    @*<li>
                         <a href="#">صفحات</a>
                         <ul class="mega-menu">
                             <li>
@@ -86,14 +86,15 @@
                                 <a href="404.html">صفحه 404</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>*@
+
                     <li>
                         <a href="#">بلاگ</a>
                         <ul class="mega-menu">
                             <li>
-                                <a href="blog-1.html">بلاگ سبک 1</a>
+                                <a href="@Url.Action("BlogPosts","BlogAPI_Designer")">بلاگ</a>
                             </li>
-                            <li>
+                            @*<li>
                                 <a href="blog-2.html">بلاگ سبک 2</a>
                             </li>
                             <li>
@@ -113,10 +114,11 @@
                             </li>
                             <li>
                                 <a href="blog-single-right-sidebar.html">تک نوشته سایدبار راست</a>
-                            </li>
+                            </li>*@
                         </ul>
                     </li>
-                    <li>
+
+                    @*<li>
                         <a href="#">خدمات</a>
                         <ul class="mega-menu">
                             <li>
@@ -136,6 +138,7 @@
                             </li>
                         </ul>
                     </li>
+
                     <li>
                         <a href="#">نمونه کار</a>
                         <ul class="mega-menu">
@@ -161,7 +164,8 @@
                                 <a href="portfolio-detail.html">جزئیات نمونه کار</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>*@
+
                     <li>
                         <a href="contact-us.html">تماس با ما</a>
                     </li>
@@ -330,56 +334,13 @@
     <!--====================================================================
                                 End Responsive Header
     ====================================================================-->
-    <!--====================================================================
-                                Start Section Breadcrumb
-    ====================================================================-->
-    <section class="section-breadcrumb overlay-color" style="background-image: url('../../assets/MasterAfra.jpg');
-">
-        <span class="bg-color bg-dark-60"></span>
 
-        <div class="container pt-90 pb-90 vertical-wrap">
-            <div class="vertical-inner text-center">
-                <h1>بلاگ ما</h1>
-            </div>
-            <div class="breadcrumb-box">
-                <div class="row row-0">
-                    <div class="col-12 col-sm-8">
-                        <ol class="breadcrumb text-light">
-                            <li>
-                                <a href="#" class="breadcrumb-icon">
-                                    <i class="fa fa-home"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">صفحات</a>
-                            </li>
-                            <li>
-                                <a href="#">اخبار</a>
-                            </li>
-                            <li class="active">بلاگ</li>
-                        </ol>
-                    </div>
-                    <div class="col-12 col-sm-4">
-                        <div class="breadcrumb-search text-right">
-                            <button class="button button-circle">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            <input type="text" placeholder="جستجو ...">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--====================================================================
-                                End Section Breadcrumb
-    ====================================================================-->
 
     @RenderBody()
     <!--====================================================================
                                 Start Footer
     ====================================================================-->
-    <footer class="site-footer overlay-image overlay-color" style="background-image: url('../../assetsAfra/images/footer.jpg')">
+    <footer class="site-footer overlay-image overlay-color" style="background-image: url('@Url.Content("~/assetsAfra/images/footer.jpg")')">
         <span class="bg-color bg-dark-80"></span>
         <div class="footer-widgets">
             <div class="container">
@@ -480,10 +441,10 @@
         <i class="fa fa-angle-up"></i>
     </div>
     <!--====================================================================
-                                End Scroll To Up
+    End Scroll To Up
     ====================================================================-->
+@Scripts.Render("~/bundles/Afra.js")
 </body>
 
 
-<!-- Mirrored from rtl-temp.ir/Theme/Afra/blog-right-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Apr 2020 09:33:20 GMT -->
 </html>

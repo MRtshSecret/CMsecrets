@@ -7,24 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ShoppingCMS_V002.Models.Blog;
 
 namespace ShoppingCMS_V002.Controllers
 {
     public class BlogAPI_DesignerController : Controller
     {
         // GET: BlogAPI_Designer
-        public ActionResult Index()
-        {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
-                
-
-                return View();
-            }
-            else
-                return Content("No Access");
-        }
 
         public ActionResult BlogPosts(string Cat = "همه", int Page = 1, int Id = 0,string search="")
         {
@@ -46,7 +35,7 @@ namespace ShoppingCMS_V002.Controllers
             }
             else if (Cat == "جست و جو")
             {
-                num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post] where Is_Deleted=0 AND Is_Disabled=0 AND Title Like N'%" + search + "%' OR Text_min Like N'%" + search + "%' OR [Text] Like N'%" + search + "%' ").Rows[0][0]);
+                num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post] where (Is_Deleted=0 AND Is_Disabled=0) AND (Title Like N'%" + search + "%' OR Text_min Like N'%" + search + "%' OR [Text] Like N'%" + search + "%') ").Rows[0][0]);
             }
 
             if (num % 15 == 0)
@@ -85,12 +74,24 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult PostDetails(int Id)
         {
-            return View();
+            Blog_ModelFiller BMF = new Blog_ModelFiller(3);
+            var model = new SinglePostModel()
+            {
+                PostModel = BMF.UserPostModels("همه", 1, 0, ""),
+                SPPD = BMF.SinglePostFiller(Id),
+                BlogPicSlider = BMF.GetAllBlogPostPics(Id)
+            };
+            return View(model);
         }
 
         public ActionResult MainPage()
         {
-            return View();
+            Blog_ModelFiller BMF = new Blog_ModelFiller(3);
+            var model = new BlogPostsModel()
+            {
+                 Posts = BMF.UserPostModels("همه", 1, 0, "")
+            };
+            return View(model);
         }
     }
 }

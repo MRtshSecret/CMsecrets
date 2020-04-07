@@ -7,13 +7,14 @@
         var header = $(".site-header");
         var height = header.innerHeight();
         var scroll = $(this).scrollTop();
+      
         if (scroll >= height) {
             header.addClass("fixed");
             $(".navbar .navbar-brand img").attr("src", "../images/logo-light");
-            image.attr("src", "assets/images/logo/logo-dark.png");
+            image.attr("src", $("#AddressPicLogoDark").val());
         } else {
             header.removeClass("fixed");
-            image.attr("src", "assets/images/logo/logo-light.png");
+            image.attr("src", $("#AddressPicLogoLight").val());
         }
         if ($(this).scrollTop() >= 600) {
             $(".scroll-up").show(300);

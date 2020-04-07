@@ -808,7 +808,7 @@ namespace ShoppingCMS_V002.Controllers
                 }
                 else
                 {
-                    Session["login"] = "0";
+                    Session["login"] = "-1";
                 }
             }
             else
@@ -819,6 +819,10 @@ namespace ShoppingCMS_V002.Controllers
             if (Session["login"].ToString() == "1")
             {
                 return Content("1");
+            }
+            else if (Session["login"].ToString() == "-1")
+            {
+                return Content("-1");
             }
             else
             {

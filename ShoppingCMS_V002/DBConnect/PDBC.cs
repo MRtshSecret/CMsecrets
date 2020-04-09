@@ -127,15 +127,27 @@ namespace ShoppingCMS_V002.DBConnect
             return "0";
         }
 
-        public DataTable Select(string Query)
+        public DataTable Select(string Query, List<ExcParameters> SafeParameterInsert = null)
         {
             if (_IsConnectionOpen)
             {
                 DataTable dt = new DataTable();
                 try
                 {
-                    adapter = new SqlDataAdapter(Query, connection);
-                    adapter.Fill(dt);
+                    if (SafeParameterInsert != null)
+                    {
+                        adapter = new SqlDataAdapter(Query, connection);
+                        for (int i = 0; i < SafeParameterInsert.Count; i++)
+                        {
+                            adapter.SelectCommand.Parameters.AddWithValue(SafeParameterInsert[i]._KEY, SafeParameterInsert[i]._VALUE);
+                        }
+                        adapter.Fill(dt);
+                    }
+                    else
+                    {
+                        adapter = new SqlDataAdapter(Query, connection);
+                        adapter.Fill(dt);
+                    }
                 }
                 catch (Exception ex)
                 {

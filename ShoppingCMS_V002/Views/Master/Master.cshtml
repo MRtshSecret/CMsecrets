@@ -1,5 +1,22 @@
-﻿
-@{ }
+﻿@using Newtonsoft.Json
+@using ShoppingCMS_V002.Models.Admin
+
+@{
+    MainAdminView MAsterNameCoockie =new MainAdminView();
+    if (Request.Cookies["UserDetail"] != null)
+    {
+        HttpCookie cookie = Request.Cookies.Get("UserDetail");
+        if (cookie != null)
+        {
+            MAsterNameCoockie = JsonConvert.DeserializeObject<MainAdminView>(cookie.Value);
+        }
+        else
+        {
+         Response.RedirectToRoute("~/MS/LoginAuth");
+        }
+    }
+
+}
 
 <!DOCTYPE html>
 <html direction="rtl" style="direction: rtl;">
@@ -57,7 +74,7 @@
                 <!-- begin:: Aside -->
                 <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand" style="" kt-hidden-height="65">
                     <div class="kt-aside__brand-logo">
-                        <a href="https://localhost:44388/index.html">
+                        <a href="@Url.Action("Index","MS",null,Request.Url.Scheme)">
                             <img alt="Logo" src="SetType.aspx_files/logo-light.png">
                         </a>
                     </div>
@@ -93,7 +110,7 @@
 
                         <ul class="kt-menu__nav ">
                             <li class="kt-menu__item " aria-haspopup="true">
-                                <a href="https://localhost:44388/TSHPandaPortalAD/" class="kt-menu__link ">
+                                <a href="@Url.Action("Index","MS",null,Request.Url.Scheme)" class="kt-menu__link ">
                                     <i class="kt-menu__link-icon flaticon-home"></i>
                                     <span class="kt-menu__link-text">داشبورد</span>
                                 </a>
@@ -167,7 +184,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            
+
                             <li class="kt-menu__section ">
                                 <h4 class="kt-menu__section-text">بلاگ</h4>
                                 <i class="kt-menu__section-icon flaticon-more-v2"></i>
@@ -187,7 +204,7 @@
                                                     <span></span>
                                                 </i>
                                                 <span class="kt-menu__link-text">افزودن پست جدید</span>
-                                                
+
                                             </a>
                                         </li>
                                         <li class="kt-menu__item " aria-haspopup="true">
@@ -792,7 +809,7 @@
                             <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
                                 <div class="kt-header__topbar-user">
                                     <span class="kt-header__topbar-welcome kt-hidden-mobile">درود،</span>
-                                    <span class="kt-header__topbar-username kt-hidden-mobile">محمدرضا موسوی نیا</span>
+                                    <span class="kt-header__topbar-username kt-hidden-mobile">@MAsterNameCoockie.ad_NickName</span>
                                     <img class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold" alt="Pic" src="SetType.aspx_files/300_25.jpg">
                                     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                                 </div>
@@ -807,10 +824,10 @@
                                         <span class="kt-hidden">S</span>
                                     </div>
                                     <div class="kt-user-card__name">
-                                        محمدرضا موسوی نیا
+                                        @MAsterNameCoockie.ad_firstname @MAsterNameCoockie.ad_lastname
                                     </div>
                                     <div class="kt-user-card__badge">
-                                        <span class="btn btn-success btn-sm btn-bold btn-font-md">400 پیام جدید</span>
+                                        @*<span class="btn btn-success btn-sm btn-bold btn-font-md">400 پیام جدید</span>*@
                                     </div>
                                 </div>
                                 <!--end: Head -->
@@ -1125,7 +1142,7 @@
     </div>
     <!--ENd:: Chat-->
     <!-- begin::Global Config(global config for global JS sciprts) -->
-    
+
     <script>
         var KTAppOptions = {
             "colors": {

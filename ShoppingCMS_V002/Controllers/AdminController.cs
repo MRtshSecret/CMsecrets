@@ -12,7 +12,7 @@ namespace ShoppingCMS_V002.Controllers
         // GET: Admin
         public ActionResult AddAdminType()
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -25,7 +25,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult ModalTree(int id=0)
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -38,7 +38,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult AdminTbl()
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -51,7 +51,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Add_Update_AdminType(string ActToDo, string Ad_Name,string Routes,int id=0)
         {
-            //string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            // string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             //if (check.HasAccess)
             //{
                 ModelFiller MF = new ModelFiller();

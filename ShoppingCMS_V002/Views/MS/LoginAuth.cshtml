@@ -46,15 +46,15 @@
                     </div>
                 </div>
 
-                <div class='login_title'>
-                    <span>Login To The TSHPanda Admin Panel</span>
+                <div class='login_title'  style="text-align: center; margin-left: 0px;" >
+                    <span class="fontFa">درگاه ورود پورتال ادمین</span>
                 </div>
                 <div class='login_fields'>
                     <div class='login_fields__user PandaInputsLogin'>
                         <div class='icon'>
                             <i class="fa fa-user" style="color: white;"></i>
                         </div>
-                        <input placeholder='User Name' class="key" type='text' id='usernametxt' onkeyup="logininfromationChanged(1,this);" value="">
+                        <input placeholder='نام کاربری' style="font-family: irsns;" class="key" type='text' id='usernametxt' onkeyup="logininfromationChanged(1,this);" value="">
                         <div class='validation'>
                             <i class="fa fa-check" style="color: white;"></i>
                         </div>
@@ -64,41 +64,41 @@
                         <div class='icon'>
                             <i class="fa fa-lock" style="color: white;"></i>
                         </div>
-                        <input placeholder='Pass Word' class="key" name="password" id='passwordtxt' onkeyup="logininfromationChanged(2,this);" type='password' value="">
+                        <input placeholder='کلمه عبور' style="font-family: irsns;" class="key" name="password" id='passwordtxt' onkeyup="logininfromationChanged(2,this);" type='password' value="">
                         <div class='validation'>
                             <i class="fa fa-check" style="color: white;"></i>
                         </div>
                     </div>
                     <div class='login_fields__submit padbot' style="top: 0px;">
                         <div class="forgot" style="display: inline-flex; float:left;direction:rtl; ">
-                            <label for="RememberMe" style="color: white; font-size: 24px;">Remember me!</label>
-                            <input type="checkbox" id='RememberMe' class="key" value='Log In'>
+                            @*<label for="RememberMe" style="color: white; font-size: 24px;">Remember me!</label>
+                            <input type="checkbox" id='RememberMe' class="key" value='Log In'>*@
                         </div>
                     </div>
 
                     <div class='login_fields__submit'>
-                        <input type='submit' id='loginButton' class="key" value='Log In'>
+                        <input type='submit' id='loginButton' class="key" value='ورود' style="width: 100%;">
                         <div class='forgot'>
-                            <a href='/forgot' class="key">ForGot PassWord ?!</a>
+                            @*<a href='/forgot' class="key">ForGot PassWord ?!</a>*@
                         </div>
                     </div>
                 </div>
-                <div class='feedback success'>
-                    <h2 id="successh2">Logged In</h2>
-                    <p id="successp">Will Retriving To The Panel As Soon As Possible ! </p>
+                <div  class='feedback success' style="width: 100%; text-align: center;padding-top: 70%;">
+                    <h2 class="fontFa" id="successh2">Logged In</h2>
+                    <p id="successp" class="fontFa" style="text-align: center;">Will Retriving To The Panel As Soon As Possible ! </p>
                 </div>
-                <div class='feedback error' id='error'>
-                    <h2 id="successh22">Connected SuccessFull </h2>
+                <div class='feedback error'  id='error'style="width: 100%; text-align: center;">
+                    <h2 id="successh22" class="fontFa">Connected SuccessFull </h2>
                 </div>
                 <div class='disclaimer'>
-                    <p>© Copyright 2019-2020 <a href="https://www.TSHPanda.com/" style="color: #0097af !important">TSHPANDA Tech Team</a></p>
+                    <p class="fontFa">© Copyright 2019-2020 <a href="https://www.TSHPanda.com/" style="color: #0097af !important">TSHPANDA Tech Team</a></p>
                 </div>
             </div>
         </form>
         <div class='authent' id="Authenn">
             <img src="@Url.Content("~/assets/Auth/img/logoResize.png")" class='logoAutenticacao' />
             <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/puff.svg'>
-            <p>Loging In ...</p>
+            <p style="direction: rtl; text-align: center;" class="fontFa">ارسال درخواست ....</p>
         </div>
 
     </section>

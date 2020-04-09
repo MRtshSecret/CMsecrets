@@ -1,10 +1,16 @@
 @import "@material/textfield/mdc-text-field";
 @import url(https://fonts.googleapis.com/css?family=Gudea:400,700);
-
+@font-face {
+    font-family: irsns;
+    src: url('../../css/Font/IRANSansWeb.ttf') format('truetype');
+}
 .PAnDa {
     margin: 0 auto;
 }
 
+.fontFa {
+    font-family: irsns !important;
+}
 #TSHPandaPanda {
     margin: 0 auto;
 }
@@ -83,7 +89,7 @@ body {
     perspective: 800px;
     height: 100vh;
     margin: 0;
-    overflow: hidden;
+    
     font-family: 'Gudea', sans-serif;
     /* Old browsers */
     /* FF3.6+ */

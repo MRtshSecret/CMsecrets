@@ -10,7 +10,6 @@ namespace ShoppingCMS_V002
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        
 
         protected void Application_Start()
         {
@@ -19,7 +18,7 @@ namespace ShoppingCMS_V002
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             System.Web.Optimization.BundleTable.EnableOptimizations = false;
-            Session.Timeout = 60;
+
         }
     }
 }

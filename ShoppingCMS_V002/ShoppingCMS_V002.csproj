@@ -6794,6 +6794,7 @@
     <Content Include="SQL\FAR99\17\PandaMarket.sql" />
     <Content Include="SQL\FAR99\18\PandaMarket.sql" />
     <Content Include="SQL\FAR99\19\PandaMarket.sql" />
+    <Content Include="SQL\FAR99\21\sqlFile.sql" />
     <Content Include="SQL\FAR99\7\PandaScript.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

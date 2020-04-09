@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ShoppingCMS_V002.Models.Blog;
 
 namespace ShoppingCMS_V002.Controllers
 {
@@ -29,7 +30,20 @@ namespace ShoppingCMS_V002.Controllers
                 {
                     Action_ToDo = ActToDo,
                     Category = BMF.BCategory_Filler(),
-                    Groups = BMF.Groups_Filler()
+                    Groups = BMF.Groups_Filler(),
+                    PostData = new PostModel()
+                    {
+                        Id = 0,
+                        AdminPic = "",
+                        Category = "",
+                        ImagePath = "",
+                        InGroup = "",
+                        title = "",
+                         text_min = "",
+                         text = "",
+                         tags = "",date = "",by = "",Tags = new List<string>(),Comments__ = 0,IsDeleted = 0,IsDisabled = 0,IsImportant = 0,SearchGravity = 0
+                    }
+                    
                 };
 
                 if (ActToDo.Equals("Edit"))

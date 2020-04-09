@@ -934,7 +934,7 @@ namespace ShoppingCMS_V002.Controllers
                         var userSecureCookie = new HttpCookie("TSHPANDAControll");
                         userSecureCookie.Expires = DateTime.Now.AddDays(7);
                         userSecureCookie.Value = enc.EncryptText(secJson, "P@nd@Te@m");
-                        userSecureCookie.Secure = true;
+                        //userSecureCookie.Secure = true;
                         Response.SetCookie(userSecureCookie);
                         var jsonForResponse = JsonConvert.SerializeObject(new ResponseModleUser()
                         {

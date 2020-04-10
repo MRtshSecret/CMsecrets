@@ -217,10 +217,10 @@
 
             //alert("hello");
             
-            $('#Edit_Btn').show();
+            @*$('#Edit_Btn').show();
             $('#Sub_btn').hide();
             $('#Title').val("@Model.PostData.title");
-            $('#Text_Min').val("@Model.PostData.text_min");
+            $('#Text_Min').val("@Model.PostData.text_min");*@
             @*var Text_inp =@Model.PostData.text.Replace("&quot;","\"");*@
            // Text_inp = Text_inp.replace('&quot;', '"');
             
@@ -228,7 +228,7 @@
             @*CKEDITOR.instances.Text_Inp.insertHtml(@Model.PostData.text);*@
             //CKEDITOR.instances.Text_Inp.setData(Text_inp);
            // $('#Select2_A').prop("disabled", true);
-            $('#Select2_A').val("@Model.PostData.InGroup");
+            @*$('#Select2_A').val("@Model.PostData.InGroup");
             //$('#Select2_A').prop("disabled", false);
              $('#Select2_B').val("@Model.PostData.Category");
             $('#SearchGravity_p1').val("@Model.PostData.SearchGravity");
@@ -240,7 +240,7 @@
                 $('#IsAd_p1').prop("checked", true);
             }
 
-            TagsFiller();
+            TagsFiller();*@
     
         }
 
@@ -358,14 +358,14 @@
                     s += "</optgroup>"
                     document.getElementById('kt_select2_multiple').innerHTML = s;
 
-                    if ("@Model.Action_ToDo" == "Edit") {
+                    @*if ("@Model.Action_ToDo" == "Edit") {
                         var m="@Model.PostData.tags";
                         var ids =m.split(',');
                         for (var i = 0; i < ids.length; i++) {
                             $('#kt_select2_multiple option[value = ' + ids[i] + ']').prop("selected", true);
                         }
                         $('#kt_select2_multiple option[value=0]').prop("selected", false);
-                    }
+                    }*@
 
                     //alert(token[0].Value);
                     //ChangeAllInput('2');

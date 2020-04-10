@@ -59,7 +59,8 @@ namespace ShoppingCMS_V002.Controllers
                 Pages=num,
                 Page=Page,
                 Cat=Cat,
-                Id=Id
+                Id=Id,
+
             };
 
             return View(model);

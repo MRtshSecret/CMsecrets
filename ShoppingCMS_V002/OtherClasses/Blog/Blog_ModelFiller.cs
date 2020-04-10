@@ -47,6 +47,26 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return res;
         }
 
+        public List<Id_ValueModel> B_Types_Filler()
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            var res = new List<Id_ValueModel>();
+
+            DataTable dt = db.Select("SELECT [B_TypeId],[B_TypeToken] FROM [tbl_BLOG_PostType]");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new Id_ValueModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[i]["B_TypeId"]),
+                    Value = dt.Rows[i]["B_TypeToken"].ToString()
+                };
+                res.Add(model);
+            }
+
+            return res;
+        }
+
         public List<Id_ValueModel> BCategory_Filler()
         {
             PDBC db = new PDBC("PandaMarketCMS", true);
@@ -87,7 +107,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return res;
         }
 
-        public string Post_Action(string Action, int WrittenBy_AdminId, string Title, string Text_min, string Text, int weight, int Cat_Id, int IsImportant, int GroupId, string Pictures, string Blog_Tags, int id_pr = 0)
+        public string Post_Action(string Action, int WrittenBy_AdminId, string Title, string Text_min, string Text, int weight, int Cat_Id, int IsImportant, int GroupId, string Pictures, string Blog_Tags, int TypeId, int id_pr = 0)
         {
             List<ExcParameters> paramss = new List<ExcParameters>();
             PDBC db = new PDBC("PandaMarketCMS", true);
@@ -148,15 +168,21 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             };
             paramss.Add(parameters);
 
+            parameters = new ExcParameters()
+            {
+                _KEY = "@TypeId",
+                _VALUE = TypeId
+            };
+            paramss.Add(parameters);
             string query = "";
 
             if (Action.Equals("insert"))
             {
-                query = "INSERT INTO [tbl_BLOG_Post] output inserted.Id VALUES(@Title, @Text_min ,@Text, @WrittenBy_AdminId, GETDATE(), @weight, @IsImportant, 0, 1, @Cat_Id, @GroupId)";
+                query = "INSERT INTO [tbl_BLOG_Post] output inserted.Id VALUES(@Title, @Text_min ,@Text, @WrittenBy_AdminId, GETDATE(), @weight, @IsImportant, 0, 1, @Cat_Id, @GroupId,@TypeId)";
             }
             else if (Action == "update")
             {
-                query = "UPDATE [tbl_BLOG_Post] SET [Title] = @Title ,[Text_min] = @Text_min ,[Text] = @Text ,[weight] = @weight ,[IsImportant] = @IsImportant ,[Cat_Id] = @Cat_Id ,[GroupId] = @GroupId WHERE Id=" + id_pr;
+                query = "UPDATE [tbl_BLOG_Post] SET [Title] = @Title ,[Text_min] = @Text_min ,[Text] = @Text ,[weight] = @weight ,[IsImportant] = @IsImportant ,[Cat_Id] = @Cat_Id ,[GroupId] = @GroupId , [TypeId]=@TypeId WHERE Id=" + id_pr;
             }
 
             string id = "0";

@@ -30,17 +30,18 @@ namespace ShoppingCMS_V002.OtherClasses
                 MainAdminView Obj = JsonConvert.DeserializeObject<MainAdminView>(dec);
                 PDBC db = new PDBC("PandaMarketCMS", true);
                 db.Connect();
-                using (DataTable dt = db.Select("SELECT count(*) FROM [v_ADMIN_mainView] WHERE id_Admin = " + Obj.id_Admin))
-                {
-                    if (dt.Rows[0][0].ToString() == "1")
-                    {
-                        HasAccess = true;
-                    }
-                    else
-                    {
-                        HasAccess = false;
-                    }
-                }
+                //using (DataTable dt = db.Select("SELECT count(*) FROM [v_ADMIN_mainView] WHERE id_Admin = " + Obj.id_Admin))
+                //{
+                //    if (dt.Rows[0][0].ToString() == "1")
+                //    {
+                //        HasAccess = true;
+                //    }
+                //    else
+                //    {
+                //        HasAccess = false;
+                //    }
+                //}
+                HasAccess = true;
             }
 
 

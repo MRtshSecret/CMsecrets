@@ -25,6 +25,7 @@
 
             try {
                 if (response.d == "1") {
+                    console.log("sdad");
                     console.log(response.d);
                     $("#successh2").text("ورود با موفقیت انجام شد");
                     $("#successp").text("تا لحظاتی دیگر به صفحه مورد نظر راهنمایی خواهید شد");
@@ -64,38 +65,81 @@
             }
             try {
                 console.log(response);
-                if (response == "1") {
-                    $("#successh2").text("ورود با موفقیت انجام شد");
-                    $("#successp").text("تا لحظاتی دیگر به صفحه مورد نظر راهنمایی خواهید شد");
-                    $("#successh22").text("ورود شما به مدت 60 دقیقه پایدار خواهد بود");
+                var responseobj = jQuery.parseJSON(response);
+                if (responseobj.StatusCode == "777" || responseobj.StatusCode == "776") {
+                    console.log("MRM1");
+                    var responseobj = jQuery.parseJSON(response);
+                    $("#successh2").text(responseobj.StatusMessage);
+                    $("#successp").text("خوش آمدید" +
+                        responseobj.ObjectMessage.ad_firstname +
+                        " " +
+                        responseobj.ObjectMessage.ad_lastname);
+                    $("#successh22").text("");
+                    $("#Authenn").css("background", "linear-gradient(45deg, #54d988 0%, #1f222e 100%)");
+
+                    setTimeout(function() {
+                            $(".authent").show().animate({ right: 90 },
+                                { easing: 'easeOutQuint', duration: 600, queue: false });
+                            $(".authent").animate({ opacity: 1 }, { duration: 200, queue: false }).addClass('visible');
+                            $('#Authenn').attr("style", "display:none!important");
+
+                            $('.login').removeClass('testtwo');
+                        },
+                        2500);
+                    setTimeout(function() {
+                            $('.login').removeClass('test');
+                            $('.login div').fadeOut(123);
+                        },
+                        2800);
+                    setTimeout(function() {
+                            $('.success').fadeIn();
+                        },
+                        3200);
+
+                    setTimeout(function() {
+                            $('.success').fadeOut(123);
+                            $('.login div').fadeIn(123);
+                            $('#error').fadeOut();
+                            window.location.replace($("#redAd").val());
+                        },
+                        10000);
+
+                } else {
+                    console.log("missing");
+                    $("#successh2").text(responseobj.StatusMessage);
+                    $("#successp").text("متاسفانه شما قادر به ورود نخواهید بود");
+                    $("#successh22").text("");
+                    $("#Authenn").css("background", "linear-gradient(45deg, #b00 0%, #1f222e 100%)");
 
                     setTimeout(function () {
-                        $(".authent").show().animate({ right: 90 },
-                            { easing: 'easeOutQuint', duration: 600, queue: false });
-                        $(".authent").animate({ opacity: 1 }, { duration: 200, queue: false }).addClass('visible');
-                        $('#Authenn').attr("style", "display:none!important");
+                            $(".authent").show().animate({ right: 90 },
+                                { easing: 'easeOutQuint', duration: 600, queue: false });
+                            $(".authent").animate({ opacity: 1 }, { duration: 200, queue: false }).addClass('visible');
+                            $('#Authenn').attr("style", "display:none!important");
 
-                        $('.login').removeClass('testtwo')
-                    },
+                            $('.login').removeClass('testtwo');
+                        },
                         2500);
                     setTimeout(function () {
-                        $('.login').removeClass('test')
-                        $('.login div').fadeOut(123);
-                    },
+                            $('.login').removeClass('test');
+                            $('.login div').fadeOut(123);
+                        },
                         2800);
                     setTimeout(function () {
-                        $('.success').fadeIn();
-                    },
+                            $('.success').fadeIn();
+                        },
                         3200);
 
                     setTimeout(function () {
-                        $('.success').fadeOut(123);
-                        $('.login div').fadeIn(123);
+                            $('.success').fadeOut(123);
+                            $('.login div').fadeIn(123);
                         $('#error').fadeOut();
-                        window.location.replace($("#redAd").val());
-                    },
+                        $("#successh2").text("");
+                        $("#successp").text("");
+                        $("#successh22").text("");
+                           
+                        },
                         10000);
-
                 }
             } catch (e) {
 
@@ -103,31 +147,40 @@
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            $("#successh2").text("عدم موفقیت در ورود");
+            $("#successh2").text("خطای سمت سرور");
             $("#successp").text("متاسفانه شما قادر به ورود نخواهید بود");
-            $("#successh22").text("نام کاربری یا کلمه عبور اشتباه میباشد");
-            setTimeout(function () {
-                $(".authent").show().animate({ right: 90 }, { easing: 'easeOutQuint', duration: 600, queue: false });
-                $(".authent").animate({ opacity: 1 }, { duration: 200, queue: false }).addClass('visible');
-                $('#Authenn').attr("style", "display:none!important");
-
-                $('.login').removeClass('testtwo')
-            }, 2500);
-            setTimeout(function () {
-                $('.login').removeClass('test')
-                $('.login div').fadeOut(123);
-            }, 2800);
-            setTimeout(function () {
-                $('.success').fadeIn();
-
-            }, 3200);
+            $("#successh22").text("");
+            $("#Authenn").css("background", "linear-gradient(45deg, #b00 0%, #1f222e 100%)");
 
             setTimeout(function () {
-                $('.success').fadeOut(123);
-                $('.login div').fadeIn(123);
-                $('#error').fadeOut();
+                    $(".authent").show().animate({ right: 90 },
+                        { easing: 'easeOutQuint', duration: 600, queue: false });
+                    $(".authent").animate({ opacity: 1 }, { duration: 200, queue: false }).addClass('visible');
+                    $('#Authenn').attr("style", "display:none!important");
 
-            }, 10000);
+                    $('.login').removeClass('testtwo');
+                },
+                2500);
+            setTimeout(function () {
+                    $('.login').removeClass('test');
+                    $('.login div').fadeOut(123);
+                },
+                2800);
+            setTimeout(function () {
+                    $('.success').fadeIn();
+                },
+                3200);
+
+            setTimeout(function () {
+                    $('.success').fadeOut(123);
+                    $('.login div').fadeIn(123);
+                    $('#error').fadeOut();
+                    $("#successh2").text("");
+                    $("#successp").text("");
+                    $("#successh22").text("");
+
+                },
+                10000);
         }
     });
 

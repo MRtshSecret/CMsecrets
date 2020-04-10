@@ -142,6 +142,7 @@
     <Compile Include="Models\AddPro_SubValues.cs" />
     <Compile Include="Models\AdminTypeRoutesModel.cs" />
     <Compile Include="Models\AdminTypeTbl_Model.cs" />
+    <Compile Include="Models\Admin\MainAdminView.cs" />
     <Compile Include="Models\ADMIN_types_ruleRoute_Connection.cs" />
     <Compile Include="Models\BlogPostsModel.cs" />
     <Compile Include="Models\Blog\BlogPics.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Models\PricingModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\profile.cs" />
+    <Compile Include="Models\ResponseModelsStruct\ResponseModle.cs" />
     <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\Statics.cs" />
     <Compile Include="Models\SubCategory.cs" />
@@ -6792,6 +6794,7 @@
     <Content Include="SQL\FAR99\17\PandaMarket.sql" />
     <Content Include="SQL\FAR99\18\PandaMarket.sql" />
     <Content Include="SQL\FAR99\19\PandaMarket.sql" />
+    <Content Include="SQL\FAR99\21\sqlFile.sql" />
     <Content Include="SQL\FAR99\7\PandaScript.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

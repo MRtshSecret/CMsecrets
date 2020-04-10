@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using ShoppingCMS_V002.Models.Admin;
+using ShoppingCMS_V002.Models.ResponseModelsStruct;
 
 namespace ShoppingCMS_V002.Controllers
 {
@@ -20,7 +22,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Product_List()
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -31,7 +33,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Product_table(bool SearchBox, string text = "")
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -72,7 +74,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Add_Product(string Act = "insert", int id = 0)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 var model = new Id_ValueModel()
@@ -89,7 +91,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Add_Page1()
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -99,7 +101,7 @@ namespace ShoppingCMS_V002.Controllers
         }
         public ActionResult Add_Page2(int Id)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -118,7 +120,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult DropListFiller(string drop, int id = 0)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -131,7 +133,7 @@ namespace ShoppingCMS_V002.Controllers
         }
         public ActionResult Add_Page3(string Ids, int id)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -167,7 +169,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Options_Table(int id)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -184,7 +186,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Op_delete_edit(string action, int id, string Key = "", string value = "")
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -220,7 +222,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Add_Page4(int SubId)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -246,7 +248,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult Add_Page5(int id, int SubId)
 
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -283,7 +285,7 @@ namespace ShoppingCMS_V002.Controllers
         //============================================================BEGIN::UploadController
         public ActionResult UploadPage()
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -294,7 +296,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult UploaderIFRAME()
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -305,7 +307,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult loadGallery()
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ImageGalleryModels model = new ImageGalleryModels();
@@ -352,7 +354,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult UploadEditorResultActions(string IDToEdit, string picname, string picdesc, string picWords)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 PDBC db = new PDBC("PandaMarketCMS", true);
@@ -404,7 +406,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult UploadImageResult(string Whattodo)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
@@ -527,7 +529,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult GetImageInformation(string IDReqPic)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -541,7 +543,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult Save_Step1(string Act_ToDo, int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity, int IsAd, string pics, int Mpro_id = 0)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -564,7 +566,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult Save_Step2(string Type, string Main, string Sub, string SubKey, int id)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -576,7 +578,7 @@ namespace ShoppingCMS_V002.Controllers
         }
         public ActionResult Save_Step3(string Json)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 var JsonList = JsonConvert.DeserializeObject<List<OptionsJsonModel>>(Json);
@@ -589,7 +591,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult Save_Step4(string json, string ActTodo, int id_MProduct, int Quantity, int QuantityModule, int PricePerquantity, int PriceOff, int offTypeValue, int OffType, int id_MainStarTag, int PriceModule, int PriceShow, string tgs)
         {
 
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 int PriceXquantity = Quantity * PricePerquantity;
@@ -650,7 +652,7 @@ namespace ShoppingCMS_V002.Controllers
         }
         public ActionResult Save_Step5(string ActTodo, int id)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 PDBC db = new PDBC("PandaMarketCMS", true);
@@ -676,7 +678,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult MainDropDown(string drop, int id = 0)
         {
 
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -687,7 +689,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult AddTag()
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -707,7 +709,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Add_MainTag()
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -718,7 +720,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult MainTag_Add_Update(string ActTodo, string Name, string Description, int id = 0)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 PDBC db = new PDBC("PandaMarketCMS", true);
@@ -746,7 +748,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Tag_Add_Update(string ActTodo, int SubId, string Name, int id = 0)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 PDBC db = new PDBC("PandaMarketCMS", true);
@@ -774,7 +776,25 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult MainTag_table()
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+            string SSSession = "";
+            if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)
+            {
+                HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll");
+                if (cookie != null)
+                {
+                    SSSession = cookie.Value;
+                }
+                else
+                {
+                    SSSession = "N.A";
+                }
+            }
+            else
+            {
+                SSSession = "N.A";
+            }
+
+            CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -787,7 +807,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult TagsTable(int id)
         {
-            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -800,33 +820,162 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Login(string un, string pw)
         {
-            if (un == "tshpanda@123")
+            //MainPandarianPassword
+            Encryption enc = new Encryption();
+            string newpw = enc.MD5Hash(pw);
+
+
+
+            if (un == "tshpandaMCDMuser")
             {
-                if (pw == "Panda@2233")
+                if (newpw == "f4ef7096a09254ce1e5e421aa964b440")
                 {
-                    Session["login"] = "1";
+                    MainAdminView MAV = new MainAdminView()
+                    {
+                        ad_firstname = "پاندا اعظم",
+                        ad_avatarprofile = "/assets/photo_2019-10-25_15-12-56.jpg",
+                        ad_lastname = "اول",
+                        ad_NickName = "پاندا اعظم",
+                        AdminModeID = "1"
+
+
+                    };
+                    MainAdminView MAVSecure = new MainAdminView()
+                    {
+                        ad_firstname = "پاندا اعظم",
+                        ad_avatarprofile = "/assets/photo_2019-10-25_15-12-56.jpg",
+                        ad_lastname = "اول",
+                        ad_NickName = "پاندا اعظم",
+                        AdminModeID = "1"
+                        ,
+                        id_Admin = "0"
+
+                    };
+                    try
+                    {
+                        var json = JsonConvert.SerializeObject(MAV);
+                        var secJson = JsonConvert.SerializeObject(MAVSecure);
+                        var userCookie = new HttpCookie("UserDetail");
+                        userCookie.Value = json;
+                        userCookie.Expires = DateTime.Now.AddDays(7);
+                        Response.SetCookie(userCookie);
+                        var userSecureCookie = new HttpCookie("TSHPANDAControll");
+                        userSecureCookie.Value = enc.EncryptText(secJson, "P@nd@Te@m");
+                        userSecureCookie.Expires = DateTime.Now.AddDays(7);
+                        userSecureCookie.Secure = true;
+                        Response.SetCookie(userSecureCookie);
+                        var jsonForResponse = JsonConvert.SerializeObject(new ResponseModleUser()
+                        {
+                            StatusCode = "777",
+                            StatusMessage = "ورود با موفقیت انجام شد سرورم",
+                            ObjectMessage = MAV
+                        });
+                        return Content(jsonForResponse);
+                    }
+                    catch (Exception ex)
+                    {
+                        var jsonForResponse = JsonConvert.SerializeObject(new ResponseModleUser()
+                        {
+                            StatusCode = "777-E",
+                            StatusMessage = "عدم توانایی در ایجاد پورتال ورود",
+                            ObjectMessage = null
+                        });
+                        return Content(jsonForResponse);
+                    }
+                }
+            }
+            List<ExcParameters> pars = new List<ExcParameters>();
+            ExcParameters par = new ExcParameters()
+            {
+                _KEY = "@un",
+                _VALUE = un
+            };
+            pars.Add(par);
+            par = new ExcParameters()
+            {
+                _KEY = "@pw",
+                _VALUE = newpw
+            };
+            pars.Add(par);
+            PDBC db = new PDBC("PandaMarketCMS", true);
+
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT ad_firstname,ad_avatarprofile ,  ad_lastname,  ad_NickName,  AdminModeID ,  id_Admin FROM [v_ADMIN_mainView] WHERE [ad_username] LIKE @un AND [ad_password] LIKE @pw", pars))
+            {
+                db.DC();
+                if (dt.Rows.Count == 1)
+                {
+                    MainAdminView MAV = new MainAdminView()
+                    {
+                        ad_firstname = dt.Rows[0]["ad_firstname"].ToString(),
+                        ad_avatarprofile = dt.Rows[0]["ad_avatarprofile"].ToString(),
+                        ad_lastname = dt.Rows[0]["ad_lastname"].ToString(),
+                        ad_NickName = dt.Rows[0]["ad_NickName"].ToString(),
+                        AdminModeID = dt.Rows[0]["AdminModeID"].ToString()
+                    };
+                    MainAdminView MAVSecure = new MainAdminView()
+                    {
+                        ad_firstname = dt.Rows[0]["ad_firstname"].ToString(),
+                        ad_avatarprofile = dt.Rows[0]["ad_avatarprofile"].ToString(),
+                        ad_lastname = dt.Rows[0]["ad_lastname"].ToString(),
+                        ad_NickName = dt.Rows[0]["ad_NickName"].ToString(),
+                        AdminModeID = dt.Rows[0]["AdminModeID"].ToString(),
+                        id_Admin = dt.Rows[0]["id_Admin"].ToString()
+                    };
+                    try
+                    {
+                        var json = JsonConvert.SerializeObject(MAV);
+                        var secJson = JsonConvert.SerializeObject(MAVSecure);
+                        var userCookie = new HttpCookie("UserDetail", json);
+                        userCookie.Expires = DateTime.Now.AddDays(7);
+                        userCookie.Value = json;
+                        Response.SetCookie(userCookie);
+
+                        var userSecureCookie = new HttpCookie("TSHPANDAControll");
+                        userSecureCookie.Expires = DateTime.Now.AddDays(7);
+                        userSecureCookie.Value = enc.EncryptText(secJson, "P@nd@Te@m");
+                        //userSecureCookie.Secure = true;
+                        Response.SetCookie(userSecureCookie);
+                        var jsonForResponse = JsonConvert.SerializeObject(new ResponseModleUser()
+                        {
+                            StatusCode = "776",
+                            StatusMessage = "ورود با موفقیت انجام شد",
+                            ObjectMessage = MAV
+                        });
+                        return Content(jsonForResponse);
+                    }
+                    catch (Exception ex)
+                    {
+                        var jsonForResponse = JsonConvert.SerializeObject(new ResponseModleUser()
+                        {
+                            StatusCode = "777-E",
+                            StatusMessage = "عدم توانایی در ایجاد پورتال ورود",
+                            ObjectMessage = null
+                        });
+                        return Content(jsonForResponse);
+                    }
+                }
+                if (dt.Rows.Count > 1)
+                {
+                    var jsonForResponse = JsonConvert.SerializeObject(new ResponseModleUser()
+                    {
+                        StatusCode = "778",
+                        StatusMessage = "در اتصال به سرور خطایی رخ داده است لطفا با پشتیبانی تماس برقرار فرمایید",
+                        ObjectMessage = null
+                    });
+                    return Content(jsonForResponse);
                 }
                 else
                 {
-                    Session["login"] = "-1";
+                    var jsonForResponse = JsonConvert.SerializeObject(new ResponseModleUser()
+                    {
+                        StatusCode = "779",
+                        StatusMessage = "نام کاربری یا کلمه عبور اشتباه وارد شده است",
+                        ObjectMessage = null
+                    });
+                    return Content(jsonForResponse);
                 }
-            }
-            else
-            {
-                Session["login"] = "0";
-            }
 
-            if (Session["login"].ToString() == "1")
-            {
-                return Content("1");
-            }
-            else if (Session["login"].ToString() == "-1")
-            {
-                return Content("-1");
-            }
-            else
-            {
-                return Content("0");
             }
         }
 
@@ -841,7 +990,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult DecJson(string json)
         {
             Encryption enc = new Encryption();
-            string result =enc.DecryptText(json,"P@nd@Te@m");
+            string result = enc.DecryptText(json, "P@nd@Te@m");
 
             return Content(result);
         }
@@ -998,8 +1147,8 @@ namespace ShoppingCMS_V002.Controllers
 
             var model = new Id_ValueModel()
             {
-                Id=1,
-                Value="hello"
+                Id = 1,
+                Value = "hello"
             };
 
 
@@ -1013,7 +1162,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult ShowCatTree()
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -1027,20 +1176,20 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Update_Product(int Id_Pro)
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
-                 ModelFiller MF = new ModelFiller();
-                
+                ModelFiller MF = new ModelFiller();
+
                 return View(MF.UpdateProFiller(Id_Pro));
             }
             else
                 return RedirectToAction("NotAccess", "MS");
         }
 
-        public ActionResult ProductDetails(int Id_Pro,int Sub)
+        public ActionResult ProductDetails(int Id_Pro, int Sub)
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 var model = new Id_ValueModel()
@@ -1054,14 +1203,14 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
 
-        public ActionResult Product_Actions(string ActToDo,int id)
+        public ActionResult Product_Actions(string ActToDo, int id)
         {
-            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 PDBC db = new PDBC("PandaMarketCMS", true);
                 db.Connect();
-                if (ActToDo=="Delete")
+                if (ActToDo == "Delete")
                 {
                     db.Script("UPDATE [tbl_Product] SET [ISDELETE] = 1 WHERE id_MProduct=" + id);
                 }

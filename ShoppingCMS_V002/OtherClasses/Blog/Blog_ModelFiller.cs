@@ -473,7 +473,8 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                     title = dt.Rows[i]["Title"].ToString(),
                     text_min = dt.Rows[i]["Text_min"].ToString(),
                     date = persianDateTime.ToLongDateString(),
-                    AdminPic = AppendServername(dt.Rows[i]["AdminPic"].ToString())
+                    AdminPic = AppendServername(dt.Rows[i]["AdminPic"].ToString()),
+                    PostType = dt.Rows[i]["TypeId"].ToString()
                 };
                 res.Add(model);
             }
@@ -526,7 +527,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                 Query.Append(") * from(SELECT NTILE(");
             }
             Query.Append(num);
-            Query.Append(")over(order by(Date)DESC)as tile, [Id],[Title],[Text_min],[Text],(SELECT [ad_firstname]+ ' '+ [ad_lastname] as name FROM [tbl_ADMIN_main]where id_Admin=[WrittenBy_AdminId])as adminName ,[Date],[IsImportant],[Is_Deleted],[Is_Disabled],(SELECT [name]FROM [tbl_BLOG_Categories] where Id=[Cat_Id]) as Category,(SELECT [name]FROM [tbl_BLOG_Groups] where G_Id=[GroupId]) as GroupName,(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic,(SELECT [ad_avatarprofile] FROM[tbl_ADMIN_main] where id_Admin=WrittenBy_AdminId) as AdminPic FROM [tbl_BLOG_Post]");
+            Query.Append(")over(order by(Date)DESC)as tile, [Id],[Title],[Text_min],[Text],(SELECT [ad_firstname]+ ' '+ [ad_lastname] as name FROM [tbl_ADMIN_main]where id_Admin=[WrittenBy_AdminId])as adminName ,[Date],[IsImportant],[Is_Deleted],[Is_Disabled],(SELECT [name]FROM [tbl_BLOG_Categories] where Id=[Cat_Id]) as Category,(SELECT [name]FROM [tbl_BLOG_Groups] where G_Id=[GroupId]) as GroupName,(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic,(SELECT [ad_avatarprofile] FROM[tbl_ADMIN_main] where id_Admin=WrittenBy_AdminId) as AdminPic ,(SELECT[B_TypeToken] FROM [tbl_BLOG_PostType] WHERE B_TypeId=[TypeId]) as TypeId FROM [tbl_BLOG_Post]");
 
             if (Cat == "همه")
             {
@@ -640,6 +641,45 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                 }
             }
             return result;
+        }
+
+        public List<PostModel> PostModels_ByType(string Type_token)
+        {
+            var res = new List<PostModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            DataTable dt1 = db.Select("SELECT [B_TypeId] FROM [tbl_BLOG_PostType] where B_TypeToken LIKE N'" + Type_token + "'");
+
+            if (dt1.Rows.Count != 0)
+            {
+                DataTable dt = db.Select("SELECT [Id],[Title],[Text_min],[Text],(SELECT [ad_firstname]+ ' '+ [ad_lastname] as name FROM [tbl_ADMIN_main]where id_Admin=[WrittenBy_AdminId])as adminName ,[Date],[IsImportant],[Is_Deleted],[Is_Disabled],(SELECT [name]FROM [tbl_BLOG_Categories] where Id=[Cat_Id]) as Category,(SELECT [name]FROM [tbl_BLOG_Groups] where G_Id=[GroupId]) as GroupName,(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic,(SELECT [ad_avatarprofile] FROM[tbl_ADMIN_main] where id_Admin=WrittenBy_AdminId) as AdminPic ,(SELECT[B_TypeToken] FROM [tbl_BLOG_PostType] WHERE B_TypeId=[TypeId]) as TypeId FROM [tbl_BLOG_Post] WHERE [TypeId]=" + dt1.Rows[0]["B_TypeId"]);
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DateTime date = Convert.ToDateTime(dt.Rows[i]["Date"]);
+                    PersianDateTime persianDateTime = new PersianDateTime(date);
+                    var model = new PostModel()
+                    {
+                        Id = Convert.ToInt32(dt.Rows[i]["Id"]),
+                        by = dt.Rows[i]["adminName"].ToString(),
+                        Category = dt.Rows[i]["Category"].ToString(),
+                        InGroup = dt.Rows[i]["GroupName"].ToString(),
+                        ImagePath = AppendServername(dt.Rows[i]["Pic"].ToString()),
+                        IsDeleted = Convert.ToInt32(dt.Rows[i]["Is_Deleted"]),
+                        IsDisabled = Convert.ToInt32(dt.Rows[i]["Is_Disabled"]),
+                        text = dt.Rows[i]["Text"].ToString(),
+                        title = dt.Rows[i]["Title"].ToString(),
+                        text_min = dt.Rows[i]["Text_min"].ToString(),
+                        date = persianDateTime.ToLongDateString(),
+                        AdminPic = AppendServername(dt.Rows[i]["AdminPic"].ToString()),
+                        PostType=dt.Rows[i]["TypeId"].ToString()
+                    };
+                    res.Add(model);
+                }
+            }
+
+            
+            return res;
         }
     }
 

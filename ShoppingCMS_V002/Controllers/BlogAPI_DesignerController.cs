@@ -94,5 +94,12 @@ namespace ShoppingCMS_V002.Controllers
             };
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult PostModels_ByType(string Type_Token)
+        {
+            Blog_ModelFiller BMF = new Blog_ModelFiller();
+            return Json(BMF.PostModels_ByType(Type_Token));
+        }
     }
 }

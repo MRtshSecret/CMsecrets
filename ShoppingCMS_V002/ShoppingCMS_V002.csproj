@@ -200,6 +200,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\boss.png" />
     <Content Include="assets\MasterAfra.jpg" />
     <Content Include="assets\app\custom\pages\faq\faq-1.rtl.html" />
     <Content Include="assetsAfra\css\bootstrap.min.css" />
@@ -6878,6 +6879,7 @@
     <Content Include="Views\BlogAPI_Designer\PostList.cshtml" />
     <Content Include="Views\BlogAPI_Designer\PostDetails.cshtml" />
     <Content Include="Views\BlogAPI_Designer\MainPage.cshtml" />
+    <Content Include="Views\BlogAPI_Designer\AfraMaterPostsTypes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,15 +14,19 @@
             <div class="container">
                 <div class="hero-item">
                     <div class="max-w-576 div-center text-center">
-                        <h1><span>ما خلاقیت را</span> <span>ایجاد میکنیم.</span></h1>
-                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                        <h1>
+                            <span>
+                                مدل های تصمیم گیری خود را به ما بسپارید
+                            </span>
+                        </h1>
+                        <p>تصمیم گیری چندمعیاره به کمک نرم افزار mcdmsolver</p>
                         <a href="#" class="button button-md button-radius button-primary">
                             <i class="fa fa-long-arrow-right"></i>
                             شروع کنید
                         </a>
                         <a href="https://youtu.be/l-epKcOA7RQ" class="button button-md button-radius button-secondary">
                             <i class="fa fa-play"></i>
-                            نمایش ویدیو
+                            آموزش نرم افزار
                         </a>
                     </div>
                 </div>
@@ -33,11 +37,11 @@
             <div class="container">
                 <div class="hero-item">
                     <div class="max-w-576 div-center text-center">
-                        <h2><span>رشد خود را </span> <span>با شرکت ما شروع کنید.</span></h2>
-                        <p>ما به توسعه تجارت خود کمک می کنیم. ما بهترین خدمات را با بهترین نتایج ارائه می دهیم. با پروژه من شروع کنید</p>
-                        <a href="#" class="button button-md button-radius button-primary">
+                        <h2><span>آخرین مقالات و آموزش ها</span></h2>
+                        <p>با مطالب روز دنیا همراه ما باشید</p>
+                        <a href="@Url.Action("BlogPosts","BlogAPI_Designer")" class="button button-md button-radius button-primary">
                             <i class="fa fa-long-arrow-right"></i>
-                            با پروژه من شروع کنید
+                            جدیدترین مطالب سایت
                         </a>
                     </div>
                 </div>
@@ -68,11 +72,11 @@
                 <div class="feature-item">
                     <div class="row">
                         <div class="col-3">
-                            <i class="fa fa-filter"></i>
+                            <i class="fa fa-clipboard"></i>
                         </div>
                         <div class="col-9">
-                            <h4>بهینه سازی سرعت</h4>
-                            <p>طراحی و توسعه انواع سایت در کوتاه ترین زمان</p>
+                            <h4>ساخت پرسشنامه </h4>
+                            <p>طراحی پرسش نامه های استاندارد جهت گردآوری اطلاعات</p>
                         </div>
                     </div>
                 </div>
@@ -84,8 +88,8 @@
                             <i class="fa fa-thumb-tack"></i>
                         </div>
                         <div class="col-9">
-                            <h4>پشتیبانی حرفه ای</h4>
-                            <p>طراحی و توسعه انواع سایت در کوتاه ترین زمان</p>
+                            <h4>مدل سازی</h4>
+                            <p>ساخت مدل های استاندارد جهت گردآوری اطلاعات</p>
                         </div>
                     </div>
                 </div>
@@ -94,11 +98,11 @@
                 <div class="feature-item">
                     <div class="row">
                         <div class="col-3">
-                            <i class="fa fa-flask"></i>
+                            <i class="fa fa-database"></i>
                         </div>
                         <div class="col-9">
-                            <h4>عملکرد بالا</h4>
-                            <p>طراحی و توسعه انواع سایت در کوتاه ترین زمان</p>
+                            <h4>بازنویسی داده ها </h4>
+                            <p>ورود و تجزیه و تحلیل اطلاعات کلان</p>
                         </div>
                     </div>
                 </div>
@@ -107,46 +111,135 @@
                 <div class="feature-item">
                     <div class="row">
                         <div class="col-3">
-                            <i class="fa fa-trophy"></i>
+                            <i class="fa fa-gears"></i>
                         </div>
                         <div class="col-9">
-                            <h4>سئوی دوستانه</h4>
-                            <p>طراحی و توسعه انواع سایت در کوتاه ترین زمان</p>
+                            <h4>سفارشی سازی</h4>
+                            <p>سفارشی سازی مدل های تصمیم گیری بر اساس نیاز شما</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-                <div class="feature-item">
-                    <div class="row">
-                        <div class="col-3">
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="col-9">
-                            <h4>طرح بندی ریسپانسیو</h4>
-                            <p>طراحی و توسعه انواع سایت در کوتاه ترین زمان</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-                <div class="feature-item">
-                    <div class="row">
-                        <div class="col-3">
-                            <i class="fa fa-snowflake-o"></i>
-                        </div>
-                        <div class="col-9">
-                            <h4>پشتیبانی و آپدیت رایگان</h4>
-                            <p>طراحی و توسعه انواع سایت در کوتاه ترین زمان</p>
+            @*<div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="feature-item">
+                        <div class="row">
+                            <div class="col-3">
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="col-9">
+                                <h4>طرح بندی ریسپانسیو</h4>
+                                <p>طراحی و توسعه انواع سایت در کوتاه ترین زمان</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="feature-item">
+                        <div class="row">
+                            <div class="col-3">
+                                <i class="fa fa-snowflake-o"></i>
+                            </div>
+                            <div class="col-9">
+                                <h4>پشتیبانی و آپدیت رایگان</h4>
+                                <p>طراحی و توسعه انواع سایت در کوتاه ترین زمان</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
         </div>
     </div>
 </section>
 <!--====================================================================
-                            End Section Features
+                            Start Section Posts
+====================================================================-->
+<section class="section section-posts section-posts-3 section-divider">
+    <div class="container">
+        <div class="section-title section-title-2 div-center text-center max-w-576">
+            <h2>جدید ترین مطالب سایت</h2>
+            <h3>آخرین مطالب نوشته شده</h3>
+            <p>
+                <span class="divider divider-line"></span>
+                به روز ترین اخبار و مقالات را از اینجا بخوانید
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            @if (Model.Posts.Count > 0)
+            {
+
+                foreach (var item in Model.Posts)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <div class="post-item">
+                            <div class="post-image">
+                                <a href="blog-single.html">
+                                    <img src="@item.ImagePath" alt="@item.title">
+                                </a>
+                                <div class="post-meta">
+                                    <span class="post-meta-date">@item.date</span>
+                                </div>
+                            </div>
+                            <div class="post-info">
+
+                                <h3>
+                                    <a href="@Url.Action("BlogPosts", "BlogAPI_Designer", new {Cat = "گروه بندی", Id = item.GPIDforPostPAge})" rel="tag">
+                                        <i class="fa fa-group"></i>
+                                        @item.InGroup
+                                    </a> :
+                                    <a href="@Url.Action("PostDetails", "BlogAPI_Designer", new {Id = item.Id})">
+                                        @item.title
+                                    </a>
+                                </h3>
+
+
+                                <div class="divider divider-line"></div>
+                                <p>
+                                    @item.text_min
+                                </p>
+                                <a href="@Url.Action("PostDetails", "BlogAPI_Designer", new {Id = item.Id})" class="button-read-more">
+                                    مطالعه بیشتر
+                                    <i class="fa fa-long-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>موردی برای نمایش وجود ندارد!</p>
+            }
+
+
+        </div>
+    </div>
+</section>
+<!--====================================================================
+                            End Section Posts
+====================================================================-->
+<!--====================================================================
+End Section Features
+====================================================================-->
+<!--====================================================================
+Start Section Call To Action
+====================================================================-->
+<section class="call-to-action call-to-action-1 overlay-color overlay-pattern paroller" style="background-image: url(@Url.Content("~/assetsAfra/images/call-to-action-1.jpg"))">
+    <span class="bg-color bg-dark-40"></span>
+    <span class="bg-pattern bg-pattern-1"></span>
+    <div class="container">
+        <div class="div-center text-center max-w-576 box">
+            <h3>آموزش ها</h3>
+            <p>با ما ساده یاد بگیرید</p>
+            <a href="#" class="button button-md button-radius button-primary">
+                <i class="fa fa-long-arrow-right"></i>
+                همه آموزش ها
+            </a>
+        </div>
+    </div>
+</section>
+<!--====================================================================
+End Section Call To Action
 ====================================================================-->
 <!--====================================================================
                             Start Section About Us
@@ -221,71 +314,9 @@
 End Section About Us
 ====================================================================-->
 <!--====================================================================
-                            Start Section Posts
-====================================================================-->
-<section class="section section-posts section-posts-3 section-divider">
-    <div class="container">
-        <div class="section-title section-title-2 div-center text-center max-w-576">
-            <h2>بلاگ ما</h2>
-            <h3>اخبار و موضوعات کسب و کار</h3>
-            <p>
-                <span class="divider divider-line"></span>
-                ما می توانیم به توسعه تجارت خود کمک کنیم. ما بهترین خدمات را با بهترین نتایج ارائه می دهیم.
-            </p>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            @if (Model.Posts.Count > 0)
-            {
-
-                foreach (var item in Model.Posts)
-                {
-                    <div class="col-md-6 col-lg-4">
-                        <div class="post-item">
-                            <div class="post-image">
-                                <a href="blog-single.html">
-                                    <img src="@item.ImagePath" alt="@item.title">
-                                </a>
-                                <div class="post-meta">
-                                    <span class="post-meta-date">@item.date</span>
-                                </div>
-                            </div>
-                            <div class="post-info">
-                                <h3>
-                                    <a href="@Url.Action("PostDetails", "BlogAPI_Designer", new {Id = item.Id})">
-                                        @item.title
-                                    </a>
-                                </h3>
-                                <div class="divider divider-line"></div>
-                                <p>
-                                    @item.text_min
-                                </p>
-                                <a href="@Url.Action("PostDetails", "BlogAPI_Designer", new {Id = item.Id})" class="button-read-more">
-                                    مطالعه بیشتر
-                                    <i class="fa fa-long-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <p>موردی برای نمایش وجود ندارد!</p>
-            }
-
-
-        </div>
-    </div>
-</section>
-<!--====================================================================
-                            End Section Posts
-====================================================================-->
-<!--====================================================================
                             Start Section Portfolio
 ====================================================================-->
-<section class="section section-portfolio section-portfolio-1 portfolio-gallery section-divider">
+@*<section class="section section-portfolio section-portfolio-1 portfolio-gallery section-divider">
     <div class="container">
         <div class="section-title section-title-2 div-center text-center max-w-576">
             <h2>نمونه کار ما</h2>
@@ -471,7 +502,7 @@ End Section About Us
             </ul>
         </div>
     </div>
-</section>
+</section>*@
 <!--====================================================================
                             End Section Portfolio
 ====================================================================-->
@@ -696,7 +727,7 @@ End Section About Us
 <!--====================================================================
                             Start Section Users
 ====================================================================-->
-<section class="section section-users section-users-2">
+@*<section class="section section-users section-users-2">
     <div class="container">
         <div class="section-title section-title-2 div-center text-center max-w-576">
             <h2>تیم ما</h2>
@@ -836,7 +867,7 @@ End Section About Us
             </div>
         </div>
     </div>
-</section>
+</section>*@
 <!--====================================================================
                             End Section Users
 ====================================================================-->

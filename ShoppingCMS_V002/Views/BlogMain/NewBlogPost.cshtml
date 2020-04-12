@@ -1,9 +1,32 @@
-﻿@model ShoppingCMS_V002.ModelViews.Blog_Post_insert_Model
+﻿@using System.Text
+@using Newtonsoft.Json
+@using ShoppingCMS_V002.Models
+@model ShoppingCMS_V002.ModelViews.Blog_Post_insert_Model
 @{
     ViewBag.Title = "NewBlogPost";
     Layout = "~/Views/Master/Master.cshtml";
-}
+    Id_ValueModel  IDV =new Id_ValueModel();
+    if (Request.Cookies["IDV"] != null)
+    {
+        HttpCookie cookie = Request.Cookies.Get("IDV");
+        if (cookie != null)
+        {
 
+            IDV = JsonConvert.DeserializeObject<Id_ValueModel>(cookie.Value);
+            string vv = IDV.Value.Replace("SH", "");
+            IDV.Value = vv;
+        }
+        else
+        {
+            Response.Redirect("~/MS/LoginAuth");
+        }
+    }
+    else
+    {
+        Response.Redirect("~/MS/LoginAuth");
+    }
+}
+<input id="iduser" value="@IDV.Value" style="display: none;"/>
 @Scripts.Render("~/bundles/Ckeditor.js")
 <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
     <!-- begin:: Subheader -->
@@ -429,7 +452,7 @@
             
             var PostJson = {
                 'ActTodo': action__,
-                'WrittenBy_AdminId': 1,
+                'WrittenBy_AdminId': $("#iduser").val(),
                 'Title': Title,
                 'Text_min': Text_min,
                 'Text': Text_inp,

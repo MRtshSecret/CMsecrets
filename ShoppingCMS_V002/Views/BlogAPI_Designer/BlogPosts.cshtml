@@ -13,7 +13,8 @@
 
     <div class="container pt-90 pb-90 vertical-wrap">
         <div class="vertical-inner text-center">
-            <h1>بلاگ ما</h1>
+
+            <h1>@Model.SearchNAmeHeaderH1</h1>
         </div>
         <div class="breadcrumb-box">
             <div class="row row-0">
@@ -24,17 +25,25 @@
                                 <i class="fa fa-home"></i>
                             </a>
                         </li>
-                        <li class="active">بلاگ</li>
+                        @if (@Model.SearchNAmeHeaderH1 != "تمامی مطالب")
+                        {
+                            <li>
+                                <a href="@Url.Action("BlogPosts","BlogAPI_Designer")">
+                                    تمامی مطالب
+                                </a>
+                            </li>
+                        }
+                        <li class="active">@Model.SearchNAmeHeaderH1</li>
                     </ol>
                 </div>
                 @*<div class="col-12 col-sm-4">
-                    <div class="breadcrumb-search text-right">
-                            <button class="button button-circle">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            <input type="text" placeholder="جستجو ...">
-                        </div>
-                </div>*@
+                        <div class="breadcrumb-search text-right">
+                                <button class="button button-circle">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <input type="text" placeholder="جستجو ...">
+                            </div>
+                    </div>*@
             </div>
         </div>
     </div>
@@ -62,36 +71,52 @@
                 @if (Model.Posts.Count > 0)
                 {
                     foreach (var item in Model.Posts)
-                {
-                    <div class="post-item col-10" style="margin: auto; margin-top: 3%">
-                        <div class="post-image bg-gradient-180">
-                            <a href="@Url.Action("PostDetails", "BlogAPI_Designer", new {Id = item.Id})">
-                                <img src="@item.ImagePath" alt="@item.title">
-                            </a>
-                        </div>
-                        <div class="post-meta">
-                            <a href="#" onclick='return false;' class="post-author-image">
-                                <img src="@item.AdminPic" alt="@item.by">
-                            </a>
-                            <div class="post-author-name">
-                                <span>توسط: </span>
-                                <a href="#" onclick='return false;'>
-                                    @item.by
+                    {
+                        <div class="post-item col-10" style="margin: auto; margin-top: 3%">
+                            <div class="post-image bg-gradient-180">
+                                <a href="@Url.Action("PostDetails", "BlogAPI_Designer", new {Id = item.Id})">
+                                    <img src="@item.ImagePath" alt="@item.title">
                                 </a>
                             </div>
-                            <span class="post-date">@item.date</span>
+                            <div class="post-meta">
+                                <a href="#" onclick='return false;' class="post-author-image">
+                                    <img src="@item.AdminPic" alt="@item.by">
+                                </a>
+                                <div class="post-author-name">
+                                    <span>توسط: </span>
+                                    <a href="#" onclick='return false;'>
+                                        @item.by
+                                    </a>
+                                </div>
+                                <span class="post-date">@item.date</span>
+                            </div>
+                            <div class="post-info">
+                                <h3>
+                                    <a href="@Url.Action("PostDetails", "BlogAPI_Designer", new {Id = item.Id})">@item.title</a>
+                                </h3>
+                                <div class="widget widget-categories">
+
+                                    <div class="widget-body">
+                                        <ul class="tcategories categories-simple">
+
+                                            <li>
+                                                <a href="@Url.Action("BlogPosts","BlogAPI_Designer",new {Cat="گروه بندی",Id=item.GPIDforPostPAge })" rel="tag">
+                                                    <i class="fa fa-group"></i>
+                                                    @item.InGroup
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p>@item.text_min</p>
+
+                                <a href="@Url.Action("PostDetails", "BlogAPI_Designer", new {Id = item.Id})" class="button-read-more">
+                                    مطالعه بیشتر
+                                    <i class="fa fa-long-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="post-info">
-                            <h3>
-                                <a href="@Url.Action("PostDetails", "BlogAPI_Designer", new {Id = item.Id})">@item.title</a>
-                            </h3>
-                            <p>@item.text_min</p>
-                            <a href="@Url.Action("PostDetails", "BlogAPI_Designer", new {Id = item.Id})" class="button-read-more">
-                                مطالعه بیشتر
-                                <i class="fa fa-long-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
+                        <div class="divider divider-line" style="width: 65%"></div>
                     }
                 }
                 else
@@ -120,6 +145,26 @@
                     </div>
                     <div class="widget widget-categories">
                         <div class="widget-head">
+                            <h3 class="widget-title">گروه بندی مطالب</h3>
+                            <div class="divider divider-line"></div>
+                        </div>
+                        <div class="widget-body">
+                            <ul class="tcategories categories-simple">
+                                @foreach (var item in Model.GroupsList)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("BlogPosts","BlogAPI_Designer",new {Cat="گروه بندی",Id=item.Id })" rel="tag">
+                                            <i class="fa fa-group"></i>
+                                            @item.Value
+                                        </a>
+                                    </li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget widget-categories">
+                        <div class="widget-head">
                             <h3 class="widget-title">دسته بندی ها</h3>
                             <div class="divider divider-line"></div>
                         </div>
@@ -138,6 +183,7 @@
                             </ul>
                         </div>
                     </div>
+
                     <div class="widget widget-tags">
                         <div class="widget-head">
                             <h3 class="widget-title">ابر برچسب ها</h3>
@@ -251,6 +297,6 @@
         var url = "@Url.Action("BlogPosts","BlogAPI_Designer",null,Request.Url.Scheme)?Cat=جست و جو&search=" + m;
         console.log(url);
         location.href = url;
-        
+
     }
 </script>

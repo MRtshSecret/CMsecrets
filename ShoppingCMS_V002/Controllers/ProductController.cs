@@ -316,7 +316,7 @@ namespace ShoppingCMS_V002.Controllers
                 db.Connect();
                 using (DataTable dt =
                     db.Select(
-                        "SELECT [PicID] ,[PicAddress] ,[alt] ,[uploadPicName]  ,[Descriptions] FROM [v_Images] WHERE [ISDELETE]=0")
+                        "SELECT [PicID] ,[PicAddress] ,[alt] ,[uploadPicName]  ,[Descriptions] FROM [v_Images] WHERE [ISDELETE]=0 ORDER BY [CreatedDate] DESC")
                 )
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
@@ -830,6 +830,11 @@ namespace ShoppingCMS_V002.Controllers
             {
                 if (newpw == "f4ef7096a09254ce1e5e421aa964b440")
                 {
+                    Id_ValueModel IDV = new Id_ValueModel()
+                    {
+                        Id = 1203,
+                        Value = "SH0"
+                    };
                     MainAdminView MAV = new MainAdminView()
                     {
                         ad_firstname = "پاندا اعظم",
@@ -855,6 +860,13 @@ namespace ShoppingCMS_V002.Controllers
                     {
                         var json = JsonConvert.SerializeObject(MAV);
                         var secJson = JsonConvert.SerializeObject(MAVSecure);
+                        var thirJson = JsonConvert.SerializeObject(IDV);
+                        var userCookieIDV = new HttpCookie("IDV");
+                        userCookieIDV.Value = json;
+                        userCookieIDV.Expires = DateTime.Now.AddDays(7);
+                        Response.SetCookie(userCookieIDV);
+
+
                         var userCookie = new HttpCookie("UserDetail");
                         userCookie.Value = json;
                         userCookie.Expires = DateTime.Now.AddDays(7);
@@ -905,6 +917,11 @@ namespace ShoppingCMS_V002.Controllers
                 db.DC();
                 if (dt.Rows.Count == 1)
                 {
+                    Id_ValueModel IDV =new Id_ValueModel()
+                    {
+                        Id = 1203,
+                        Value = "SH"+ dt.Rows[0]["id_Admin"].ToString()
+                    };
                     MainAdminView MAV = new MainAdminView()
                     {
                         ad_firstname = dt.Rows[0]["ad_firstname"].ToString(),
@@ -926,6 +943,11 @@ namespace ShoppingCMS_V002.Controllers
                     {
                         var json = JsonConvert.SerializeObject(MAV);
                         var secJson = JsonConvert.SerializeObject(MAVSecure);
+                        var thirJson = JsonConvert.SerializeObject(IDV);
+                        var userCookieIDV = new HttpCookie("IDV");
+                        userCookieIDV.Value = thirJson;
+                        userCookieIDV.Expires = DateTime.Now.AddDays(7);
+                        Response.SetCookie(userCookieIDV);
                         var userCookie = new HttpCookie("UserDetail", json);
                         userCookie.Expires = DateTime.Now.AddDays(7);
                         userCookie.Value = json;

@@ -4,6 +4,7 @@ using ShoppingCMS_V002.OtherClasses;
 using ShoppingCMS_V002.OtherClasses.Blog;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,19 +20,36 @@ namespace ShoppingCMS_V002.Controllers
         {
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
-
+            string SearchNAmeHeader = "تمامی مطالب";
             int num = 1;
             if (Cat == "همه")
             {
                 num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post]  where Is_Deleted=0 AND Is_Disabled=0").Rows[0][0]);
+                
             }
             else if (Cat == "دسته بندی")
             {
                 num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post] where Is_Deleted=0 AND Is_Disabled=0 AND Cat_Id=" + Id).Rows[0][0]);
+                using (DataTable dt2 = db.Select("SELECT [name] FROM  [tbl_BLOG_Categories] WHERE [Id] =" + Id))
+                {
+                    SearchNAmeHeader = dt2.Rows[0][0].ToString();
+                }
+            }
+            else if (Cat == "گروه بندی")
+            {
+                num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post] where Is_Deleted=0 AND Is_Disabled=0 AND [GroupId] = " + Id).Rows[0][0]);
+                using (DataTable dt2 = db.Select("SELECT [name] FROM  [tbl_BLOG_Groups] WHERE [G_Id] =" + Id))
+                {
+                    SearchNAmeHeader = dt2.Rows[0][0].ToString();
+                }
             }
             else if (Cat == "برچسب")
             {
                 num = Convert.ToInt32(db.Select("SELECT COUNT(*) FROM [tbl_BLOG_TagConnector] as A inner join [tbl_BLOG_Post] as B on A.Post_Id=B.Id where Is_Deleted=0 AND Is_Disabled=0 AND Tag_Id=" + Id).Rows[0][0]);
+                using (DataTable dt2 = db.Select("SELECT [name] FROM  [tbl_BLOG_Tags] WHERE [Id] =" + Id))
+                {
+                    SearchNAmeHeader = dt2.Rows[0][0].ToString();
+                }
             }
             else if (Cat == "جست و جو")
             {
@@ -56,11 +74,12 @@ namespace ShoppingCMS_V002.Controllers
                 Categories = BMF.BCategory_Filler(),
                 Tags = BMF.B_AllTags_Filler(),
                 Posts=BMF.UserPostModels(Cat,Page,Id,search),
+                GroupsList = BMF.C_AllTags_Filler(),
                 Pages=num,
                 Page=Page,
                 Cat=Cat,
                 Id=Id,
-
+                SearchNAmeHeaderH1= SearchNAmeHeader
             };
 
             return View(model);
@@ -72,7 +91,16 @@ namespace ShoppingCMS_V002.Controllers
 
             return View(BMF.SearchResult(search));
         }
+        public ActionResult AfraMaterPostsTypes()
+        {
 
+            Blog_ModelFiller BMF = new Blog_ModelFiller();
+            BlogPostsModel bpm =new BlogPostsModel()
+            {
+                GroupsList = BMF.Groups_Filler()
+            };
+            return View(bpm);
+        }
         public ActionResult PostDetails(int Id)
         {
             Blog_ModelFiller BMF = new Blog_ModelFiller(3);

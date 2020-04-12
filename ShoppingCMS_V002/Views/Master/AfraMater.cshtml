@@ -2,10 +2,6 @@
 @{
 
 }
-
-
-
-
 <!DOCTYPE html>
 <html dir="rtl" lang="en">
 
@@ -31,7 +27,7 @@
     <header class="site-header sticky-header">
         <div class="container">
             <nav class="main-bar">
-                <div class="logo">
+                <div class="logo" style="float: left;">
                     <a href="@Url.Action("MainPage", "BlogAPI_Designer")">
                         <img src="@Url.Content("~/assetsAfra/images/logo/logo-light.png")" alt="MCDM-Solver,MCDMSolver" />
                     </a>
@@ -41,136 +37,143 @@
                 </button>
                 <ul class="menu">
                     <li>
-                        <a href="#">صفحه اصلی</a>
-                        <ul class="mega-menu">
-                            <li>
-                                <a href="@Url.Action("MainPage", "BlogAPI_Designer")">صفحه اصلی</a>
-                            </li>
-                            @*<li>
-                                    <a href="index-3.html">صفحه اصلی 2</a>
-                                </li>
-                                <li>
-                                    <a href="index-4.html">صفحه اصلی 3</a>
-                                </li>*@
-                        </ul>
+                        <a href="@Url.Action("MainPage", "BlogAPI_Designer")">صفحه اصلی</a>
                     </li>
-
-                    @*<li>
-                            <a href="#">صفحات</a>
-                            <ul class="mega-menu">
-                                <li>
-                                    <a href="about-us-1.html">درباره ما سبک 1</a>
-                                </li>
-                                <li>
-                                    <a href="about-us-2.html">درباره ما سبک 2</a>
-                                </li>
-                                <li>
-                                    <a href="about-us-3.html">درباره ما سبک 3</a>
-                                </li>
-                                <li>
-                                    <a href="team-1.html">تیم ما سبک 1</a>
-                                </li>
-                                <li>
-                                    <a href="team-2.html">تیم ما سبک 2</a>
-                                </li>
-                                <li>
-                                    <a href="team-3.html">تیم ما سبک 3</a>
-                                </li>
-                                <li>
-                                    <a href="price-table-1.html">جدول قیمت سبک 1</a>
-                                </li>
-                                <li>
-                                    <a href="price-table-2.html">جدول قیمت سبک 2</a>
-                                </li>
-                                <li>
-                                    <a href="price-table-3.html">جدول قیمت سبک 3</a>
-                                </li>
-                                <li>
-                                    <a href="404.html">صفحه 404</a>
-                                </li>
-                            </ul>
-                        </li>*@
-
                     <li>
-                        <a href="#">بلاگ</a>
+                        <a href="#">نرم افزار</a>
+                    </li>
+                    <li>
+                        <a href="#">خدمات</a>
                         <ul class="mega-menu">
-                            <li>
-                                <a href="@Url.Action("BlogPosts", "BlogAPI_Designer")">بلاگ</a>
-                            </li>
-                            @*<li>
-                                    <a href="blog-2.html">بلاگ سبک 2</a>
-                                </li>
-                                <li>
-                                    <a href="blog-3.html">بلاگ سبک 3</a>
-                                </li>
-                                <li>
-                                    <a href="blog-left-sidebar.html">بلاگ سایدبار چپ</a>
-                                </li>
-                                <li>
-                                    <a href="blog-right-sidebar.html">بلاگ سایدبار راست</a>
-                                </li>
-                                <li>
-                                    <a href="blog-single.html">بلاگ بدون سایدبار</a>
-                                </li>
-                                <li>
-                                    <a href="blog-single-left-sidebar.html">تک نوشته سایدبار چپ</a>
-                                </li>
-                                <li>
-                                    <a href="blog-single-right-sidebar.html">تک نوشته سایدبار راست</a>
-                                </li>*@
+                            <a href="#">خدمت یک</a>
                         </ul>
+                    </li>
+                    <li>
+                        <a href="#">آموزش</a>
+                    </li>
+                    <li>
+                        <a href="#">مطالب سایت</a>
+                        <ul class="mega-menu">
+                            @{ Html.RenderAction("AfraMaterPostsTypes", "BlogAPI_Designer"); }
+
+                            @*<li>
+                    <a href="blog-2.html">بلاگ سبک 2</a>
+                </li>
+                <li>
+                    <a href="blog-3.html">بلاگ سبک 3</a>
+                </li>
+                <li>
+                    <a href="blog-left-sidebar.html">بلاگ سایدبار چپ</a>
+                </li>
+                <li>
+                    <a href="blog-right-sidebar.html">بلاگ سایدبار راست</a>
+                </li>
+                <li>
+                    <a href="blog-single.html">بلاگ بدون سایدبار</a>
+                </li>
+                <li>
+                    <a href="blog-single-left-sidebar.html">تک نوشته سایدبار چپ</a>
+                </li>
+                <li>
+                    <a href="blog-single-right-sidebar.html">تک نوشته سایدبار راست</a>
+                </li>*@
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">درباره ما</a>
                     </li>
 
                     @*<li>
-                            <a href="#">خدمات</a>
-                            <ul class="mega-menu">
-                                <li>
-                                    <a href="services-1.html">خدمات سبک 1</a>
-                                </li>
-                                <li>
-                                    <a href="services-2.html">خدمات سبک 2</a>
-                                </li>
-                                <li>
-                                    <a href="services-single.html">خدمات بدون سایدبار</a>
-                                </li>
-                                <li>
-                                    <a href="services-single-left-sidebar.html">تک خدمات  سایدبار چپ</a>
-                                </li>
-                                <li>
-                                    <a href="services-single-right-sidebar.html">تک خدمات سایدبار راست</a>
-                                </li>
-                            </ul>
-                        </li>
+            <a href="#">صفحات</a>
+            <ul class="mega-menu">
+                <li>
+                    <a href="about-us-1.html">درباره ما سبک 1</a>
+                </li>
+                <li>
+                    <a href="about-us-2.html">درباره ما سبک 2</a>
+                </li>
+                <li>
+                    <a href="about-us-3.html">درباره ما سبک 3</a>
+                </li>
+                <li>
+                    <a href="team-1.html">تیم ما سبک 1</a>
+                </li>
+                <li>
+                    <a href="team-2.html">تیم ما سبک 2</a>
+                </li>
+                <li>
+                    <a href="team-3.html">تیم ما سبک 3</a>
+                </li>
+                <li>
+                    <a href="price-table-1.html">جدول قیمت سبک 1</a>
+                </li>
+                <li>
+                    <a href="price-table-2.html">جدول قیمت سبک 2</a>
+                </li>
+                <li>
+                    <a href="price-table-3.html">جدول قیمت سبک 3</a>
+                </li>
+                <li>
+                    <a href="404.html">صفحه 404</a>
+                </li>
+            </ul>
+        </li>*@
 
-                        <li>
-                            <a href="#">نمونه کار</a>
-                            <ul class="mega-menu">
-                                <li>
-                                    <a href="portfolio-1.html">نمونه کار 1</a>
-                                </li>
-                                <li>
-                                    <a href="portfolio-2.html">نمونه کار 2</a>
-                                </li>
-                                <li>
-                                    <a href="portfolio-3.html">نمونه کار 3</a>
-                                </li>
-                                <li>
-                                    <a href="portfolio-4.html">نمونه کار 4</a>
-                                </li>
-                                <li>
-                                    <a href="portfolio-5.html">نمونه کار 5</a>
-                                </li>
-                                <li>
-                                    <a href="portfolio-6.html">نمونه کار 6</a>
-                                </li>
-                                <li>
-                                    <a href="portfolio-detail.html">جزئیات نمونه کار</a>
-                                </li>
-                            </ul>
-                        </li>*@
+
+
+                    @*<li>
+            <a href="#">خدمات</a>
+            <ul class="mega-menu">
+                <li>
+                    <a href="services-1.html">خدمات سبک 1</a>
+                </li>
+                <li>
+                    <a href="services-2.html">خدمات سبک 2</a>
+                </li>
+                <li>
+                    <a href="services-single.html">خدمات بدون سایدبار</a>
+                </li>
+                <li>
+                    <a href="services-single-left-sidebar.html">تک خدمات  سایدبار چپ</a>
+                </li>
+                <li>
+                    <a href="services-single-right-sidebar.html">تک خدمات سایدبار راست</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#">نمونه کار</a>
+            <ul class="mega-menu">
+                <li>
+                    <a href="portfolio-1.html">نمونه کار 1</a>
+                </li>
+                <li>
+                    <a href="portfolio-2.html">نمونه کار 2</a>
+                </li>
+                <li>
+                    <a href="portfolio-3.html">نمونه کار 3</a>
+                </li>
+                <li>
+                    <a href="portfolio-4.html">نمونه کار 4</a>
+                </li>
+                <li>
+                    <a href="portfolio-5.html">نمونه کار 5</a>
+                </li>
+                <li>
+                    <a href="portfolio-6.html">نمونه کار 6</a>
+                </li>
+                <li>
+                    <a href="portfolio-detail.html">جزئیات نمونه کار</a>
+                </li>
+            </ul>
+        </li>*@
 
                     <li>
                         <a href="#">تماس با ما</a>
+                    </li>
+                    <li>
+                        <a href="#">عضویت</a>
                     </li>
                 </ul>
             </nav>
@@ -189,120 +192,47 @@
             </div>
             <button class="button button-circle button-close-sidenav"></button>
             <ul class="menu">
-                <li class="has-menu">
-                    <a href="#">
+                @*<i class="fa fa-chevron-right"></i>*@
+                <li class="">
+                    <a href="@Url.Action("MainPage", "BlogAPI_Designer")">
                         صفحه اصلی
-                        <i class="fa fa-chevron-right"></i>
+
                     </a>
-                    <ul class="mega-menu">
-                        <li>
-                            <a href="@Url.Action("MainPage", "BlogAPI_Designer")">خانه</a>
-                        </li>
-                    </ul>
+
                 </li>
-                @*<li class="has-menu">
-                        <a href="#">
-                            صفحات
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                        <ul class="mega-menu">
-                            <li>
-                                <a href="about-us-1.html">درباره ما سبک 1</a>
-                            </li>
-                            <li>
-                                <a href="about-us-2.html">درباره ما سبک 2</a>
-                            </li>
-                            <li>
-                                <a href="about-us-3.html">درباره ما سبک 3</a>
-                            </li>
-                            <li>
-                                <a href="team-1.html">تیم ما سبک 1</a>
-                            </li>
-                            <li>
-                                <a href="team-2.html">تیم ما سبک 2</a>
-                            </li>
-                            <li>
-                                <a href="team-3.html">تیم ما سبک 3</a>
-                            </li>
-                            <li>
-                                <a href="price-table-1.html">جدول قیمت سبک 1</a>
-                            </li>
-                            <li>
-                                <a href="price-table-2.html">جدول قیمت سبک 2</a>
-                            </li>
-                            <li>
-                                <a href="price-table-3.html">جدول قیمت سبک 3</a>
-                            </li>
-                            <li>
-                                <a href="404.html">صفحه 404</a>
-                            </li>
-                        </ul>
-                    </li>*@
+                <li>
+                    <a href="#">نرم افزار</a>
+                </li>
                 <li class="has-menu">
                     <a href="#">
-                        بلاگ
+                        خدمات
                         <i class="fa fa-chevron-right"></i>
                     </a>
                     <ul class="mega-menu">
-                        <li>
-                            <a href="@Url.Action("BlogPosts", "BlogAPI_Designer")">بلاگ</a>
-                        </li>
+                        <a href="#">خدمت یک</a>
                     </ul>
                 </li>
-                @*<li class="has-menu">
-                        <a href="#">
-                            خدمات
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                        <ul class="mega-menu">
-                            <li>
-                                <a href="services-1.html">خدمات سبک 1</a>
-                            </li>
-                            <li>
-                                <a href="services-2.html">خدمات سبک 2</a>
-                            </li>
-                            <li>
-                                <a href="services-single.html">خدمات بدون سایدبار</a>
-                            </li>
-                            <li>
-                                <a href="services-single-left-sidebar.html">تک خدمات  سایدبار چپ</a>
-                            </li>
-                            <li>
-                                <a href="services-single-right-sidebar.html">تک خدمات  سایدبار راست</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-menu">
-                        <a href="#">
-                            نمونه کار
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                        <ul class="mega-menu">
-                            <li>
-                                <a href="portfolio-1.html">نمونه کار 1</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-2.html">نمونه کار 2</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-3.html">نمونه کار 3</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-4.html">نمونه کار 4</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-5.html">نمونه کار 5</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-6.html">نمونه کار 6</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-detail.html">جزئیات نمونه کار</a>
-                            </li>
-                        </ul>
-                    </li>*@
+                <li>
+                    <a href="#">آموزش</a>
+                </li>
+                <li class="has-menu">
+                    <a href="#">
+                        مطالب سایت
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+                    <ul class="mega-menu">
+                        @{ Html.RenderAction("AfraMaterPostsTypes", "BlogAPI_Designer"); }
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">درباره ما</a>
+                </li>
+
                 <li>
                     <a href="#">تماس با ما</a>
+                </li>
+                <li>
+                    <a href="#">عضویت</a>
                 </li>
             </ul>
         </div>

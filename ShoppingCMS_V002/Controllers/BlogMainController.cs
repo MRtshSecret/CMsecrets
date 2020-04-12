@@ -31,6 +31,7 @@ namespace ShoppingCMS_V002.Controllers
                     Action_ToDo = ActToDo,
                     Category = BMF.BCategory_Filler(),
                     Groups = BMF.Groups_Filler(),
+                    Type= BMF.B_Types_Filler(),
                     PostData = new PostModel()
                     {
                         Id = 0,
@@ -60,14 +61,14 @@ namespace ShoppingCMS_V002.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add_Edit_Post(string ActTodo, int WrittenBy_AdminId, string Title, string Text_min, string Text, int weight, int Cat_Id, int IsImportant, int GroupId, string Pictures, string Blog_Tags, int id_pr = 0)
+        public ActionResult Add_Edit_Post(string ActTodo, int WrittenBy_AdminId, string Title, string Text_min, string Text, int weight, int Cat_Id, int IsImportant, int GroupId, string Pictures, string Blog_Tags,int TypeId, int id_pr = 0)
         {
             // string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             //if (check.HasAccess)
             //{
                 Blog_ModelFiller BMF = new Blog_ModelFiller();
 
-                return Content(BMF.Post_Action(ActTodo, WrittenBy_AdminId, Title, Text_min, Text, weight, Cat_Id, IsImportant, GroupId, Pictures, Blog_Tags, id_pr));
+                return Content(BMF.Post_Action(ActTodo, WrittenBy_AdminId, Title, Text_min, Text, weight, Cat_Id, IsImportant, GroupId, Pictures, Blog_Tags,TypeId, id_pr));
             //}
             //else
             //    return RedirectToAction("NotAccess", "MS");
@@ -315,6 +316,8 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
+
+        
 
     }
 }

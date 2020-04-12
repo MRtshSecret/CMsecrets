@@ -51,6 +51,21 @@
                         <div class="kt-section">
                             <div class="kt-section__content">
 
+                                <div class="form-group">
+                                    <label>نوع پست </label>
+                                    <div class="kt-radio-inline">
+                                        @foreach (var item in Model.Type)
+                                        {
+                                            <label class="kt-radio">
+                                                <input checked type="radio" name="radio2" id="@item.Id"> @item.Value
+                                                <span></span>
+                                            </label>
+                                        }
+                                        
+                                    </div>
+                                    <span class="form-text text-muted">نوع پست خود را انتخاب کنید</span>
+                                </div>
+
                                 <div class="col-lg-12 col-md-8 col-xl-12" style="padding-left: 0px;padding-right: 0px; margin-bottom:2%">
                                     <div class="input-group">
                                         <div class="input-group-prepend"><span class="input-group-text">موضوع پست</span></div>
@@ -161,10 +176,12 @@
                                     <input id="SearchGravity_p1" class="form-control" placeholder="" type="number" />
                                     <span class="form-text text-muted">نتایج جست و جوی کاربران براین اساس نمایش داده خواهند شد.</span>
                                 </div>
-                                <label class="kt-checkbox kt-checkbox--brand">
-                                    <input id="IsAd_p1" class="form-control" type="checkbox" />انتشار بعنوان پست فوری
-                                    <span></span>
-                                </label>
+                                <div class="form-group">
+                                    <label class="kt-checkbox kt-checkbox--brand">
+                                        <input id="IsAd_p1" class="form-control" type="checkbox" />انتشار بعنوان پست فوری
+                                        <span></span>
+                                    </label>
+                                </div>
 
                                 <div class="kt-separator kt-separator--space-lg kt-separator--border-2x"></div>
 
@@ -392,7 +409,7 @@
             var IsImp;
             var SearchGravity = $('#SearchGravity_p1').val();
             var pics = $('#Pics_p1').val();
-
+            var TypeId=$('input[name=radio2]:checked').attr('id');
         if (Title != "" && Text_min != "" && Text_inp != "" && Post_Tags != "" && SearchGravity != "" && Cat !="0" && Group !="0") {
 
             if ($('#IsAd_p1').prop("checked")) {
@@ -422,7 +439,8 @@
                 'GroupId': Group,
                 'Blog_Tags': $('#tag').text(),
                 'Pictures': pics,
-                'id_pr':Id__
+                'id_pr': Id__,
+                'TypeId': TypeId
             };
 
 

@@ -17,31 +17,32 @@ namespace ShoppingCMS_V002.OtherClasses
         public CheckAccess(string sessionss)
         {
 
-            HasAccess = true;
+            //HasAccess = true;
             //===================================================== coockie check
-            //if (sessionss == "N.A")
-            //{
-            //    HasAccess = false;
-            //}
-            //else
-            //{
-            //    Encryption enc=new Encryption();
-            //    string dec = enc.DecryptText(sessionss, "P@nd@Te@m");
-            //    MainAdminView Obj = JsonConvert.DeserializeObject<MainAdminView>(dec);
-            //    PDBC db = new PDBC("PandaMarketCMS", true);
-            //    db.Connect();
-            //    using (DataTable dt = db.Select("SELECT count(*) FROM [v_ADMIN_mainView] WHERE id_Admin = " + Obj.id_Admin))
-            //    {
-            //        if (dt.Rows[0][0].ToString() == "1")
-            //        {
-            //            HasAccess = true;
-            //        }
-            //        else
-            //        {
-            //            HasAccess = false;
-            //        }
-            //    }
-            //}
+            if (sessionss == "N.A")
+            {
+                HasAccess = false;
+            }
+            else
+            {
+                Encryption enc=new Encryption();
+                string dec = enc.DecryptText(sessionss, "P@nd@Te@m");
+                MainAdminView Obj = JsonConvert.DeserializeObject<MainAdminView>(dec);
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+                //using (DataTable dt = db.Select("SELECT count(*) FROM [v_ADMIN_mainView] WHERE id_Admin = " + Obj.id_Admin))
+                //{
+                //    if (dt.Rows[0][0].ToString() == "1")
+                //    {
+                //        HasAccess = true;
+                //    }
+                //    else
+                //    {
+                //        HasAccess = false;
+                //    }
+                //}
+                HasAccess = true;
+            }
 
 
             //====================================================sessioncheck

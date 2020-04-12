@@ -15,6 +15,7 @@ namespace ShoppingCMS_V002.Models
         public int Pages { get; set; }
         public string Cat { get; set; }
         public int Id { get; set; }
+        
 
     }
 }

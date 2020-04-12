@@ -59,7 +59,8 @@ namespace ShoppingCMS_V002.Controllers
                 Pages=num,
                 Page=Page,
                 Cat=Cat,
-                Id=Id
+                Id=Id,
+
             };
 
             return View(model);
@@ -92,6 +93,13 @@ namespace ShoppingCMS_V002.Controllers
                  Posts = BMF.UserPostModels("همه", 1, 0, "")
             };
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult PostModels_ByType(string Type_Token)
+        {
+            Blog_ModelFiller BMF = new Blog_ModelFiller();
+            return Json(BMF.PostModels_ByType(Type_Token));
         }
     }
 }

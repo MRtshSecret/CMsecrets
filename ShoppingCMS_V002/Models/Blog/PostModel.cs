@@ -18,6 +18,7 @@ namespace ShoppingCMS_V002.Models.Blog
         public string InGroup { get; set; }
         public int Comments__ { get; set; }
         public List<string> Tags { get; set; }
+        public string PostType { get; set; }
         public int IsImportant { get; set; }
         public string Category { get; set; }
         public int IsDeleted { get; set; }

@@ -1,4 +1,5 @@
-﻿@using Newtonsoft.Json
+﻿@using System.Text
+@using Newtonsoft.Json
 @using ShoppingCMS_V002.Models.Admin
 
 @{
@@ -8,11 +9,17 @@
         HttpCookie cookie = Request.Cookies.Get("UserDetail");
         if (cookie != null)
         {
+            string SS = MAsterNameCoockie.ad_NickName;
             MAsterNameCoockie = JsonConvert.DeserializeObject<MainAdminView>(cookie.Value);
+            MAsterNameCoockie.ad_NickName = Encoding.UTF8.GetString(Encoding.Default.GetBytes(MAsterNameCoockie.ad_NickName));
+            if (MAsterNameCoockie.ad_NickName.Contains("?"))
+            {
+                MAsterNameCoockie.ad_NickName = SS;
+            }
         }
         else
         {
-         Response.RedirectToRoute("~/MS/LoginAuth");
+            Response.RedirectToRoute("~/MS/LoginAuth");
         }
     }
 
@@ -805,12 +812,13 @@
                         <!--end: Search -->
                         <!--end: Search -->
                         <!--begin: User Bar -->
+                        <input style="display: none;" id="ddss" value="@MAsterNameCoockie.ad_NickName"/>
                         <div class="kt-header__topbar-item kt-header__topbar-item--user">
                             <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
                                 <div class="kt-header__topbar-user">
                                     <span class="kt-header__topbar-welcome kt-hidden-mobile">درود،</span>
                                     <span class="kt-header__topbar-username kt-hidden-mobile">@MAsterNameCoockie.ad_NickName</span>
-                                    <img class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold" alt="Pic" src="SetType.aspx_files/300_25.jpg">
+                                    <img class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold" alt="Pic" src="@MAsterNameCoockie.ad_avatarprofile">
                                     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                                 </div>
                             </div>

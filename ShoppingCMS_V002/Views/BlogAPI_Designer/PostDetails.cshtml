@@ -25,7 +25,11 @@
                             </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("BlogPosts","BlogAPI_Designer")">بلاگ</a>
+
+                            <a href="@Url.Action("BlogPosts", "BlogAPI_Designer")">تمامی مطالب</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("BlogPosts","BlogAPI_Designer",new {Cat="گروه بندی",Id=Model.SPPD.GroupId })">@Model.SPPD.Gpname</a>
                         </li>
                         <li class="active">@Model.SPPD.Title</li>
                     </ol>
@@ -45,16 +49,6 @@
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-9 div-center">
                 <div class="single-post">
-                    <div class="post-details">
-                        <div class="post-author-image">
-                            <img src="@Model.SPPD.ad_avatarprofile" alt="@Model.SPPD.ad_firstname @Model.SPPD.ad_lastname" title="@Model.SPPD.ad_firstname @Model.SPPD.ad_lastname">
-                        </div>
-                        <div class="post-info">
-                            توسط <a href="#" onclick="return false;" class="post-author">@Model.SPPD.ad_firstname @Model.SPPD.ad_lastname</a>
-                            در تاریخ <span class="post-date">@Model.SPPD.Date</span>
-                        </div>
-                        <h2 class="post-title">@Model.SPPD.Title</h2>
-                    </div>
                     <div class="post-content">
                         @if (Model.BlogPicSlider.Count > 0)
                         {
@@ -65,23 +59,46 @@
                                 }
                             </div>
                         }
+                        <div class="post-details">
+                            <div class="post-author-image">
+                                <img src="@Model.SPPD.ad_avatarprofile" alt="@Model.SPPD.ad_firstname @Model.SPPD.ad_lastname" title="@Model.SPPD.ad_firstname @Model.SPPD.ad_lastname">
+                            </div>
+                            <div class="post-info">
+                                توسط <a href="#" onclick="return false;" class="post-author">@Model.SPPD.ad_firstname @Model.SPPD.ad_lastname</a>
+                                در تاریخ <span class="post-date">@Model.SPPD.Date</span>
+                            </div>
+                            <h2 class="post-title">@Model.SPPD.Title</h2>
+                        </div>
+                        <div class="widget widget-categories">
 
-                        @Html.Raw(Model.SPPD.Text)  
+                            <div class="widget-body">
+                                <ul class="tcategories categories-simple">
+                                    <li>
+                                        <a href="@Url.Action("BlogPosts","BlogAPI_Designer",new {Cat="گروه بندی",Id=Model.SPPD.GroupId })" rel="tag">
+                                            <i class="fa fa-group"></i>
+                                            @Model.SPPD.Gpname
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        @Html.Raw(Model.SPPD.Text)
                     </div>
+                    @*<div class="divider divider-line" style="width: 65%"></div>*@
                     @*<div class="post-tags">
-                        <span>برچسب ها:</span>
-                        <ul>
-                            <li>
-                                <a href="#">@Model.SPPD.Gpname</a>
-                            </li>
-                            <li>
-                                <a href="#">@Model.SPPD.</a>
-                            </li>
-                            <li>
-                                <a href="#">کسب و کار</a>
-                            </li>
-                        </ul>
-                    </div>*@
+            <span>برچسب ها:</span>
+            <ul>
+                <li>
+                    <a href="#">@Model.SPPD.Gpname</a>
+                </li>
+                <li>
+                    <a href="#">@Model.SPPD.</a>
+                </li>
+                <li>
+                    <a href="#">کسب و کار</a>
+                </li>
+            </ul>
+        </div>*@
                 </div>
                 @*<div class="comments">
                         <div class="comments-form">
@@ -232,8 +249,22 @@
                                 <a href="blog-single.html">
                                     <img src="@item.ImagePath" alt="@item.title">
                                 </a>
-                                <div class="post-meta">
+                                <div class="post-meta" style="padding-top: 15px;">
                                     <span class="post-meta-date">@item.date</span>
+                                </div>
+                                <div class="widget widget-categories">
+
+                                    <div class="widget-body">
+                                        <ul class="tcategories categories-simple">
+
+                                            <li>
+                                                <a href="@Url.Action("BlogPosts","BlogAPI_Designer",new {Cat="گروه بندی",Id=item.GPIDforPostPAge })" rel="tag">
+                                                    <i class="fa fa-group"></i>
+                                                    @item.InGroup
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             <div class="post-info">

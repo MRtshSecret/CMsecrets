@@ -158,6 +158,9 @@
     <Compile Include="Models\Blog\SinglePostPostDetail.cs" />
     <Compile Include="Models\Blog\TeamMembers.cs" />
     <Compile Include="Models\companies.cs" />
+    <Compile Include="Models\FactorItemModel.cs" />
+    <Compile Include="Models\FactorList_itmModel.cs" />
+    <Compile Include="Models\FactorModel.cs" />
     <Compile Include="Models\Id_ValueModel.cs" />
     <Compile Include="Models\ImageGalleryModel.cs" />
     <Compile Include="Models\MainCategory.cs" />

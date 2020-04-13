@@ -6800,6 +6800,7 @@
     <Content Include="SQL\FAR99\19\PandaMarket.sql" />
     <Content Include="SQL\FAR99\21\sqlFile.sql" />
     <Content Include="SQL\FAR99\22\PandaSQL.sql" />
+    <Content Include="SQL\FAR99\25\PandaSQL.sql" />
     <Content Include="SQL\FAR99\7\PandaScript.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

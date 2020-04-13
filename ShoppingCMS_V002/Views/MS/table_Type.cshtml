@@ -53,45 +53,25 @@
                                 </td>
 
                                 <td>
-                                    @if (ViewBag.type[i].ISDelete == "0")
-                                    {
+                                    <div class="btn-group mr-2" role="group" aria-label="...">
 
-                                        <span class="dropdown">
+                                        @if (ViewBag.type[i].ISDelete == "0")
+                                        {
+                                            <button style="border:none" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#PandaDeletModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="la la-trash"></i></button>
+                                            if (ViewBag.type[i].ISDESABLED == "0")
+                                            {
+                                                <button style="border:none" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#PandaedittModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="la la-edit"></i></button>
+                                                <button style="border:none" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#PandaEditModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-ban"></i></button>
+                                            }
+                                            else
+                                            {
+                                                <button style="border:none" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#PandaonModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-redo-alt"></i></button>
+                                            }
+                                        }
 
-                                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                                                <i class="la la-ellipsis-h"></i>
-                                            </a>
-                                            <span class="dropdown-menu dropdown-menu-right">
-                                                @if (ViewBag.type[i].ISDESABLED == "1")
-                                                {
-                                                    <span class="dropdown-item">
 
-                                                        <button class="btn btn-bold btn btn-outline-danger" style="width: 100%;" data-toggle="modal" data-target="#PandaDeletModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-eraser"><span style="font-family: IRANSansWeb; padding-right: 5px;">حذف</span></i></button>
-                                                    </span>
-                                                    <span class="dropdown-item">
-                                                        <button class="btn btn-bold btn btn-outline-success" style="width: 100%;" data-toggle="modal" data-target="#PandaonModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-check"><span style="font-family: IRANSansWeb; padding-right: 5px;">فعال سازی</span></i></button>
-                                                    </span>
-                                                    <span class="dropdown-item">
-                                                        <button class="btn btn-bold btn btn-outline-primary" style="width: 100%;" data-toggle="modal" data-target="#PandaedittModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-check"><span style="font-family: IRANSansWeb; padding-right: 5px;">ویرایش کردن</span></i></button>
-                                                    </span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="dropdown-item">
+                                    </div>
 
-                                                        <button class="btn btn-bold btn-outline-warning" style="width: 100%;" data-toggle="modal" data-target="#PandaEditModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-moon"><span style="font-family: IRANSansWeb; padding-right: 5px;">غیرفعال کردن</span></i></button>
-                                                    </span>
-                                                    <span class="dropdown-item">
-
-                                                        <button class="btn btn-bold btn btn-outline-danger" style="width: 100%;" data-toggle="modal" data-target="#PandaDeletModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-eraser"><span style="font-family: IRANSansWeb; padding-right: 5px;">حذف</span></i></button>
-                                                    </span>
-                                                    <span class="dropdown-item">
-                                                        <button class="btn btn-bold btn btn-outline-primary" style="width: 100%;" data-toggle="modal" data-target="#PandaedittModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-check"><span style="font-family: IRANSansWeb; padding-right: 5px;">ویرایش کردن</span></i></button>
-                                                    </span>
-                                                }
-                                            </span>
-                                        </span>
-                                    }
                                 </td>
                             </tr>
                         }

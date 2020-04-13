@@ -41,25 +41,16 @@
                             <td>@item.Group1</td>
                             
                             <td>
-                                    <span class="dropdown">
+                                <div class="btn-group mr-2" role="group" aria-label="...">
 
-                                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                                            <i class="la la-ellipsis-h"></i>
-                                        </a>
-                                        <span class="dropdown-menu dropdown-menu-right">
-                                            
-                                                <span class="dropdown-item">
+                                   
+                                        <button style="border:none" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#PandaDeletModal" onclick="modalloader('@item.Group1','@item.Id')"><i class="la la-trash"></i></button>
+                                            <button style="border:none" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#PandaedittModal" onclick="modalloader('@item.Group1','@item.Id')"><i class="la la-edit"></i></button>
+                                    
 
-                                                    <button class="btn btn-bold btn btn-outline-danger" style="width: 100%;" data-toggle="modal" data-target="#PandaDeletModal" onclick="modalloader('@item.Group1','@item.Id')"><i class="fa fa-eraser"><span style="font-family: IRANSansWeb; padding-right: 5px;">حذف</span></i></button>
-                                                </span>
-                                               
-                                                <span class="dropdown-item">
-                                                    <button class="btn btn-bold btn btn-outline-primary" style="width: 100%;" data-toggle="modal" data-target="#PandaedittModal" onclick="modalloader('@item.Group1','@item.Id')"><i class="fa fa-check"><span style="font-family: IRANSansWeb; padding-right: 5px;">ویرایش کردن</span></i></button>
-                                                </span>
-                                            
-                                        </span>
-                                    </span>
-                                
+                                </div>
+
+
                             </td>
                         </tr>
                         }

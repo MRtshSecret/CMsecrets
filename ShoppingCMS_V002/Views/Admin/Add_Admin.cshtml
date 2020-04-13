@@ -20,7 +20,7 @@
                     <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        سرپرستی
+                        ادمین
                     </a>
                 </div>
             </div>
@@ -153,7 +153,7 @@
                                                                 <i class="fa fa-pen"></i>
 
                                                             </label>
-                                                            <input id="image" type="text" value=" ViewBag.Show_Pro.ad_avatarprofile" style="display:none">
+                                                            <input id="image" type="text" style="display:none">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -420,13 +420,13 @@
 
 <script>
     $(document).ready(function () {
-         $("#pass").removeClass("kt-widget__item--active");
-            $("#_pass").hide();
 
-            $("#access").removeClass("kt-widget__item--active");
-            $("#_access").hide();
-
-          
+        $("#info").addClass("kt-widget__item--active");
+        $("#_info").show();
+        $("#pass").removeClass("kt-widget__item--active");
+        $("#_pass").hide();
+        $("#access").removeClass("kt-widget__item--active");
+        $("#_access").hide();
     });
 
 
@@ -486,7 +486,9 @@
                 return false;
             }
 
-             $("#info").removeClass("kt-widget__item--active");
+            $("#pass").addClass("kt-widget__item--active");
+            $("#_pass").show();
+            $("#info").removeClass("kt-widget__item--active");
             $("#_info").hide();
 
             $("#access").removeClass("kt-widget__item--active");
@@ -507,6 +509,8 @@
                 }
                 if (pass1 == pass2) {
 
+                    $("#access").addClass("kt-widget__item--active");
+                    $("#_access").show();
                     $("#info").removeClass("kt-widget__item--active");
                     $("#_info").hide();
 
@@ -530,75 +534,77 @@
                 var mobile = document.getElementById("mobile").value;
                 var email = document.getElementById("email").value;
                 var image = document.getElementById("image").value;
-                var pass = document.getElementById("pass_o").value;
+                var Uname = document.getElementById("pass_o").value;
                 var pass1 = document.getElementById("pass_n1").value;
                 var pass2 = document.getElementById("pass_n2").value;
                 var acc = document.getElementById("data_acc").value;
                
                 if (name == "" || last == "" || phone == "" || mobile == "" || email == "") {
                     $("#ERRAlertNew").show(300);
-                     $("#pass").removeClass("kt-widget__item--active");
-            $("#_pass").hide();
+                    $("#info").addClass("kt-widget__item--active");
+                    $("#_info").show();
+       
+                    $("#pass").removeClass("kt-widget__item--active");
+                    $("#_pass").hide();
 
-            $("#access").removeClass("kt-widget__item--active");
-            $("#_access").hide();
+                    $("#access").removeClass("kt-widget__item--active");
+                    $("#_access").hide();
 
-                    return false;
-                } else if (pass == "" || pass1 == "" || pass2 == "") {
+                } else if (Uname == "" || pass1 == "" || pass2 == "") {
                     $("#ERRAlertNew2").show(300);
+                    $("#pass").addClass("kt-widget__item--active");
+                    $("#_pass").show();
+                    $("#info").removeClass("kt-widget__item--active");
+                    $("#_info").hide();
+
+                    $("#access").removeClass("kt-widget__item--active");
+                    $("#_access").hide();
 
                 } else if (pass1 != pass2) {
 
                     $("#ERRAlertNew2").show(300);
                     $("#_ERRAlertNew2").html("رمز عبور با تائید رمز عبور برابر نیست! ");
 
+                    $("#pass").addClass("kt-widget__item--active");
+                    $("#_pass").show();
+                    $("#info").removeClass("kt-widget__item--active");
+                    $("#_info").hide();
+                    $("#access").removeClass("kt-widget__item--active");
+                    $("#_access").hide();
+
                 } else if (acc == '0') {
                     $("#ERRAlertNew3").show(300);
                 } else {
+                    PostJson = {
+                        name : name,
+                        last : last,
+                        nick : nick,
+                        phone : phone,
+                        mobile : mobile,
+                        email : email,
+                        image : image,
+                        Uname : Uname,
+                        pass1 : pass1,
+                        acc : acc
+                    }
 
-
-
-
-
-
-                }
-
-
-
-
-            @*PostJson = {
-                    'A': pass,
-                    'B': pass1,
-                    'value': value
-                }
-
-                var AddressToSend = "get_user";
+                
 
                 $.ajax({
-                    url: AddressToSend,
+                    url: "/Admin/Save_admin",
                     type: "post",
                     data: JSON.stringify(PostJson),
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
-                        if (response == "1") {
-                            $("#ERRAlertNew2").hide(300);
-                            $("#SuccesAlertNew").show(300);
-                           // $('#Show_user').load("@Url.Action("Show_user","MS",null,Request.Url.Scheme)");
-                            return false;
-                        } else if (response == "2") {
-                            $("#ERRAlertNew2").show(300);
-                            $("#_ERRAlertNew2").html("رمز عبور فعلی نامعتبر! ");
-                            return false;
-                        }
+                        
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(textStatus);
                     }
                 });
-                return false;*@
-                
-
-
+                return false;
+            
+                }
             }
 
     }

@@ -1,4 +1,5 @@
-﻿using ShoppingCMS_V002.OtherClasses;
+﻿using ShoppingCMS_V002.DBConnect;
+using ShoppingCMS_V002.OtherClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,15 @@ namespace ShoppingCMS_V002.Controllers
         {
             ModelFiller MF = new ModelFiller();
             return View(MF.AdminTypes());
+        }
+
+        public ActionResult Save_admin(string name, string last, string nick, string phone, string mobile, string email, string image, string Uname, string pass1, string acc)
+        {
+            Encryption ENC = new Encryption();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            db.Script("INSERT INTO [tbl_ADMIN_main]VALUES("+acc+ ",N'"+Uname+"',N'"+ENC.MD5Hash(pass1)+"',N'"+name+"',N'"+last+"',N'"+image+"',N'"+email+"',N'"+phone+"',N'"+mobile+"',0,1,0,GetDate(),GetDate(),Null,GETDATE(),Null,0,N'"+nick+"')");
+            return Content("Success");
         }
     }
 }

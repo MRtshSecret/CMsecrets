@@ -61,5 +61,11 @@ namespace ShoppingCMS_V002.Controllers
             //else
             //    return RedirectToAction("NotAccess", "MS");
         }
+
+        public ActionResult Add_Admin()
+        {
+            ModelFiller MF = new ModelFiller();
+            return View(MF.AdminTypes());
+        }
     }
 }

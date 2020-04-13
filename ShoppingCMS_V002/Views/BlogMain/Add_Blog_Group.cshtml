@@ -45,6 +45,10 @@
                 <label style="margin-bottom:2%">نام گروه</label>
                 <input id="B_Group_name" class="form-control " placeholder="" />
             </div>
+            <div class="form-group">
+                <label style="margin-bottom:2%">نشانه گروه (token)</label>
+                <input id="B_Group_Token" class="form-control " placeholder="" />
+            </div>
         </div>
 
 
@@ -94,6 +98,7 @@
             $("#ERRAlertEdit1").show(300);
         } else {
             var Name = $('#B_Group_name').val();
+            var Token=$('#B_Group_Token').val();
             var id = $('#EditId').text();
             var PostJson;
 
@@ -102,6 +107,7 @@
                 PostJson = {
                     'ActToDo': 'insert',
                     'G_Name': Name,
+                    'G_Token': Token
                 };
 
 
@@ -109,7 +115,8 @@
                 PostJson = {
                     'ActToDo': 'Update',
                     'G_Name': Name,
-                    'id': id,
+                    'G_Token': Token,
+                    'id': id
                 };
             }
 
@@ -127,6 +134,7 @@
                         $('#Sub_btn12').hide();
                         $('#Sub_btn1').show();
                         $('#B_Group_name').val("");
+                          $('#B_Group_Token').val("");
                     }
 
 

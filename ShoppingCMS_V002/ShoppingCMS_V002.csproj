@@ -6880,6 +6880,8 @@
     <Content Include="Views\BlogAPI_Designer\PostDetails.cshtml" />
     <Content Include="Views\BlogAPI_Designer\MainPage.cshtml" />
     <Content Include="Views\BlogAPI_Designer\AfraMaterPostsTypes.cshtml" />
+    <Content Include="Views\Admin\Add_Admin.cshtml" />
+    <Content Include="Views\BlogMain\EditPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

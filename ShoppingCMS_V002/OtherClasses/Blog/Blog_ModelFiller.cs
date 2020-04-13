@@ -285,18 +285,18 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return "Success";
         }
 
-        public string Add_Update_Group(string Action, string Name, int id = 0)
+        public string Add_Update_Group(string Action, string Name,string Token, int id = 0)
         {
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
 
             if (Action == "insert")
             {
-                db.Script("INSERT INTO [tbl_BLOG_Groups] VALUES (N'" + Name + "',0,0)");
+                db.Script("INSERT INTO [tbl_BLOG_Groups] VALUES (N'" + Name + "',0,0,N'"+Token+"')");
             }
             else if (Action == "Update")
             {
-                db.Script("UPDATE [tbl_BLOG_Groups] SET [name] =N'" + Name + "' WHERE G_Id=" + id);
+                db.Script("UPDATE [tbl_BLOG_Groups] SET [name] =N'" + Name + "' , [GpToken] = N'"+Token+"' WHERE G_Id=" + id);
             }
 
             return "Success";
@@ -350,7 +350,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
 
-            DataTable dt = db.Select("SELECT [G_Id],[name],[Is_Disabled],[Is_Deleted]FROM [tbl_BLOG_Groups]");
+            DataTable dt = db.Select("SELECT [G_Id],[name],[Is_Disabled],[Is_Deleted],[GpToken] FROM [tbl_BLOG_Groups]");
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -360,7 +360,8 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                     Id = Convert.ToInt32(dt.Rows[i]["G_Id"]),
                     Name = dt.Rows[i]["name"].ToString(),
                     Deleted = Convert.ToInt32(dt.Rows[i]["Is_Deleted"]),
-                    Disabled = Convert.ToInt32(dt.Rows[i]["Is_Disabled"])
+                    Disabled = Convert.ToInt32(dt.Rows[i]["Is_Disabled"]),
+                    Category= dt.Rows[i]["GpToken"].ToString()
                 };
                 res.Add(model);
             }

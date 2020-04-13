@@ -1010,6 +1010,24 @@ namespace ShoppingCMS_V002.OtherClasses
             return "success";
         }
 
+        public List<Id_ValueModel> AdminTypes()
+        {
+            var res = new List<Id_ValueModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
 
+            DataTable dt = db.Select("SELECT [ad_typeID],[ad_type_name] FROM [tbl_ADMIN_types]");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new Id_ValueModel()
+                {
+                    Id= Convert.ToInt32(dt.Rows[i]["ad_typeID"]),
+                    Value = dt.Rows[i]["ad_type_name"].ToString()
+                };
+                res.Add(model);
+            }
+
+            return res;
+        }
     }
 }

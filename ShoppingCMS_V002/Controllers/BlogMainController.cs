@@ -19,7 +19,7 @@ namespace ShoppingCMS_V002.Controllers
             return View();
         }
 
-        public ActionResult NewBlogPost(string ActToDo = "New", int Post_id = 0)
+        public ActionResult NewBlogPost()
         {
              string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
@@ -28,7 +28,7 @@ namespace ShoppingCMS_V002.Controllers
                 Blog_ModelFiller BMF = new Blog_ModelFiller();
                 var Model = new Blog_Post_insert_Model()
                 {
-                    Action_ToDo = ActToDo,
+                    
                     Category = BMF.BCategory_Filler(),
                     Groups = BMF.Groups_Filler(),
                     Type= BMF.B_Types_Filler(),
@@ -47,10 +47,6 @@ namespace ShoppingCMS_V002.Controllers
                     
                 };
 
-                if (ActToDo.Equals("Edit"))
-                {
-                    Model.PostData = BMF.EditModelFiller(Post_id);
-                }
 
 
                 return View(Model);
@@ -113,14 +109,14 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
 
-        public ActionResult Add_Update_Group(string ActToDo, string G_Name, int id = 0)
+        public ActionResult Add_Update_Group(string ActToDo, string G_Name,string G_Token, int id = 0)
         {
             // string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
             //if (check.HasAccess)
             //{
                 Blog_ModelFiller BMF = new Blog_ModelFiller();
                 // var model = BMF.B_Tags_Filler(CatId);
-                return Content(BMF.Add_Update_Group(ActToDo, G_Name, id));
+                return Content(BMF.Add_Update_Group(ActToDo, G_Name,G_Token, id));
                 //return Content("hello");
             //}
             //else
@@ -317,7 +313,31 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
 
-        
+
+        public ActionResult EditPost(int Post_id)
+        {
+            string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null) { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; }
+            CheckAccess check = new CheckAccess(SSSession);
+            if (check.HasAccess)
+            {
+                //ControllerContext.ParentActionViewContext.ViewBag.PageTitle = "";
+                Blog_ModelFiller BMF = new Blog_ModelFiller();
+                var Model = new Blog_Post_insert_Model()
+                {
+                   
+                    Category = BMF.BCategory_Filler(),
+                    Groups = BMF.Groups_Filler(),
+                    Type = BMF.B_Types_Filler(),
+                    PostData= BMF.EditModelFiller(Post_id)
+
+            };
+
+                return View(Model);
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+
+        }
 
     }
 }

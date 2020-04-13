@@ -93,7 +93,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         @*<a class="dropdown-item" href="#"><i class="la la-info-circle"></i> نمایش جزئیات</a>*@
-                                                        <a class="dropdown-item" href="@Url.Action("NewBlogPost","BlogMain",new {ActToDo="Edit", Post_id=item.Id})"><i class="la la-edit"></i> ویرایش</a>
+                                                        <a class="dropdown-item" href="@Url.Action("EditPost","BlogMain",new {Post_id=item.Id})"><i class="la la-edit"></i> ویرایش</a>
                                                         <div class="dropdown-divider"></div>
                                                         @if (item.IsDeleted == 1)
                                                         {

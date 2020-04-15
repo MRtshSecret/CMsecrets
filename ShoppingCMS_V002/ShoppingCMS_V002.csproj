@@ -195,7 +195,10 @@
     <Compile Include="OtherClasses\Encryption.cs" />
     <Compile Include="OtherClasses\itemclas.cs" />
     <Compile Include="OtherClasses\JaygashtClass.cs" />
+    <Compile Include="OtherClasses\MasterChi-Fu\StaticLicense.cs" />
     <Compile Include="OtherClasses\ModelFiller.cs" />
+    <Compile Include="OtherClasses\MrPicasso\PabloPicassoMainConversation.cs" />
+    <Compile Include="OtherClasses\MrPicasso\PostTokens.cs" />
     <Compile Include="OtherClasses\OptionsJsonModel.cs" />
     <Compile Include="OtherClasses\SearchClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -6802,6 +6805,7 @@
     <Content Include="SQL\FAR99\21\sqlFile.sql" />
     <Content Include="SQL\FAR99\22\PandaSQL.sql" />
     <Content Include="SQL\FAR99\25\PandaSQL.sql" />
+    <Content Include="SQL\FAR99\27\PandaSQL.sql" />
     <Content Include="SQL\FAR99\7\PandaScript.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

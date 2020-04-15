@@ -1,14 +1,15 @@
 ﻿@using System.Text
 @using Newtonsoft.Json
 @using ShoppingCMS_V002.Models
+@using ShoppingCMS_V002.OtherClasses.MasterChi_Fu
 @model ShoppingCMS_V002.ModelViews.Blog_Post_insert_Model
 @{
     ViewBag.Title = "NewBlogPost";
     Layout = "~/Views/Master/Master.cshtml";
     Id_ValueModel  IDV =new Id_ValueModel();
-    if (Request.Cookies["IDV"] != null)
+    if (Request.Cookies["IDV"+ StaticLicense.LicName] != null)
     {
-        HttpCookie cookie = Request.Cookies.Get("IDV");
+        HttpCookie cookie = Request.Cookies.Get("IDV"+ StaticLicense.LicName);
         if (cookie != null)
         {
 

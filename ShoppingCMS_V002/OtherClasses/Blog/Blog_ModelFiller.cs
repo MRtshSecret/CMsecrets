@@ -13,7 +13,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 {
     public class Blog_ModelFiller
     {
-        private int TopSelector=0;
+        private int TopSelector = 0;
         public Blog_ModelFiller()
         {
             TopSelector = 0;
@@ -285,21 +285,93 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return "Success";
         }
 
-        public string Add_Update_Group(string Action, string Name,string Token, int id = 0)
+        public string Add_Update_Group(string Action, string Name, string Token, int id = 0)
         {
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
-
+            string resultPost = "";
+            if (string.IsNullOrEmpty(Token))
+            {
+                return "پرکردن فیلد توکن اجباری میباشد";
+            }
+            if (string.IsNullOrEmpty(Name))
+            {
+                return "پرکردن فیلد نام گروه اجباری میباشد";
+            }
+            List<ExcParameters> paramss = new List<ExcParameters>();
             if (Action == "insert")
             {
-                db.Script("INSERT INTO [tbl_BLOG_Groups] VALUES (N'" + Name + "',0,0,N'"+Token+"')");
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@Tok",
+                    _VALUE = Token
+                };
+                paramss.Add(par);
+                using (DataTable dt = db.Select("SELECT COUNT(*) FROM [tbl_BLOG_Groups] WHERE GpToken LIKE @Tok", paramss))
+                {
+                    paramss = new List<ExcParameters>();
+                    if (dt.Rows[0][0].ToString() == "0")
+                    {
+                        par = new ExcParameters()
+                        {
+                            _KEY = "@Name",
+                            _VALUE = Name
+                        };
+                        paramss.Add(par);
+                        par = new ExcParameters()
+                        {
+                            _KEY = "@Token",
+                            _VALUE = Token
+                        };
+                        paramss.Add(par);
+                        resultPost = db.Script("INSERT INTO [tbl_BLOG_Groups] VALUES (@Name,0,0,@Token)", paramss);
+                        if (resultPost != "1")
+                        {
+                            resultPost = "عدم توانایی در ایجاد گروه";
+                        }
+                    }
+                    else
+                    {
+                        resultPost = "این توکن در پایگاه داده موجود میباشد!";
+                    }
+
+                }
             }
             else if (Action == "Update")
             {
-                db.Script("UPDATE [tbl_BLOG_Groups] SET [name] =N'" + Name + "' , [GpToken] = N'"+Token+"' WHERE G_Id=" + id);
+                paramss=new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@Name",
+                    _VALUE = Name
+                };
+                paramss.Add(par);
+                par = new ExcParameters()
+                {
+                    _KEY = "@Token",
+                    _VALUE = Token
+                };
+                paramss.Add(par);
+                par = new ExcParameters()
+                {
+                    _KEY = "@G_Id",
+                    _VALUE = id
+                };
+                paramss.Add(par);
+                resultPost = db.Script("UPDATE [tbl_BLOG_Groups] SET [name] = @Name , [GpToken] = @Token WHERE G_Id= @G_Id" , paramss);
+                if (resultPost != "1")
+                {
+                    resultPost = "عدم توانایی در بروز رسانی";
+                }
             }
-
-            return "Success";
+            if (resultPost == "1")
+            {
+                return "Success";
+            }
+            else
+            {
+                return resultPost;
+            }
         }
 
         public string Add_Update_Tag(string Action, string Name, int CatId, int id = 0)
@@ -361,7 +433,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                     Name = dt.Rows[i]["name"].ToString(),
                     Deleted = Convert.ToInt32(dt.Rows[i]["Is_Deleted"]),
                     Disabled = Convert.ToInt32(dt.Rows[i]["Is_Disabled"]),
-                    Category= dt.Rows[i]["GpToken"].ToString()
+                    Category = dt.Rows[i]["GpToken"].ToString()
                 };
                 res.Add(model);
             }
@@ -525,7 +597,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             {
                 num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post] where Is_Deleted=0 AND Is_Disabled=0 AND Title Like N'%" + search + "%' OR Text_min Like N'%" + search + "%' OR [Text] Like N'%" + search + "%' ").Rows[0][0]);
             }
-           else if (Cat == "گروه بندی")
+            else if (Cat == "گروه بندی")
             {
                 num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post] where Is_Deleted=0 AND Is_Disabled=0 AND GroupId=" + Id).Rows[0][0]);
             }
@@ -630,8 +702,8 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    BlogPics BP =new BlogPics();
-                    BP.PicAddress = AppendServername( dt.Rows[i]["PicAddress"].ToString());
+                    BlogPics BP = new BlogPics();
+                    BP.PicAddress = AppendServername(dt.Rows[i]["PicAddress"].ToString());
                     BP.alt = dt.Rows[i]["alt"].ToString();
                     BP.uploadPicName = dt.Rows[i]["uploadPicName"].ToString();
                     BP.Descriptions = dt.Rows[i]["Descriptions"].ToString();
@@ -643,12 +715,12 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 
         public SinglePostPostDetail SinglePostFiller(int idPost)
         {
-            SinglePostPostDetail result =new SinglePostPostDetail();
-            PDBC db=new PDBC("PandaMarketCMS", true);
+            SinglePostPostDetail result = new SinglePostPostDetail();
+            PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
-            using (DataTable dt = db.Select("SELECT * FROM [v_Blog_SinglePost] WHERE PostID = "+idPost))
+            using (DataTable dt = db.Select("SELECT * FROM [v_Blog_SinglePost] WHERE PostID = " + idPost))
             {
-                if (dt.Rows.Count>0)
+                if (dt.Rows.Count > 0)
                 {
                     result.Cat_Id = dt.Rows[0]["Cat_Id"].ToString();
                     result.GroupId = dt.Rows[0]["GroupId"].ToString();
@@ -705,13 +777,13 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                         text_min = dt.Rows[i]["Text_min"].ToString(),
                         date = persianDateTime.ToLongDateString(),
                         AdminPic = AppendServername(dt.Rows[i]["AdminPic"].ToString()),
-                        PostType=dt.Rows[i]["TypeId"].ToString()
+                        PostType = dt.Rows[i]["TypeId"].ToString()
                     };
                     res.Add(model);
                 }
             }
 
-            
+
             return res;
         }
     }

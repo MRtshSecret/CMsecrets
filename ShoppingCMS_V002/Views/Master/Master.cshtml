@@ -1,12 +1,13 @@
 ﻿@using System.Text
 @using Newtonsoft.Json
 @using ShoppingCMS_V002.Models.Admin
+@using ShoppingCMS_V002.OtherClasses.MasterChi_Fu
 
 @{
     MainAdminView MAsterNameCoockie =new MainAdminView();
-    if (Request.Cookies["UserDetail"] != null)
+    if (Request.Cookies["UserDetail"+ StaticLicense.LicName] != null)
     {
-        HttpCookie cookie = Request.Cookies.Get("UserDetail");
+        HttpCookie cookie = Request.Cookies.Get("UserDetail"+ StaticLicense.LicName);
         if (cookie != null)
         {
             string SS = MAsterNameCoockie.ad_NickName;

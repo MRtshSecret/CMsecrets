@@ -1029,5 +1029,63 @@ namespace ShoppingCMS_V002.OtherClasses
 
             return res;
         }
+
+        public List<AdminModel> Admins()
+        { 
+            var res = new List<AdminModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [id_Admin] ,(SELECT top 1 [ad_type_name] FROM [tbl_ADMIN_types] where ad_typeID=[ad_typeID]) as AdType ,[ad_firstname]+' '+[ad_lastname] as [name],[ad_avatarprofile],[ad_email],[ad_mobile],[ad_isActive],[ad_isDelete],[ad_lastseen] FROM [tbl_ADMIN_main]");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                
+                var model = new AdminModel()
+                {
+                    Id=Convert.ToInt32(dt.Rows[i]["id_Admin"]),
+                    AdminType= dt.Rows[i]["AdType"].ToString(),
+                    Email= dt.Rows[i]["ad_email"].ToString(),
+                    IsActive= Convert.ToInt32(dt.Rows[i]["ad_isActive"]),
+                    IsDeleted= Convert.ToInt32(dt.Rows[i]["ad_isDelete"]),
+                    Name= dt.Rows[i]["name"].ToString(),
+                    Phone= dt.Rows[i]["ad_mobile"].ToString(),
+                    Pic= dt.Rows[i]["ad_avatarprofile"].ToString()
+                };
+
+                if(dt.Rows[i]["ad_lastseen"].ToString()!="")
+                {
+                    DateTime date = Convert.ToDateTime(dt.Rows[i]["ad_lastseen"]);
+                    PersianDateTime persianDateTime = new PersianDateTime(date);
+                    var dateTest = persianDateTime.Subtract(new PersianDateTime(DateTime.Now));
+                    if (dateTest.Days < 1)
+                    {
+                        if (dateTest.Hours < 1)
+                        {
+                            model.LastSeen = dateTest.Minutes.ToString();
+                            model.LastSeenQuantity = 1;
+                        }
+                        else
+                        {
+                            model.LastSeen = dateTest.Hours.ToString();
+                            model.LastSeenQuantity = 2;
+                        }
+                    }
+                    else
+                    {
+                        model.LastSeen = dateTest.Days.ToString();
+                        model.LastSeenQuantity = 3;
+                    }
+                }else
+                {
+                    model.LastSeen = "";
+                    model.LastSeenQuantity = 0;
+                }
+
+                res.Add(model);
+            }
+
+            return res;
+        }
     }
 }

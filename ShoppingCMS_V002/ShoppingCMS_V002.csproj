@@ -140,6 +140,7 @@
     <Compile Include="Models\AddProduct_P2.cs" />
     <Compile Include="Models\AddPro_Options.cs" />
     <Compile Include="Models\AddPro_SubValues.cs" />
+    <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\AdminTypeRoutesModel.cs" />
     <Compile Include="Models\AdminTypeTbl_Model.cs" />
     <Compile Include="Models\Admin\MainAdminView.cs" />
@@ -6883,6 +6884,7 @@
     <Content Include="Views\BlogAPI_Designer\AfraMaterPostsTypes.cshtml" />
     <Content Include="Views\Admin\Add_Admin.cshtml" />
     <Content Include="Views\BlogMain\EditPost.cshtml" />
+    <Content Include="Views\Admin\ShowAdmins.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

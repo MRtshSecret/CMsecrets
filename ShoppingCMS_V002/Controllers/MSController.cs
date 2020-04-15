@@ -1643,7 +1643,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult Profile(int id)
         {
 
-            Session["id_Admin"] = "10";
+            Session["id_Admin"] = id;
 
             return View();
         }

@@ -77,5 +77,38 @@ namespace ShoppingCMS_V002.Controllers
             db.Script("INSERT INTO [tbl_ADMIN_main]VALUES("+acc+ ",N'"+Uname+"',N'"+ENC.MD5Hash(pass1)+"',N'"+name+"',N'"+last+"',N'"+image+"',N'"+email+"',N'"+phone+"',N'"+mobile+"',0,1,0,GetDate(),GetDate(),Null,GETDATE(),Null,0,N'"+nick+"')");
             return Content("Success");
         }
+
+        public ActionResult ShowAdmins()
+        {
+            ModelFiller MF = new ModelFiller();
+            return View(MF.Admins());
+        }
+
+        public ActionResult Admin_Actions(string ActToDo, int id)
+        {
+            //string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null) { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; }
+            //CheckAccess check = new CheckAccess(SSSession);
+            //if (check.HasAccess)
+            //{
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+                if (ActToDo == "Delete")
+                {
+                    db.Script("UPDATE [tbl_ADMIN_main] SET [ad_isDelete] = 1 WHERE id_Admin=" + id);
+                }
+                else if (ActToDo == "Active")
+                {
+                    db.Script("UPDATE [tbl_ADMIN_main] SET [ad_isActive] = 1 WHERE id_Admin=" + id);
+                }
+                else if (ActToDo == "DeActive")
+                {
+                    db.Script("UPDATE [tbl_ADMIN_main] SET [ad_isActive] = 0 WHERE id_Admin=" + id);
+                }
+                return Content("Success");
+            //}
+            //else
+            //    return RedirectToAction("NotAccess", "MS");
+        }
+
     }
 }

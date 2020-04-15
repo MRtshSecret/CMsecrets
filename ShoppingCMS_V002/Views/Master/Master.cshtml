@@ -37,6 +37,7 @@
     @Styles.Render("~/assets/CoreAdmin.css")
     @Scripts.Render("~/bundles/jqueryCore.js")
     @Scripts.Render("~/bundles/AddProScript.js")
+    
     <title>
         @ViewBag.Title
     </title>
@@ -156,7 +157,7 @@
                                             </a>
                                         </li>
                                         <li class="kt-menu__item " aria-haspopup="true">
-                                            <a href="#NEWSHOPS_Customers" class="kt-menu__link ">
+                                            <a href="@Url.Action("ShowAdmins","Admin")" class="kt-menu__link ">
                                                 <i class="kt-menu__link-bullet kt-menu__link-bullet--line">
                                                     <span></span>
                                                 </i>

@@ -127,6 +127,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BlogAPI_DesignerController.cs" />
     <Compile Include="Controllers\BlogMainController.cs" />
+    <Compile Include="Controllers\FactorController.cs" />
     <Compile Include="Controllers\MSController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="DBConnect\ExcParameters.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Models\AddProduct_P2.cs" />
     <Compile Include="Models\AddPro_Options.cs" />
     <Compile Include="Models\AddPro_SubValues.cs" />
+    <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\AdminTypeRoutesModel.cs" />
     <Compile Include="Models\AdminTypeTbl_Model.cs" />
@@ -159,8 +161,10 @@
     <Compile Include="Models\Blog\SinglePostPostDetail.cs" />
     <Compile Include="Models\Blog\TeamMembers.cs" />
     <Compile Include="Models\companies.cs" />
+    <Compile Include="Models\CustomerDitaile.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\FactorItemModel.cs" />
-    <Compile Include="Models\FactorList_itmModel.cs" />
+    <Compile Include="Models\FactorDetailModel.cs" />
     <Compile Include="Models\FactorModel.cs" />
     <Compile Include="Models\Id_ValueModel.cs" />
     <Compile Include="Models\ImageGalleryModel.cs" />
@@ -6806,6 +6810,7 @@
     <Content Include="SQL\FAR99\22\PandaSQL.sql" />
     <Content Include="SQL\FAR99\25\PandaSQL.sql" />
     <Content Include="SQL\FAR99\27\PandaSQL.sql" />
+    <Content Include="SQL\FAR99\30\PandaSQL.sql" />
     <Content Include="SQL\FAR99\7\PandaScript.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -6889,6 +6894,12 @@
     <Content Include="Views\Admin\Add_Admin.cshtml" />
     <Content Include="Views\BlogMain\EditPost.cshtml" />
     <Content Include="Views\Admin\ShowAdmins.cshtml" />
+    <Content Include="Views\Factor\FactorTable.cshtml" />
+    <Content Include="Views\Factor\FactorView.cshtml" />
+    <Content Include="Views\Factor\ProductSaleList.cshtml" />
+    <Content Include="Views\Factor\Customers.cshtml" />
+    <Content Include="Views\Factor\Customer_Profile.cshtml" />
+    <Content Include="Views\Factor\Customers_Buy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

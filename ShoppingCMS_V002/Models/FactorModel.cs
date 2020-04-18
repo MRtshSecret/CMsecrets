@@ -10,14 +10,12 @@ namespace ShoppingCMS_V002.Models
         public int Id { get; set; }
         public string CustomerName { get; set; }
         public int ItmNumbers { get; set; }
-        public long totality { get; set; }
-        public long deposit { get; set; }
-        public string priceQuantity { get; set; }
-        public string CustomerAddress { get; set; }
-        public string CustomerPhoneNumber { get; set; }
-        public int MyProperty { get; set; }
+        public string totality { get; set; }
+        public string deposit { get; set; }
+        public string priceQuantity { get; set; } 
         public string Date { get; set; }
-        public string status { get; set; }
+        public int status { get; set; }
+        public int IsDeleted { get; set; }
 
     }
 }

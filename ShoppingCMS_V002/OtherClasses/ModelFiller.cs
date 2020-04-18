@@ -312,11 +312,11 @@ namespace ShoppingCMS_V002.OtherClasses
                 string res = db.Script(query, paramss);
                 if (action == "insert")
                 {
-                    db.Script("INSERT INTO [tbl_Product_PastProductHistory]VALUES(" + res + ",@PriceXquantity,@PricePerquantity,@PriceOff,@OffType,@id_MainStarTag,GETDATE())",paramss);
+                    db.Script("INSERT INTO [tbl_Product_PastProductHistory]VALUES(" + res + ",@PriceXquantity,@PricePerquantity,@PriceOff,@OffType,@id_MainStarTag,GETDATE(),@offTypeValue)", paramss);
                 }
                 else if (action == "update")
                 {
-                    db.Script("INSERT INTO [tbl_Product_PastProductHistory]VALUES(@id_MProduct,@PriceXquantity,@PricePerquantity,@PriceOff,@OffType,@id_MainStarTag,GETDATE())",paramss);
+                    db.Script("INSERT INTO [tbl_Product_PastProductHistory]VALUES(@id_MProduct,@PriceXquantity,@PricePerquantity,@PriceOff,@OffType,@id_MainStarTag,GETDATE(),@offTypeValue)", paramss);
                 }
 
                     return res;
@@ -1057,7 +1057,8 @@ namespace ShoppingCMS_V002.OtherClasses
                 {
                     DateTime date = Convert.ToDateTime(dt.Rows[i]["ad_lastseen"]);
                     PersianDateTime persianDateTime = new PersianDateTime(date);
-                    var dateTest = persianDateTime.Subtract(new PersianDateTime(DateTime.Now));
+                    PersianDateTime PerNow = new PersianDateTime(DateTime.Now);
+                    var dateTest = PerNow.Subtract(persianDateTime);
                     if (dateTest.Days < 1)
                     {
                         if (dateTest.Hours < 1)
@@ -1081,6 +1082,256 @@ namespace ShoppingCMS_V002.OtherClasses
                     model.LastSeen = "";
                     model.LastSeenQuantity = 0;
                 }
+
+                res.Add(model);
+            }
+
+            return res;
+        }
+
+        public List<FactorModel> FactorTableFiller(string act)
+        {
+            var res = new List<FactorModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            string query = "";
+            if(act=="all")
+            {
+                query = "SELECT [Factor_Id],(SELECT [C_FirstName]+' '+[C_LastNAme] FROM [tbl_Customer_Main] WHERE id_Customer=[Customer_Id])as CustomerName ,[date],[toality],[deposit_price],(SELECT COUNT(*) FROM [tbl_FACTOR_Items] WHERE FactorId=[Factor_Id])as number,(SELECT top 1 [MoneyTypeName] FROM [tbl_Product_MoneyType] as A inner join [tlb_Product_MainProductConnector]as B on A.MoneyId=B.[PriceModule] inner join [tbl_FACTOR_Items] as C on B.id_MPC=C.Pro_Id WHERE C.FactorId=[Factor_Id])AS priceQuantity ,[Done] ,[IsDeleted]  FROM [tbl_FACTOR_Main]";
+            }else if(act=="!Done")
+            {
+                query = "SELECT [Factor_Id],(SELECT [C_FirstName]+' '+[C_LastNAme] FROM [tbl_Customer_Main] WHERE id_Customer=[Customer_Id])as CustomerName ,[date],[toality],[deposit_price],(SELECT COUNT(*) FROM [tbl_FACTOR_Items] WHERE FactorId=[Factor_Id])as number,(SELECT top 1 [MoneyTypeName] FROM [tbl_Product_MoneyType] as A inner join [tlb_Product_MainProductConnector]as B on A.MoneyId=B.[PriceModule] inner join [tbl_FACTOR_Items] as C on B.id_MPC=C.Pro_Id WHERE C.FactorId=[Factor_Id])AS priceQuantity ,[Done] ,[IsDeleted]  FROM [tbl_FACTOR_Main] where [Done]=0 ";
+            }
+
+
+            db.Connect();
+
+            DataTable dt = db.Select(query);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DateTime date = Convert.ToDateTime(dt.Rows[i]["date"]);
+                PersianDateTime persianDateTime = new PersianDateTime(date);
+                var model = new FactorModel()
+                {
+                    Id=Convert.ToInt32(dt.Rows[i]["Factor_Id"]),
+                    totality=dt.Rows[i]["toality"].ToString(),
+                    CustomerName= dt.Rows[i]["CustomerName"].ToString(),
+                    deposit= dt.Rows[i]["deposit_price"].ToString(),
+                    ItmNumbers=Convert.ToInt32(dt.Rows[i]["number"]),
+                    priceQuantity= dt.Rows[i]["priceQuantity"].ToString(),
+                    Date=persianDateTime.ToShortDateTimeString(),
+                    status= Convert.ToInt32(dt.Rows[i]["Done"]),
+                    IsDeleted= Convert.ToInt32(dt.Rows[i]["IsDeleted"])
+                };
+
+                res.Add(model);
+            }
+
+            return res;
+        }
+
+        public FactorDetailModel FactorDetailePage(int id)
+        {
+           
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [Factor_Id],[Customer_Id],(SELECT top 1 [Ostan_name] +N' ، ' + [Shahr_Name] FROM [tbl_Enum_Shahr] where ID_Shahr=B.ID_Shahr)+N' ، ' +B.C_FullAddress as Adddress,C.C_FirstName +' '+C.C_LastNAme as C_Name,C.C_Mobile,[date],[Off_Code],[toality],(SELECT top 1 [MoneyTypeName] FROM [tbl_Product_MoneyType] as D inner join [tlb_Product_MainProductConnector]as E on D.MoneyId=E.[PriceModule] inner join [tbl_FACTOR_Items] as F on E.id_MPC=F.Pro_Id WHERE F.FactorId=[Factor_Id])AS priceQuantity ,[deposit_price] FROM [tbl_FACTOR_Main] as A inner join [tbl_Customer_Address] as B on A.AddressId=B.id_CAddress inner join [tbl_Customer_Main] as C on A.Customer_Id=C.id_Customer where Factor_Id=" + id);
+
+            DataTable ItemsDt = db.Select("SELECT [ItemId],[Pro_Id],[number],[OffTypeValue], B.OffType, B.PriceXquantity, B.PriceOff,(SELECT [Title] FROM [tbl_Product] as A inner join [tlb_Product_MainProductConnector] as B on A.id_MProduct=B.id_MProduct where B.id_MPC=Pro_Id) as ProTitle FROM [tbl_FACTOR_Items] as A inner join [tbl_Product_PastProductHistory] as B on A.PriceDateId=B.id_PPH where A.FactorId=" + id);
+            var items = new List<FactorItemModel>();
+            for (int i = 0; i < ItemsDt.Rows.Count; i++)
+            {
+                var model = new FactorItemModel()
+                {
+                    Id=Convert.ToInt32(ItemsDt.Rows[i]["ItemId"]),
+                    Num=i+1,
+                    offType=Convert.ToInt32(ItemsDt.Rows[i]["OffType"]),
+                   perPrice=long.Parse(ItemsDt.Rows[i]["PriceXquantity"].ToString()),
+                   Numbers=Convert.ToInt32(ItemsDt.Rows[i]["number"]),
+                   OffValue=long.Parse(ItemsDt.Rows[i]["OffTypeValue"].ToString()),
+                   Title= ItemsDt.Rows[i]["ProTitle"].ToString(),
+                   perPrice_off=long.Parse(ItemsDt.Rows[i]["PriceOff"].ToString())
+                };
+
+                model.allPrice = model.Numbers * model.perPrice;
+                model.allPrice_Off = model.Numbers * model.perPrice_off;
+
+                DataTable dt2 = db.Select("SELECT B.SCOVValueName FROM [tbl_Product_connectorToMPC_SCOV] as A inner join [tbl_Product_SubCategoryOptionValue] as B on A.id_SCOV=B.id_SCOV WHERE A.id_MPC="+ItemsDt.Rows[i]["Pro_Id"]);
+                string s = "";
+                for (int j = 0; j < dt2.Rows.Count; j++)
+                {
+                    s += dt2.Rows[j]["SCOVValueName"];
+                    if(j!=dt2.Rows.Count-1)
+                    {
+                        s += ",";
+                    }
+                }
+                model.Discription = s;
+                
+                items.Add(model);
+            }
+            FactorDetailModel res;
+            if(dt.Rows.Count!=0)
+            {
+                DateTime date = Convert.ToDateTime(dt.Rows[0]["date"]);
+                PersianDateTime persianDateTime = new PersianDateTime(date);
+                res = new FactorDetailModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[0]["Factor_Id"]),
+                    CustomerAddress = dt.Rows[0]["Adddress"].ToString(),
+                    CustomerName = dt.Rows[0]["C_Name"].ToString(),
+                    CustomerPhoneNumber = dt.Rows[0]["C_Mobile"].ToString(),
+                    deposit = long.Parse(dt.Rows[0]["deposit_price"].ToString()),
+                    OffCode= dt.Rows[0]["Off_Code"].ToString(),
+                    priceQuantity= dt.Rows[0]["priceQuantity"].ToString(),
+                    ProductItems=items,
+                    totality=long.Parse(dt.Rows[0]["toality"].ToString()),
+                    Date=persianDateTime.ToShortDateString()
+                };
+
+            }else
+            {
+                res = new FactorDetailModel();
+            }
+            return res;
+        }
+
+        public List<TableModel> Pro_SaleList(string GP,int Id)
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            var res = new List<TableModel>();
+            if (GP=="همه")
+            {
+                DataTable dt = db.Select("SELECT (SELECT Top 1 SUM((SELECT Top 1 SUM((SELECT top 1 [PriceOff] FROM [tbl_Product_PastProductHistory] where id_MPC=[Pro_Id])* number) Over(Order by Done) FROM [tbl_FACTOR_Items] as A inner join [tbl_FACTOR_Main] as B on A.FactorId=B.Factor_Id where B.Done=1 AND A.Pro_Id= D.id_MPC))over (Order by D.id_MPC) as [All] FROM [tbl_Product] as C inner join [tlb_Product_MainProductConnector] as D on C.id_MProduct=D.id_MProduct where C.id_MProduct=main.[id_MProduct] order by ([All])DESC) as [All],[Title],[Description],[id_MProduct] FROM [tbl_Product] As main order by ([All])DESC");
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    var model = new TableModel()
+                    {
+                        Id=Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
+                        Group3=dt.Rows[i]["All"].ToString(),
+                        Group1=dt.Rows[i]["Title"].ToString(),
+                        Group2 = dt.Rows[i]["Description"].ToString(),
+                        Num=1
+                    };
+                    res.Add(model);
+                }
+
+
+
+            }else
+            {
+                DataTable dt = db.Select("SELECT id_MPC, (SELECT Top 1 SUM((SELECT top 1 [PriceOff] FROM [tbl_Product_PastProductHistory] where id_MPC=[Pro_Id])* number) Over(Order by Done) FROM [tbl_FACTOR_Items] as A inner join [tbl_FACTOR_Main] as B on A.FactorId=B.Factor_Id where B.Done=1 AND A.Pro_Id= id_MPC) as [All] FROM [tlb_Product_MainProductConnector] where id_MProduct="+Id+" order by ([All])DESC");
+
+                DataTable dt3 = db.Select("SELECT [Title] FROM [tbl_Product] WHERE [id_MProduct]=" + Id);
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DataTable dt2 = db.Select("SELECT B.SCOVValueName FROM [tbl_Product_connectorToMPC_SCOV] as A inner join [tbl_Product_SubCategoryOptionValue] as B on A.id_SCOV=B.id_SCOV WHERE A.id_MPC=" + dt.Rows[i]["id_MPC"]);
+                   
+                    string s = "";
+                    for (int j = 0; j < dt2.Rows.Count; j++)
+                    {
+                        s += dt2.Rows[j]["SCOVValueName"];
+                        if (j != dt2.Rows.Count - 1)
+                        {
+                            s += ",";
+                        }
+                    }
+
+                    var model = new TableModel()
+                    {
+                        Id = Convert.ToInt32(dt.Rows[i]["id_MPC"]),
+                        Group3 = dt.Rows[i]["All"].ToString(),
+                        Group1 = dt3.Rows[0]["Title"].ToString(),
+                        Group2=s
+                    };
+                    res.Add(model);
+                }
+
+            }
+
+            return res;
+        }
+
+        public List<CustomerModel> Customers()
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            var res = new List<CustomerModel>();
+
+            DataTable dt = db.Select("SELECT [id_Customer],[C_Mobile],[C_FirstName] +' '+[C_LastNAme] as C_Name,[C_Description],[C_ISActivate] FROM [tbl_Customer_Main]");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new CustomerModel()
+                {
+                    Id=Convert.ToInt32(dt.Rows[i]["id_Customer"]),
+                    Name=dt.Rows[i]["C_Name"].ToString(),
+                    Discription=dt.Rows[i]["C_Description"].ToString(),
+                    Phone= dt.Rows[i]["C_Mobile"].ToString(),
+                    IsActive=Convert.ToInt32(dt.Rows[i]["C_ISActivate"])
+                };
+                res.Add(model);
+            }
+
+            return res;
+        }
+
+        public CustomerDitaile customerDitail(int id)
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            var AddresList = new List<AddressModel>();
+            DataTable dt1 = db.Select("SELECT DISTINCT  B.Ostan_name +' , '+B.Shahr_Name as city ,[C_AddressHint],[C_FullAddress] FROM [tbl_Customer_Address] as A inner join [tbl_Enum_Shahr] as B on A.ID_Shahr=B.ID_Shahr where A.id_Customer="+id);
+            for (int i = 0; i < dt1.Rows.Count; i++)
+            {
+                var model = new AddressModel()
+                {
+                    
+                    City=dt1.Rows[i]["city"].ToString(),
+                    FullAddress= dt1.Rows[i]["C_FullAddress"].ToString(),
+                    HintAddress= dt1.Rows[i]["C_AddressHint"].ToString()
+                };
+                AddresList.Add(model);
+            }
+
+            DataTable dt = db.Select("SELECT [id_Customer],[C_regDate],[C_Mobile],[C_FirstName],[C_LastNAme],[C_Description] FROM [tbl_Customer_Main]where id_Customer="+id);
+            var res = new CustomerDitaile();
+
+            if(dt.Rows.Count!=0)
+            {
+                DateTime date = Convert.ToDateTime(dt.Rows[0]["C_regDate"]);
+                PersianDateTime persianDateTime = new PersianDateTime(date);
+                res.Id = Convert.ToInt32(dt.Rows[0]["id_Customer"]);
+                res.Name = dt.Rows[0]["C_FirstName"].ToString();
+                res.Familly = dt.Rows[0]["C_LastNAme"].ToString();
+                res.Discription = dt.Rows[0]["C_Description"].ToString();
+                res.PhoneNum = dt.Rows[0]["C_Mobile"].ToString();
+                res.registerDate = persianDateTime.ToShortDateString();
+                res.Addresses = AddresList;
+            }
+           
+
+            return res;
+        }
+
+        public List<TableModel> Customer_Buy()
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            var res = new List<TableModel>();
+
+            DataTable dt = db.Select("SELECT DISTINCT Customer_Id,(SELECT [C_FirstName]+' '+[C_LastNAme] FROM [tbl_Customer_Main] where id_Customer=[Customer_Id]) as C_Name ,SUM([deposit_price]) OVER (PARTITION BY [Customer_Id]) as Price FROM [tbl_FACTOR_Main] where Done=1 order by(Price)DESC");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new TableModel()
+                {
+                    Id=Convert.ToInt32(dt.Rows[i]["Customer_Id"]),
+                    Group1= dt.Rows[i]["C_Name"].ToString(),
+                    Group2= dt.Rows[i]["Price"].ToString()
+                };
 
                 res.Add(model);
             }

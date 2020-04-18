@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ShoppingCMS_V002.Models
 {
-    public class FactorList_itmModel
+    public class FactorDetailModel
     {
         public int Id { get; set; }
         public string CustomerName { get; set; }
@@ -15,5 +15,10 @@ namespace ShoppingCMS_V002.Models
         public string priceQuantity { get; set; }
         public string Date { get; set; }
         public string status { get; set; }
+        public string OffCode { get; set; }
+        public string CustomerAddress { get; set; }
+        public string CustomerPhoneNumber { get; set; }
+        public List<FactorItemModel> ProductItems { get; set; }
+
     }
 }

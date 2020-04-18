@@ -11,5 +11,6 @@ namespace ShoppingCMS_V002.Models
         public int Id { get; set; }
         public string Group1 { get; set; }
         public string Group2 { get; set; }
+        public string Group3 { get; set; }
     }
 }

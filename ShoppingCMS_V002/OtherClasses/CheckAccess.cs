@@ -14,6 +14,7 @@ namespace ShoppingCMS_V002.OtherClasses
     {
         public bool HasAccess { get; set; }
         public string exs = "Logged In";
+        public string AdminId { get; set; }
         public CheckAccess(string sessionss)
         {
 
@@ -28,6 +29,7 @@ namespace ShoppingCMS_V002.OtherClasses
                 Encryption enc=new Encryption();
                 string dec = enc.DecryptText(sessionss, "P@nd@Te@m");
                 MainAdminView Obj = JsonConvert.DeserializeObject<MainAdminView>(dec);
+                AdminId = Obj.id_Admin;
                 PDBC db = new PDBC("PandaMarketCMS", true);
                 db.Connect();
                 //using (DataTable dt = db.Select("SELECT count(*) FROM [v_ADMIN_mainView] WHERE id_Admin = " + Obj.id_Admin))

@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Add_Blog_Category";
+    ViewBag.Title = "AddMainTag";
     Layout = "~/Views/Master/Master.cshtml";
 }
 
@@ -17,7 +17,7 @@
                     <i class="flaticon2-shelter"></i>
                 </a>
                 <span class="kt-subheader__breadcrumbs-separator"></span>
-                <a href="#" id="PageName" class="kt-subheader__breadcrumbs-link">تعریف دسته بندی پست ها</a>
+                <a href="#" id="PageName" class="kt-subheader__breadcrumbs-link"> برچسب های اصلی محصولات </a>
 
             </div>
         </div>
@@ -35,15 +35,23 @@
         <div class="kt-portlet__head">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    تعریف دسته بندی پست ها
+                    تعریف برچسب های اصلی محصولات
                 </h3>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-11" style="margin:auto; margin-top:2%;">
+            <div style="display: none" id="EditId"></div>
+            <div class="form-group">
+                <label class="col-form-label col-lg-3 col-sm-12">نام برچسب اصلی </label>
+                <input id="MainCatName" class="form-control " placeholder="" style="width: 100%;" />
             </div>
         </div>
         <div class="col-xl-6 col-11" style="margin:auto; margin-top:2%;">
             <div style="display: none" id="EditId"></div>
             <div class="form-group">
-                <label style="margin-bottom:2%">نام دسته بندی</label>
-                <input id="BCatname" class="form-control " placeholder="" />
+                <label class="col-form-label col-lg-3 col-sm-12">توضیحات برچسب اصلی </label>
+                <textarea id="Discription" class="form-control " placeholder="" style="width: 100%;" ></textarea>
             </div>
         </div>
 
@@ -64,35 +72,34 @@
         <div class="kt-form__actions">
             <div class="col-6 offset-3" style="padding-top: 10px;">
 
-                <button id="Sub_btn1" onclick="Submit('New')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; margin-bottom:5%">
+                <button id="Sub_btn" onclick="Submit('New')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; margin-bottom:5%">
                     ثبت
                 </button>
-                <button id="Sub_btn12" onclick="Submit('Edit')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; display:none; margin-bottom:5%">
+                <button id="Edit_btn" onclick="Submit('Edit')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; display:none; margin-bottom:5%">
                     ثبت
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="BCatTBl"></div>
+    <div id="MainCatTBl"></div>
 
 
 </div>
-
 <script>
 
     $(document).ready(function () {
-       $('#BCatTBl').load("@Url.Action("Blog_catTable","BlogMain",null,Request.Url.Scheme)");
-
+        $('#MainCatTBl').load("@Url.Action("MainTagsTbl","ProductGroup",null,Request.Url.Scheme)");
     });
 
     function Submit(Act__) {
 
-        
-        if ($('#BCatname').val() == "" ) {
+
+        if ($('#MainCatName').val() == "" || $("#Discription").val()=='' ) {
             $("#ERRAlertEdit1").show(300);
         } else {
-            var Name = $('#BCatname').val();
+            var Name = $('#MainCatName').val();
+            var discription = $('#Discription').val();
             var id = $('#EditId').text();
             var PostJson;
 
@@ -101,6 +108,7 @@
                 PostJson = {
                     'ActToDo': 'insert',
                     'Cat_Name': Name,
+                    'Discription': discription
                 };
 
 
@@ -108,12 +116,13 @@
                 PostJson = {
                     'ActToDo': 'Update',
                     'Cat_Name': Name,
+                    'Discription': discription,
                     'id': id,
                 };
             }
 
             $.ajax({
-                url: '/BlogMain/Add_Update_Category',
+                url: '/ProductGroup/Add_Update_MainTag',
                 type: "post",
                 data: JSON.stringify(PostJson),
                 contentType: "application/json; charset=utf-8",
@@ -122,10 +131,13 @@
                     if (response == "Success") {
                         $("#ERRAlertEdit1").hide(300);
                         $("#SuccesAlertEdit1").show(300);
-                        $('#BCatTBl').load("@Url.Action("Blog_catTable","BlogMain",null,Request.Url.Scheme)");
-                        $('#Sub_btn12').hide();
-                        $('#Sub_btn1').show();
-                        $('#BCatname').val("");
+                        $('#MainCatTBl').load("@Url.Action("MainTagsTbl","ProductGroup",null,Request.Url.Scheme)");
+                        $('#Edit_btn').hide();
+                        $('#Sub_btn').show();
+                        $('#MainCatName').val("");
+                        $('#Discription').val("");
+                        //$('#Select2_A').val('0');
+                        setTimeout(function () { $("#SuccesAlertEdit1").hide(300); }, 1000);
                     }
 
 
@@ -141,5 +153,11 @@
 
     }
 
+
+
 </script>
+
+
+
+
 

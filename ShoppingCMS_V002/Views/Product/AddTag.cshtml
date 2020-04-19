@@ -208,24 +208,11 @@
         $("#Select2_A").select2();
         $("#Select2_B").select2();
         $("#Select2_C").select2();
-        alert("helllo");
         $('#show_tabTag').load("@Url.Action("TagsTable","Product",new {id='0' },Request.Url.Scheme)");
 
 
     });
 
-    function modalloader(name, id) {
-
-        document.getElementById("delete").innerHTML = name;
-        $("#modeldelete").val(id);
-
-        document.getElementById("edit").innerHTML = name;
-        $("#modeledit").val(id);
-
-        $('#SCVId_').text(id);
-        alert(id);
-
-    }
 
     function savePics(action) {
         var myObject = {

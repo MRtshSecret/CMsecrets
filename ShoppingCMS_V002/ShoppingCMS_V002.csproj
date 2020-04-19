@@ -130,6 +130,7 @@
     <Compile Include="Controllers\FactorController.cs" />
     <Compile Include="Controllers\MSController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductGroupController.cs" />
     <Compile Include="DBConnect\ExcParameters.cs" />
     <Compile Include="DBConnect\PDBC.cs" />
     <Compile Include="DBConnect\TransActionReport.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Models\PricingModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\profile.cs" />
+    <Compile Include="Models\ProGroupModel.cs" />
     <Compile Include="Models\ResponseModelsStruct\ResponseModle.cs" />
     <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\Statics.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="OtherClasses\MrPicasso\PabloPicassoMainConversation.cs" />
     <Compile Include="OtherClasses\MrPicasso\PostTokens.cs" />
     <Compile Include="OtherClasses\OptionsJsonModel.cs" />
+    <Compile Include="OtherClasses\ProductGroup_ModelFiller.cs" />
     <Compile Include="OtherClasses\SearchClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -6900,6 +6903,20 @@
     <Content Include="Views\Factor\Customers.cshtml" />
     <Content Include="Views\Factor\Customer_Profile.cshtml" />
     <Content Include="Views\Factor\Customers_Buy.cshtml" />
+    <Content Include="Views\ProductGroup\AddType.cshtml" />
+    <Content Include="Views\ProductGroup\AddMainCat.cshtml" />
+    <Content Include="Views\ProductGroup\TypeTbl.cshtml" />
+    <Content Include="Views\ProductGroup\MainCatTbl.cshtml" />
+    <Content Include="Views\ProductGroup\AddSubCat.cshtml" />
+    <Content Include="Views\ProductGroup\SubCatTbl.cshtml" />
+    <Content Include="Views\ProductGroup\AddSubCatKey.cshtml" />
+    <Content Include="Views\ProductGroup\SubCatKeyTbl.cshtml" />
+    <Content Include="Views\ProductGroup\AddSubCatValue.cshtml" />
+    <Content Include="Views\ProductGroup\SubCatValueTbl.cshtml" />
+    <Content Include="Views\ProductGroup\AddProductTag.cshtml" />
+    <Content Include="Views\ProductGroup\ProTagsTbl.cshtml" />
+    <Content Include="Views\ProductGroup\AddMainTag.cshtml" />
+    <Content Include="Views\ProductGroup\MainTagsTbl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

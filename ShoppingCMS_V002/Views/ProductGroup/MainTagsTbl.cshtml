@@ -1,9 +1,7 @@
 ﻿@using ShoppingCMS_V002.Models
 @model List<TableModel>
-
 @{
-    ViewBag.Title = "TagsTable";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "MainTagsTbl";
 }
 
 <!--START : TBLS-->
@@ -11,7 +9,7 @@
     <div class="kt-portlet__head">
         <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">
-                لیست جزئیات ویژگی های محصولات
+                لیست برچسب های محصولات
             </h3>
         </div>
     </div>
@@ -20,19 +18,16 @@
         <!--begin::Section-->
         <div class="kt-section">
             <span class="kt-section__info">
-                لیست تمامی جزئیات ویژگی های محصولات را در جدول زیر میتوانید مشاهده کنید.
+                لیست تمامی برچسب های محصولات را در جدول زیر میتوانید مشاهده کنید.
             </span>
             <div class="kt-section__content">
                 <table class="table table-light--dark">
                     <thead>
                         <tr>
                             <th style="width:5%; margin:auto;">#</th>
-                            <th style="width:13%; margin:auto;">نام سر دسته </th>
-                            <th style="width:14%; margin:auto;">نام گروه اصلی</th>
-                            <th style="width:14%; margin:auto;">نام گروه </th>
-                            <th style="width:14%; margin:auto;">نام ویژگی </th>
-                            <th style="width:20%; margin:auto;">جزئیات ویژگی </th>
-                            <th style="width:20%; margin:auto;">اقدامات</th>
+                            <th style="width:25%; margin:auto;">نام برچسب اصلی </th>
+                            <th style="width:45%; margin:auto;">توضیحات برچسب اصلی</th>
+                            <th style="width:25%; margin:auto;">اقدامات</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,11 +36,8 @@
                             <tr>
                                 <th scope="row">@item.Num</th>
                                 <td id="IdItem-@item.Id" style="display:none">@item.Id</td>
-                                <td id="TypeName-@item.Id">@item.Type</td>
-                                <td>@item.Main</td>
-                                <td>@item.Sub</td>
-                                <td>@item.SubK</td>
-                                <th id="CatName-@item.Id">@item.SubVal</th>
+                                <td id="CatName-@item.Id">@item.Group1</td>
+                                <th id="Dis-@item.Id">@item.Group2</th>
 
                                 <td>
 
@@ -82,8 +74,8 @@
             </div>
             <div class="modal-body">
                 <div id="Id_Modal_del" style="display:none"></div>
-                <p>با حذف کردن این  جزئیات ویژگی تمام زیرمجموعه های این جزئیات ویژگی نیز حذف خواهند شد.</p>
-                <p>آیا از حذف کردن این جزئیات ویژگی مطمئن هستید ؟</p>
+                <p>با حذف کردن این برچسب اصلی تمام زیرمجموعه های این برچسب اصلی نیز حذف خواهند شد.</p>
+                <p>آیا از حذف کردن این برچسب اصلی مطمئن هستید ؟</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">منصرف شدم</button>
@@ -117,12 +109,12 @@
                 };
 
                 $.ajax({
-                    url: "/ProductGroup/SubValue_Actions",
+                    url: "/ProductGroup/MainTag_Actions",
                     type: "post",
                     data: PostJson,
                     success: function (response) {
                         if (response == "Success") {
-                            $('#MainCatTBl').load("@Url.Action("SubCatValueTbl","ProductGroup",null,Request.Url.Scheme)");
+                            $('#MainCatTBl').load("@Url.Action("MainTagsTbl","ProductGroup",null,Request.Url.Scheme)");
                             $(".fade").hide();
                              $('#kt_modal_Del').modal('toggle');
                         } else {
@@ -139,12 +131,16 @@
 
     function Edit_op(Id__) {
         var name = $('#CatName-' + Id__).text();
+        var dis = $('#Dis-' + Id__).text();
 
         $('#MainCatName').val(name);
         $('#Edit_btn').show();
         $('#Sub_btn').hide();
         $('#EditId').text(Id__);
-        $("#Select_inp").hide();
+        $('#Discription').val(dis);
+        
     }
 </script>
+
+
 

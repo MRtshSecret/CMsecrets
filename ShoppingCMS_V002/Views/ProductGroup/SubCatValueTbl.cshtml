@@ -1,9 +1,8 @@
 ﻿@using ShoppingCMS_V002.Models
-@model List<TableModel>
+@model List<ProGroupModel>
 
 @{
-    ViewBag.Title = "TagsTable";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "SubCatValueTbl";
 }
 
 <!--START : TBLS-->
@@ -38,27 +37,27 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <th scope="row">@item.Num</th>
-                                <td id="IdItem-@item.Id" style="display:none">@item.Id</td>
-                                <td id="TypeName-@item.Id">@item.Type</td>
-                                <td>@item.Main</td>
-                                <td>@item.Sub</td>
-                                <td>@item.SubK</td>
-                                <th id="CatName-@item.Id">@item.SubVal</th>
+                        <tr>
+                            <th scope="row">@item.Num</th>
+                            <td id="IdItem-@item.Id" style="display:none">@item.Id</td>
+                            <td id="TypeName-@item.Id">@item.Type</td>
+                            <td>@item.Main</td>
+                            <td>@item.Sub</td>
+                            <td>@item.SubK</td>
+                            <th id="CatName-@item.Id">@item.SubVal</th>
 
-                                <td>
+                            <td>
 
-                                    <div class="btn-group mr-2" role="group" aria-label="...">
+                                <div class="btn-group mr-2" role="group" aria-label="...">
 
                                         <button style="border:none" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#kt_modal_Del" onclick="return ModelLoader('del',@item.Id)"><i class="la la-trash"></i></button>
-                                        <button style="border:none" type="button" class="btn btn-secondary" onclick="return Edit_op(@item.Id)"><i class="la la-edit"></i></button>
+                                            <button style="border:none" type="button" class="btn btn-secondary" onclick="return Edit_op(@item.Id)"><i class="la la-edit"></i></button>
 
-                                    </div>
-                                </td>
+                                </div>
+                            </td>
 
 
-                            </tr>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -101,13 +100,13 @@
         if (Act_ == "del") {
 
             $('#Id_Modal_del').text(Id_);
-        }
+        } 
 
 
     }
 
-
-
+   
+   
     function Model_Click_Del()
     {
         var id_ = $('#Id_Modal_del').text();

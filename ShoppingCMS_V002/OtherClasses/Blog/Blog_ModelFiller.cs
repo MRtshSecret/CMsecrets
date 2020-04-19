@@ -786,6 +786,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 
             return res;
         }
+
     }
 
 }

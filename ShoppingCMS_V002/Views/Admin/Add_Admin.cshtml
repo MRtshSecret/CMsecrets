@@ -148,12 +148,11 @@
                                                         <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar">
 
                                                             <div id="show_image" class="kt-avatar__holder" style="background-image: url('../../assets/NoImg.png');"></div>
-                                                            <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="تغییر تصویر">
-                                                                <input id="uploderInput" onchange="Uploding_uploder('info_data')" type="file" accept=".png,.jpg,.jpeg" />
+                                                            <label id="picss" class="kt-avatar__upload" data-toggle="modal" data-target="#kt_modal_6" onclick="modalloader()">
                                                                 <i class="fa fa-pen"></i>
 
                                                             </label>
-                                                            <input id="image" type="text" style="display:none">
+                                                            <input style="display:none" class="form-text text-muted" id="Pics_p2" readonly="readonly" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -418,6 +417,36 @@
     </div>
 </div>
 
+<div class="modal fade" id="kt_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row w-100">
+                    <div class="col-10">
+                        <button class="btn btn-success" id="btnpageUp-0" onclick="return UploadModalPage(this,0)">آپلود</button>
+                        <button class="btn btn-primary" id="btnpageUp-1" onclick="return UploadModalPage(this,1)">گالری</button>
+
+                    </div>
+                    <div class="col-2">
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <input style="width: 100%; height: 50px; display: none" type="text" value="" id="modalRep1">
+                <input style="width: 100%; height: 50px; display: none" type="text" value="" id="modalRep2">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                <button type="button" class="btn btn-primary" onclick="savePicss()" data-dismiss="modal">اتمام فرایند</button>
+            </div>
+        </div>
+    </div>
+
+</div>
 <script>
     $(document).ready(function () {
 
@@ -533,7 +562,7 @@
                 var phone = document.getElementById("phone").value;
                 var mobile = document.getElementById("mobile").value;
                 var email = document.getElementById("email").value;
-                var image = document.getElementById("image").value;
+                var image = document.getElementById("Pics_p2").value;
                 var Uname = document.getElementById("pass_o").value;
                 var pass1 = document.getElementById("pass_n1").value;
                 var pass2 = document.getElementById("pass_n2").value;
@@ -620,7 +649,96 @@
 
     }
 
+     function modalloader() {
+        $('#kt_modal_6 .modal-body').load("@Url.Action("UploadPage", "Product", null, Request.Url.Scheme)");
+    }
 
+
+    function DeleteSelectedImage(IMAGEIDSELECT) {
+        $("#imageSelectedNum-" + IMAGEIDSELECT).hide(500);
+        var jsobj = JSON.parse($("#PicsJson_p1").val());
+        var indexSelected = jsobj.findIndex(x => x.imageID === IMAGEIDSELECT);
+        if (indexSelected !== undefined) jsobj.splice(indexSelected, 1);
+        var allids = "";
+        console.log("dds = " + jsobj.length);
+        for (var __I__ = 0; __I__ < jsobj.length; __I__++) {
+            allids += jsobj[__I__].imageID + ",";
+        }
+        $("#Pics_p1").val(allids);
+        $("#Pics_p2").val(allids);
+        $("#PicsJson_p1").val(JSON.stringify(jsobj));
+    }
+    function savePicss() {
+        $("#Pics_p1").val($("#modalRep1").val());
+        $("#Pics_p2").val($("#modalRep1").val());
+        $("#PicsJson_p1").val($("#modalRep2").val());
+        GenerateSelectedImages($("#modalRep2").val(), 1);
+        $('#kt_modal_6 .modal-body').html('MRM');
+    }
+    function SelectPicID(idparameter) {
+        var PicPosition = $("#CheckPickSelected-" + idparameter);
+        $("gethertags").each(function (e) {
+            $(this).hide(100);
+        });
+        if ($(PicPosition).attr("tshpischeck") == "0") {
+            $("#CheckPickSelected-" + idparameter).show(200);
+            $("#ktportlet-" + idparameter).addClass("bg-success");
+            $("#GetherTagsID-" + idparameter).show(200);
+            $(PicPosition).attr("tshpischeck", "1");
+        } else {
+            $("#CheckPickSelected-" + idparameter).hide(200);
+            $("#ktportlet-" + idparameter).removeClass("bg-success");
+            $("#GetherTagsID-" + idparameter).show(200);
+            $(PicPosition).attr("tshpischeck", "0");
+        }
+        CalcPicSelected();
+    }
+    function GenerateSelectedImages(jsonSelectedIMGs, ForID) {
+        console.log("aa : " + jsonSelectedIMGs);
+        console.log("bb : " + ForID);
+        if (ForID == 1) {
+            var imagestr = "";
+
+            var objjsonSelectedIMGs = JSON.parse(jsonSelectedIMGs);
+            for (var Ilooper = 0; Ilooper < objjsonSelectedIMGs.length; Ilooper++) {
+                imagestr+='<div class="col-lg-3" id="imageSelectedNum-'+objjsonSelectedIMGs[Ilooper].imageID+'"><div class="kt-portlet bg-success"><div class="kt-portlet__head kt-portlet__head--right kt-portlet__head--noborder  kt-ribbon kt-ribbon--clip kt-ribbon--left kt-ribbon--info" style="padding: 10px;"><div class="kt-ribbon__target StatusInputSelected" style="top: -2px; right: 20px; background-color: rgb(9, 159, 174);"><i class="flaticon2-correct" style="font-size: 20px;"></i></div><div class="kt-portlet__head-label" style="width: 100%;"><h3 class="kt-portlet__head-title" style="width: 100%;"><img src="'+objjsonSelectedIMGs[Ilooper].imgAddress+'"  style="width: 100%; border-radius: 5px;"></h3></div></div><div class="kt-portlet__body kt-portlet__body--fit-top"><div class="row"><div class="input-group"><span class="input-group-text w-100">نام عکس</span></div><input type="text" class="form-control" readonly="readonly" value="'+objjsonSelectedIMGs[Ilooper].PicSelectedIDNAme+'" style="direction: rtl;text-align: right;"></div><div class="row pt-1"><div class="col-12" style="padding: 1px 1px;"><button class="btn btn-danger w-100" type="button" onclick="return DeleteSelectedImage('+objjsonSelectedIMGs[Ilooper].imageID+
+                    ')">حذف!</button></div></div></div></div></div>';
+            }
+            console.log(imagestr);
+            $("#ImgSelecteds").html( imagestr);
+
+        } else {
+
+        }
+
+    }
+    function CalcPicSelected() {
+
+        var IDSSelectedimg = "";
+        var Allids = [];
+        $(".StatusInputSelected").each(function (e) {
+            if ($(this).attr("tshpischeck") == "1") {
+                item = {};
+                item["imageID"] = $(this).attr("tshpdatatargetid");
+                var imgadd = $("#IMGktportlet-" + item["imageID"]).attr("src");
+                if (imgadd.length > 0) {
+                    item["imgAddress"] = imgadd;
+                } else {
+                    item["imgAddress"] = "";
+                }
+                item["PicSelectedIDNAme"] = $("#PicSelectedIDNAme-" + item["imageID"]).val();
+                Allids.push(item);
+                console.log("#IMGktportlet-" + item["imageID"]);
+                console.log("imgadd " + imgadd);
+                IDSSelectedimg += item["imageID"] + ",";
+            }
+        });
+        var jsonString = JSON.stringify(Allids);
+        $("#modalRep1").val(IDSSelectedimg);
+        $("#modalRep2").val(jsonString);
+        console.log($("#modalRep2").val());
+        }
+        ///////////////////////////////
 </script>
 
 

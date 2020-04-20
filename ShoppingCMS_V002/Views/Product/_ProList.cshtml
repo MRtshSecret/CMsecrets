@@ -44,31 +44,33 @@
     @*<td>@Model.MainPrice</td>*@
     <td>@Model.AddBy</td>
     <td>
-        <div class="dropdown dropdown-inline">
-            <button type="button" class="btn btn-hover-danger btn-elevate-hover btn-icon btn-sm btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="flaticon-more-1"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="@Url.Action("ProductDetails","Product",new {Id_Pro=Model.Id, Sub=Model.SubId })"><i class="la la-info-circle"></i> نمایش جزئیات</a>
-                <a class="dropdown-item" href="@Url.Action("Update_Product","Product",new {Id_Pro=Model.Id })" ><i class="la la-edit"></i> ویرایش</a>
-                <div class="dropdown-divider"></div>
-                @if (@Model.deleted)
-                {
 
-                }
-                else if (@Model.disabled)
+        <div class="btn-group-vertical mr-2" role="group" aria-label="...">
+
+
+            <a href="@Url.Action("ProductDetails","Product",new {Id_Pro=Model.Id, Sub=Model.SubId })" style="border:none" type="button" class="btn btn-secondary"><i class="la la-info-circle"></i></a>
+
+
+
+            @if (!Model.deleted)
+            {
+                <button style="border:none" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#kt_modal_Del" onclick="return ModelLoader('del',@Model.Id)"><i class="la la-trash"></i></button>
+                if (!Model.disabled)
                 {
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#kt_modal_Del" onclick="return ModelLoader('del',@Model.Id)"><i class="la la-trash" ></i> حذف</a>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#kt_modal_Act" onclick="return ModelLoader('Act',@Model.Id)"><i class="la la-check-square"></i> فعال کردن</a>
+                    <a href="@Url.Action("Update_Product","Product",new {Id_Pro=Model.Id })" style="border:none" type="button" class="btn btn-secondary"><i class="la la-edit"></i></a>
+                    <button style="border:none" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#kt_modal_DeAct" onclick="return ModelLoader('DeAct',@Model.Id)"><i class="fa fa-ban"></i></button>
                 }
                 else
                 {
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#kt_modal_Del" onclick="return ModelLoader('del',@Model.Id)"><i class="la la-trash" ></i> حذف</a>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#kt_modal_DeAct" onclick="return ModelLoader('DeAct',@Model.Id)"><i class="la la-ban"></i> غیرفعال کردن</a>
+
+                    <a href="@Url.Action("Update_Product","Product",new {Id_Pro=Model.Id })" style="border:none" type="button" class="btn btn-secondary"><i class="la la-edit"></i></a>
+
+                    <button style="border:none" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#kt_modal_Act" onclick="return ModelLoader('Act',@Model.Id)"><i class="fa fa-redo-alt"></i></button>
                 }
+            }
 
 
-            </div>
         </div>
+
     </td>
 </tr>

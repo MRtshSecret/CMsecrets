@@ -27,5 +27,6 @@ namespace ShoppingCMS_V002.Models
         public string ad_personalColorHexa { get; set; }
         public string AdminModeID { get; set; }
         public string ad_NickName { get; set; }
+        public List<Id_ValueModel> ad_Types { get; set; }
     }
 }

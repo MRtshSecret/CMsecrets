@@ -29,7 +29,7 @@ namespace ShoppingCMS_V002.OtherClasses
 
 
 
-        public static string AppendServername(string url)
+        public string AppendServername(string url)
         {
             return "https://" + HttpContext.Current.Request.Url.Authority + "/" + url;
         }
@@ -1050,7 +1050,7 @@ namespace ShoppingCMS_V002.OtherClasses
                     IsDeleted= Convert.ToInt32(dt.Rows[i]["ad_isDelete"]),
                     Name= dt.Rows[i]["name"].ToString(),
                     Phone= dt.Rows[i]["ad_mobile"].ToString(),
-                    Pic= dt.Rows[i]["ad_avatarprofile"].ToString()
+                    Pic= AppendServername(dt.Rows[i]["ad_avatarprofile"].ToString())
                 };
 
                 if(dt.Rows[i]["ad_lastseen"].ToString()!="")

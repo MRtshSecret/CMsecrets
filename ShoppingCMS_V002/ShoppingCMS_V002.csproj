@@ -6815,6 +6815,7 @@
     <Content Include="SQL\FAR99\27\PandaSQL.sql" />
     <Content Include="SQL\FAR99\30\PandaSQL.sql" />
     <Content Include="SQL\FAR99\7\PandaScript.sql" />
+    <Content Include="SQL\ORD99\1\PandaSQL.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -6823,28 +6824,15 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Master\Master.cshtml" />
-    <Content Include="Views\MS\Add_Type.cshtml" />
     <Content Include="Views\MS\Index.cshtml" />
-    <Content Include="Views\MS\maincat.cshtml" />
-    <Content Include="Views\MS\New_Cat.cshtml" />
-    <Content Include="Views\MS\New_SCK.cshtml" />
-    <Content Include="Views\MS\New_Sub.cshtml" />
-    <Content Include="Views\MS\New_type.cshtml" />
     <Content Include="Views\MS\Opinion.cshtml" />
     <Content Include="Views\MS\Opinion_show.cshtml" />
-    <Content Include="Views\MS\SubCat.cshtml" />
-    <Content Include="Views\MS\SubCatKey.cshtml" />
-    <Content Include="Views\MS\table_Cat.cshtml" />
-    <Content Include="Views\MS\table_SCK.cshtml" />
-    <Content Include="Views\MS\table_Sub.cshtml" />
-    <Content Include="Views\MS\table_Type.cshtml" />
     <Content Include="Views\Product\Add_Page1.cshtml" />
     <Content Include="Views\Product\Add_Page2.cshtml" />
     <Content Include="Views\Product\Add_Page3.cshtml" />
     <Content Include="Views\Product\Add_Page4.cshtml" />
     <Content Include="Views\Product\Add_Page5.cshtml" />
     <Content Include="Views\Product\Add_Product.cshtml" />
-    <Content Include="Views\Product\MainDropDown.cshtml" />
     <Content Include="Views\Product\Product_List.cshtml" />
     <Content Include="Views\Product\Product_table.cshtml" />
     <Content Include="Views\Product\_ProList.cshtml" />
@@ -6858,12 +6846,6 @@
     <Content Include="Views\MS\NotAccess.cshtml" />
     <Content Include="Views\Product\_PricingPage.cshtml" />
     <Content Include="Views\Product\UploadPage.cshtml" />
-    <Content Include="Views\MS\New_SCV.cshtml" />
-    <Content Include="Views\Product\AddTag.cshtml" />
-    <Content Include="Views\Product\Add_MainTag.cshtml" />
-    <Content Include="Views\MS\SCV_table.cshtml" />
-    <Content Include="Views\Product\TagsTable.cshtml" />
-    <Content Include="Views\Product\MainTag_table.cshtml" />
     <Content Include="Views\Product\UploaderIFRAME.cshtml" />
     <Content Include="Views\Product\loadGallery.cshtml" />
     <Content Include="Views\MS\LoginAuth.cshtml" />
@@ -6879,7 +6861,6 @@
     <Content Include="Views\Admin\AdminTbl.cshtml" />
     <Content Include="Views\Admin\ModalTree.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\BlogMain\Index.cshtml" />
     <Content Include="Views\BlogMain\NewBlogPost.cshtml" />
     <Content Include="Views\BlogMain\Add_Blog_Category.cshtml" />
     <Content Include="Views\BlogMain\Add_Blog_Group.cshtml" />

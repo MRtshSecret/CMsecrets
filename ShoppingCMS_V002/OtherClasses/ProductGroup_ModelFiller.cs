@@ -482,3 +482,24 @@ namespace ShoppingCMS_V002.OtherClasses
 
     }
 }
+
+
+//string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll" + StaticLicense.LicName] != null) { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll" + StaticLicense.LicName); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; }
+//CheckAccess check = new CheckAccess(SSSession);
+//if (check.HasAccess)
+//{
+//}
+//else
+//    return RedirectToAction("NotAccess", "MS");
+
+
+
+
+//string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll" + StaticLicense.LicName] != null) { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll" + StaticLicense.LicName); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; }
+//CheckAccess check = new CheckAccess(SSSession);
+//if (check.HasAccess)
+//{
+//}
+//else
+//    return Content("NotAccess");
+

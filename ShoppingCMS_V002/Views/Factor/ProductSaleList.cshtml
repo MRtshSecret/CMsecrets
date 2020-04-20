@@ -27,42 +27,50 @@
 
             </div>
         </div>
-
-        <!--Begin::Section-->
-        <div class="kt-portlet">
-            <div class="kt-portlet__body kt-portlet__body--fit">
-                <div class="row row-no-padding row-col-separator-xl">
-                    <div class="col-md-12 col-lg-12 col-xl-4">
-                        <!--begin:: Widgets/Stats2-1 -->
-                        <div class="kt-widget1">
-                            @foreach (var item in Model)
-                            {
-
-                                <div class="kt-widget1__item" onclick="Click_Btn(@item.Num,@item.Id)">
-                                    <div class="kt-widget1__info">
-                                        <h3 class="kt-widget1__title">@item.Group1</h3>
-                                        <span class="kt-widget1__desc">@item.Group2</span>
-                                    </div>
-                                    @if (item.Group3 == "")
-                                    {
-                                        <span class="kt-widget1__number kt-font-danger">- 0 -</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="kt-widget1__number kt-font-brand">@item.Group3+</span>
-                                    }
-                                </div>
-
-
-                            }
-                            <!--end:: Widgets/Stats2-1 -->
-                        </div>
-                    </div>
-
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        لیست میزان فروش محصولات
+                    </h3>
                 </div>
             </div>
+            <!--Begin::Section-->
+            <div class="kt-portlet">
+                <div class="kt-portlet__body kt-portlet__body--fit">
+                    <div class="row row-no-padding row-col-separator-xl">
+                        <div class="col-md-12 col-lg-12 col-xl-4">
+                            <!--begin:: Widgets/Stats2-1 -->
+                            <div class="kt-widget1">
+                                @foreach (var item in Model)
+                                {
+
+                                    <div class="kt-widget1__item" onclick="Click_Btn(@item.Num,@item.Id)">
+                                        <div class="kt-widget1__info">
+                                            <h3 class="kt-widget1__title">@item.Group1</h3>
+                                            <span class="kt-widget1__desc">@item.Group2</span>
+                                        </div>
+                                        @if (item.Group3 == "")
+                                        {
+                                            <span class="kt-widget1__number kt-font-danger">- 0 -</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="kt-widget1__number kt-font-brand">@item.Group3+</span>
+                                        }
+                                    </div>
+
+
+                                }
+                                <!--end:: Widgets/Stats2-1 -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End::Section-->
         </div>
-        <!--End::Section-->
     </div>
         <script>
             function Click_Btn(num,Id) {

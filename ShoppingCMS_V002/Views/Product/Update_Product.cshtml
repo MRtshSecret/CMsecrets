@@ -261,7 +261,6 @@
 
            var url = '@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id=@Model.Id';
             $('#optiontable').load(url);
-            alert($('#IsAd_').prop("checked"));
             
             if (@Model.IsAd=="1") {
                 $('#IsAd_').prop("checked", true);
@@ -294,7 +293,6 @@
                         var url = '@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id='+pId;
                         $('#optiontable').load(url);
 
-                        alert("success");
                         $('#SuccesAlertEdit3').show();
                         setTimeout(function () { $('#SuccesAlertEdit3').hide(500); }, 2000);
                         $('#ERRAlertEdit3').hide(200);
@@ -336,7 +334,7 @@
                         $('#optiontable').load(url);
                         $('#Add_Key').val("");
                         $('#Add_Value').val("");
-                        alert("success");
+                        
                         $('#SuccesAlertEdit3').show(200);
                         $('#ERRAlertEdit3').hide(200);
                     },

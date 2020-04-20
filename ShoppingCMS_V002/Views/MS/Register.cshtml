@@ -102,7 +102,7 @@
 
 <script>
     function postto(value) {
-
+        
         if (value == "information") {
             var name = document.getElementById("name").value;
             var last = document.getElementById("last").value;
@@ -110,7 +110,7 @@
             var phone = document.getElementById("phone").value;
             var mobile = document.getElementById("mobile").value;
             var email = document.getElementById("email").value;
-            var image = document.getElementById("image").value;
+            var image = document.getElementById("Pics_p2").value;
 
             if (name == "" || last == "" || phone == "" || mobile == "" || email == "") {
                 $("#ERRAlertNew").show(300);
@@ -138,6 +138,7 @@
                     $("#SuccesAlertNew").show(400);
                     //$('#Show_user').load("https://localhost:44395/ms/Show_user");
                     $('#Show_user').load("@Url.Action("Show_user","MS",null,Request.Url.Scheme)");
+                    location.reload(true);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(textStatus);
@@ -146,56 +147,7 @@
             return false;
 
 
-        } else if (value == "password") {
-
-            var pass = document.getElementById("pass_o").value;
-            var pass1 = document.getElementById("pass_n1").value;
-            var pass2 = document.getElementById("pass_n2").value;
-
-            if (pass == "" || pass1 == "" || pass2 == "") {
-                $("#ERRAlertNew2").show(300);
-                return false;
-            }
-            if (pass1 == pass2) {
-
-                PostJson = {
-                    'A': pass,
-                    'B': pass1,
-                    'value': value
-                }
-
-                var AddressToSend = "get_user";
-
-                $.ajax({
-                    url: AddressToSend,
-                    type: "post",
-                    data: JSON.stringify(PostJson),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response) {
-                        if (response == "1") {
-                            $("#ERRAlertNew2").hide(300);
-                            $("#SuccesAlertNew").show(300);
-                            $('#Show_user').load("@Url.Action("Show_user","MS",null,Request.Url.Scheme)");
-                            return false;
-                        } else if (response == "2") {
-                            $("#ERRAlertNew2").show(300);
-                            $("#_ERRAlertNew2").html("رمز عبور فعلی نامعتبر! ");
-                            return false;
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(textStatus);
-                    }
-                });
-                return false;
-
-            } else {
-
-                $("#ERRAlertNew2").show(300);
-                $("#_ERRAlertNew2").html("رمز جدیدی با تائید رمز عبور برابر نیست! ");
-                return false;
-            }
-        } else if (value == "access") {
+        }else if (value == "access") {
 
             var AddressToSend = "get_user";
 

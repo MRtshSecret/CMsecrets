@@ -75,23 +75,6 @@
                                     </span>
                                 </a>
 
-                                <a id="pass" onclick="getdata('pass')" class="kt-widget__item ">
-                                    <span class="kt-widget__section">
-                                        <span class="kt-widget__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                    <path d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z" fill="#000000" opacity="0.3"></path>
-                                                    <path d="M12,11 C10.8954305,11 10,10.1045695 10,9 C10,7.8954305 10.8954305,7 12,7 C13.1045695,7 14,7.8954305 14,9 C14,10.1045695 13.1045695,11 12,11 Z" fill="#000000" opacity="0.3"></path>
-                                                    <path d="M7.00036205,16.4995035 C7.21569918,13.5165724 9.36772908,12 11.9907452,12 C14.6506758,12 16.8360465,13.4332455 16.9988413,16.5 C17.0053266,16.6221713 16.9988413,17 16.5815,17 C14.5228466,17 11.463736,17 7.4041679,17 C7.26484009,17 6.98863236,16.6619875 7.00036205,16.4995035 Z" fill="#000000" opacity="0.3"></path>
-                                                </g>
-                                            </svg>
-                                        </span>
-                                        <span class="kt-widget__desc">
-                                            تغییر رمز عبور
-                                        </span>
-                                    </span>
-                                </a>
 
                                 <a id="access" onclick="getdata('access')" class="kt-widget__item ">
                                     <span class="kt-widget__section">
@@ -106,24 +89,6 @@
                                         </span>
                                         <span class="kt-widget__desc">
                                             مدیریت دسترسی
-                                        </span>
-                                    </span>
-                                </a>
-
-                                <a id="page" onclick="getdata('page')" class="kt-widget__item ">
-                                    <span class="kt-widget__section">
-                                        <span class="kt-widget__icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <polygon points="0 0 24 0 24 24 0 24"></polygon>
-                                                    <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
-                                                    <rect fill="#000000" x="6" y="11" width="9" height="2" rx="1"></rect>
-                                                    <rect fill="#000000" x="6" y="15" width="5" height="2" rx="1"></rect>
-                                                </g>
-                                            </svg>
-                                        </span>
-                                        <span class="kt-widget__desc">
-                                            مدیریت صفحات
                                         </span>
                                     </span>
                                 </a>
@@ -167,16 +132,14 @@
                                                 <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar">
 
                                                     <div id="show_image" class="kt-avatar__holder" style="background-image: url(@ViewBag.Show_Pro.ad_avatarprofile)"></div>
-                                                    <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="تغییر تصویر">
-                                                        <input id="uploderInput" onchange="Uploding_uploder('info_data')" type="file" accept=".png,.jpg,.jpeg" />
+                                                    <label id="picss" class="kt-avatar__upload" data-toggle="modal" data-target="#kt_modal_6" onclick="modalloader()">
                                                         <i class="fa fa-pen"></i>
 
                                                     </label>
-                                                    <input id="image" type="text" value=" ViewBag.Show_Pro.ad_avatarprofile" style="display:none">
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <input style="display:none" class="form-text text-muted" id="Pics_p2" readonly="readonly" />
                                         <div class="form-group row">
                                             <label class="col-xl-3 col-lg-3 col-form-label">نام</label>
                                             <div class="col-lg-9 col-xl-6">
@@ -271,88 +234,13 @@
             </div>
         </div>
 
-        <div id="_pass" class="kt-grid__item kt-grid__item--fluid kt-app__content" style="display:none">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="kt-portlet kt-portlet--height-fluid">
-                        <div class="kt-portlet__head">
-                            <div class="kt-portlet__head-label">
-                                <h3 class="kt-portlet__head-title">تغییر رمز عبور<small>گذرواژه حساب خود را تغییر یا تنظیم مجدد کنید</small></h3>
-                            </div>
-
-                        </div>
-                        <div class="kt-form kt-form--label-right">
-                            <div class="kt-portlet__body">
-                                <div class="kt-section kt-section--first">
-                                    <div class="kt-section__body">
-
-                                        <div class="row">
-                                            <label class="col-xl-3"></label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <h3 class="kt-section__title kt-section__title-sm">رمز عبور خود را تغییر داده یا بازیابی کنید:</h3>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row" style="margin-bottom: 4rem;">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">رمز عبور فعلی</label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <input id="pass_o" type="password" class="form-control" value="" placeholder="رمز عبور فعلی" required>
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">رمز عبور جدید</label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <input id="pass_n1" type="password" class="form-control" value="" placeholder="رمز عبور جدید" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group form-group-last row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">تائید رمز عبور</label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <input id="pass_n2" type="password" class="form-control" value="" placeholder="تائید رمز عبور" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="ERRAlertNew2" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display: none;">
-                                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
-                                <div id="_ERRAlertNew2" class="alert-text">مقدار ورودی باید پرشده باشد!</div>
-                                <div class="alert-close">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true"><i class="la la-close"></i></span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="kt-portlet__foot">
-                                <div class="kt-form__actions">
-                                    <div class="row">
-                                        <div class="col-lg-3 col-xl-3">
-                                        </div>
-
-                                        <div class="col-lg-9 col-xl-9">
-                                            <button onclick="postto('password')" class="btn btn-brand btn-bold">تغییر رمز عبور</button>&nbsp;
-                                            <button type="reset" class="btn btn-secondary">لغو کردن</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--End:: App Content-->
-        </div>
-
         <div id="_access" class="kt-grid__item kt-grid__item--fluid kt-app__content" style="display:none">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="kt-portlet kt-portlet--height-fluid">
                         <div class="kt-portlet__head">
                             <div class="kt-portlet__head-label">
-                                <h3 class="kt-portlet__head-title">مدیریت سرپرست<small></small></h3>
+                                <h3 class="kt-portlet__head-title">مدیریت دسترسی<small></small></h3>
                             </div>
 
                         </div>
@@ -366,21 +254,27 @@
                                         <div class="form-group row">
                                             <label for="datatype" class="col-xl-3 col-lg-3 col-form-label">دسترسی:</label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <select id="data_acc" class="form-control">
-                                                    <option value="0">نوع دسترسی</option>
-                                                    <option value="2">بالا</option>
-                                                    <option value="1">متوسط</option>
+                                                <select id="data_acc" class="form-control" onchange="ChangeClick()">
+                                                    @foreach (var item in @ViewBag.Show_Pro.ad_Types)
+                                                    {
+                                                        if (@ViewBag.Show_Pro.ad_type_name == item.Id.ToString())
+                                                        {
+                                                            <option selected value="@item.Id">@item.Value</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@item.Id">@item.Value</option>
+                                                        }
+
+                                                    }
                                                 </select>
                                             </div>
                                         </div>
+                                        
 
-                                    
 
-                                        <div class="form-group row">
-                                            <label for="example-color-input" class="col-xl-3 col-lg-3 col-form-label">رنگ</label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <input class="form-control" type="color" value="@ViewBag.Show_Pro.ad_personalColorHexa" id="example-color-input">
-                                            </div>
+                                        <div class="form-group row" id="AccassTree">
+
                                         </div>
 
                                     </div>
@@ -418,76 +312,143 @@
             <!--End:: App Content-->
         </div>
 
-        <div id="_page" class="kt-grid__item kt-grid__item--fluid kt-app__content" style="display:none">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="kt-portlet kt-portlet--height-fluid">
-                        <div class="kt-portlet__head">
-                            <div class="kt-portlet__head-label">
-                                <h3 class="kt-portlet__head-title">مدیریت صفحات<small></small></h3>
-                            </div>
+        <!--End:: App Content-->
+    </div>
+    <!--End::App-->
+</div>
+<!-- end:: Content -->
 
-                        </div>
-                        <div class="kt-form kt-form--label-right">
-                            <div class="kt-portlet__body">
-                                <div class="kt-section kt-section--first">
-                                    <div class="kt-section__body">
+<div class="modal fade" id="kt_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
 
-                                        <div class="form-group">
-                                            @for (int i = 0; i <ViewBag.Show_ADMIN.Count; i++)
-                                            {
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row w-100">
+                    <div class="col-10">
+                        <button class="btn btn-success" id="btnpageUp-0" onclick="return UploadModalPage(this,0)">آپلود</button>
+                        <button class="btn btn-primary" id="btnpageUp-1" onclick="return UploadModalPage(this,1)">گالری</button>
 
-                                                if (ViewBag.Show_ADMIN[i].HasAccess == "1")
-                                                {
-                                                    <input id="@ViewBag.Show_ADMIN[i].rulerouteID" type="checkbox" name="@ViewBag.Show_ADMIN[i].ruleRouteURL" value="1" checked>
-                                                    <label for="@ViewBag.Show_ADMIN[i].ruleRouteURL">@ViewBag.Show_ADMIN[i].ruleRouteURL</label>
-                                                }
-                                                else
-                                                {
-                                                    <input id="@ViewBag.Show_ADMIN[i].rulerouteID" type="checkbox" name="@ViewBag.Show_ADMIN[i].ruleRouteURL" value="1">
-                                                    <label for="@ViewBag.Show_ADMIN[i].ruleRouteURL">@ViewBag.Show_ADMIN[i].ruleRouteURL</label>
-                                                }
-                                                <br/>
-                                                
-                                            }
-                                        <h1>بک نداره</h1>
-                                        </div>
+                    </div>
+                    <div class="col-2">
 
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="ERRAlertNew2" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display: none;">
-                                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
-                                <div id="_ERRAlertNew2" class="alert-text">مقدار ورودی باید پرشده باشد!</div>
-                                <div class="alert-close">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true"><i class="la la-close"></i></span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="kt-portlet__foot">
-                                <div class="kt-form__actions">
-                                    <div class="row">
-                                        <div class="col-lg-3 col-xl-3">
-                                        </div>
-
-                                        <div class="col-lg-9 col-xl-9">
-                                            <button onclick="postto('page')" class="btn btn-brand btn-bold">تغییر </button>&nbsp;
-                                            <button type="reset" class="btn btn-secondary">لغو کردن</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
                     </div>
                 </div>
             </div>
-
-            <!--End:: App Content-->
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <input style="width: 100%; height: 50px; display: none" type="text" value="" id="modalRep1">
+                <input style="width: 100%; height: 50px; display: none" type="text" value="" id="modalRep2">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                <button type="button" class="btn btn-primary" onclick="savePicss()" data-dismiss="modal">اتمام فرایند</button>
+            </div>
         </div>
-        <!--End::App-->
     </div>
-    <!-- end:: Content -->
+
 </div>
+
+
+<script>
+     function ChangeClick()
+    {
+        var itemSelected =document.getElementById("data_acc").value;
+        if (itemSelected != '0') {
+            var url = "@Url.Action("ModalTree","Admin",null,Request.Url.Scheme)?id=" + itemSelected;
+            $('#AccassTree').load(url);
+        }
+
+    }
+
+     function modalloader() {
+        $('#kt_modal_6 .modal-body').load("@Url.Action("UploadPage", "Product", null, Request.Url.Scheme)");
+    }
+
+
+    function DeleteSelectedImage(IMAGEIDSELECT) {
+        $("#imageSelectedNum-" + IMAGEIDSELECT).hide(500);
+        var jsobj = JSON.parse($("#PicsJson_p1").val());
+        var indexSelected = jsobj.findIndex(x => x.imageID === IMAGEIDSELECT);
+        if (indexSelected !== undefined) jsobj.splice(indexSelected, 1);
+        var allids = "";
+        console.log("dds = " + jsobj.length);
+        for (var __I__ = 0; __I__ < jsobj.length; __I__++) {
+            allids += jsobj[__I__].imageID + ",";
+        }
+        $("#Pics_p1").val(allids);
+        $("#Pics_p2").val(allids);
+        $("#PicsJson_p1").val(JSON.stringify(jsobj));
+    }
+    function savePicss() {
+        $("#Pics_p1").val($("#modalRep1").val());
+        $("#Pics_p2").val($("#modalRep1").val());
+        $("#PicsJson_p1").val($("#modalRep2").val());
+        GenerateSelectedImages($("#modalRep2").val(), 1);
+        $('#kt_modal_6 .modal-body').html('MRM');
+    }
+    function SelectPicID(idparameter) {
+        var PicPosition = $("#CheckPickSelected-" + idparameter);
+        $("gethertags").each(function (e) {
+            $(this).hide(100);
+        });
+        if ($(PicPosition).attr("tshpischeck") == "0") {
+            $("#CheckPickSelected-" + idparameter).show(200);
+            $("#ktportlet-" + idparameter).addClass("bg-success");
+            $("#GetherTagsID-" + idparameter).show(200);
+            $(PicPosition).attr("tshpischeck", "1");
+        } else {
+            $("#CheckPickSelected-" + idparameter).hide(200);
+            $("#ktportlet-" + idparameter).removeClass("bg-success");
+            $("#GetherTagsID-" + idparameter).show(200);
+            $(PicPosition).attr("tshpischeck", "0");
+        }
+        CalcPicSelected();
+    }
+    function GenerateSelectedImages(jsonSelectedIMGs, ForID) {
+        console.log("aa : " + jsonSelectedIMGs);
+        console.log("bb : " + ForID);
+        if (ForID == 1) {
+            var imagestr = "";
+
+            var objjsonSelectedIMGs = JSON.parse(jsonSelectedIMGs);
+            for (var Ilooper = 0; Ilooper < objjsonSelectedIMGs.length; Ilooper++) {
+                imagestr+='<div class="col-lg-3" id="imageSelectedNum-'+objjsonSelectedIMGs[Ilooper].imageID+'"><div class="kt-portlet bg-success"><div class="kt-portlet__head kt-portlet__head--right kt-portlet__head--noborder  kt-ribbon kt-ribbon--clip kt-ribbon--left kt-ribbon--info" style="padding: 10px;"><div class="kt-ribbon__target StatusInputSelected" style="top: -2px; right: 20px; background-color: rgb(9, 159, 174);"><i class="flaticon2-correct" style="font-size: 20px;"></i></div><div class="kt-portlet__head-label" style="width: 100%;"><h3 class="kt-portlet__head-title" style="width: 100%;"><img src="'+objjsonSelectedIMGs[Ilooper].imgAddress+'"  style="width: 100%; border-radius: 5px;"></h3></div></div><div class="kt-portlet__body kt-portlet__body--fit-top"><div class="row"><div class="input-group"><span class="input-group-text w-100">نام عکس</span></div><input type="text" class="form-control" readonly="readonly" value="'+objjsonSelectedIMGs[Ilooper].PicSelectedIDNAme+'" style="direction: rtl;text-align: right;"></div><div class="row pt-1"><div class="col-12" style="padding: 1px 1px;"><button class="btn btn-danger w-100" type="button" onclick="return DeleteSelectedImage('+objjsonSelectedIMGs[Ilooper].imageID+
+                    ')">حذف!</button></div></div></div></div></div>';
+            }
+            console.log(imagestr);
+            $("#ImgSelecteds").html( imagestr);
+
+        } else {
+
+        }
+
+    }
+    function CalcPicSelected() {
+
+        var IDSSelectedimg = "";
+        var Allids = [];
+        $(".StatusInputSelected").each(function (e) {
+            if ($(this).attr("tshpischeck") == "1") {
+                item = {};
+                item["imageID"] = $(this).attr("tshpdatatargetid");
+                var imgadd = $("#IMGktportlet-" + item["imageID"]).attr("src");
+                if (imgadd.length > 0) {
+                    item["imgAddress"] = imgadd;
+                } else {
+                    item["imgAddress"] = "";
+                }
+                item["PicSelectedIDNAme"] = $("#PicSelectedIDNAme-" + item["imageID"]).val();
+                Allids.push(item);
+                console.log("#IMGktportlet-" + item["imageID"]);
+                console.log("imgadd " + imgadd);
+                IDSSelectedimg += item["imageID"] + ",";
+            }
+        });
+        var jsonString = JSON.stringify(Allids);
+        $("#modalRep1").val(IDSSelectedimg);
+        $("#modalRep2").val(jsonString);
+        console.log($("#modalRep2").val());
+        }
+        ///////////////////////////////
+</script>

@@ -130,7 +130,7 @@ namespace ShoppingCMS_V002.Controllers
                 //return Content("hello");
             }
             else
-                return RedirectToAction("NotAccess", "MS");
+                return Content("NotAccess");
         }
         public ActionResult Add_Page3(string Ids, int id)
         {
@@ -218,7 +218,7 @@ namespace ShoppingCMS_V002.Controllers
 
             }
             else
-                return RedirectToAction("NotAccess", "MS");
+                return Content("NotAccess");
         }
 
         public ActionResult Add_Page4(int SubId)
@@ -650,7 +650,7 @@ namespace ShoppingCMS_V002.Controllers
                 return Content("Success");
             }
             else
-                return RedirectToAction("NotAccess", "MS");
+                return Content("NotAccess");
         }
         public ActionResult Save_Step5(string ActTodo, int id)
         {
@@ -672,149 +672,6 @@ namespace ShoppingCMS_V002.Controllers
 
 
                 return Content("success");
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
-        }
-
-        public ActionResult MainDropDown(string drop, int id = 0)
-        {
-
-             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"+ StaticLicense.LicName] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"+ StaticLicense.LicName); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
-                return View();
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
-        }
-
-        public ActionResult AddTag()
-        {
-             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"+ StaticLicense.LicName] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"+ StaticLicense.LicName); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
-
-                ModelFiller MF = new ModelFiller();
-
-                AddProductModelV_2 model = new AddProductModelV_2()
-                {
-                    Types = MF.DropFiller("Type")
-                };
-
-                return View(model);
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
-        }
-
-
-        public ActionResult Add_MainTag()
-        {
-             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"+ StaticLicense.LicName] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"+ StaticLicense.LicName); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
-                return View();
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
-        }
-
-        public ActionResult MainTag_Add_Update(string ActTodo, string Name, string Description, int id = 0)
-        {
-             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"+ StaticLicense.LicName] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"+ StaticLicense.LicName); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
-                PDBC db = new PDBC("PandaMarketCMS", true);
-                db.Connect();
-
-                if (ActTodo == "insert")
-                {
-                    db.Script("INSERT INTO [tbl_Product_MainStarTags]VALUES(N'" + Description + "',N'" + Name + "')");
-                }
-                else if (ActTodo == "update")
-                {
-                    db.Script("UPDATE [tbl_Product_MainStarTags] SET [MST_Description] =N'" + Description + "' ,[MST_Name] =N'" + Name + "' WHERE id_MainStarTag=" + id);
-                }
-                else if (ActTodo == "delete")
-                {
-
-                    db.Script("DELETE FROM [tbl_Product_MainStarTags]WHERE id_MainStarTag=" + id);
-                }
-
-                return Content("Success");
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
-        }
-
-        public ActionResult Tag_Add_Update(string ActTodo, int SubId, string Name, int id = 0)
-        {
-             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"+ StaticLicense.LicName] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"+ StaticLicense.LicName); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
-                PDBC db = new PDBC("PandaMarketCMS", true);
-                db.Connect();
-
-                if (ActTodo == "insert")
-                {
-                    db.Script("INSERT INTO [tbl_Product_TagEnums]VALUES (N'" + Name + "'," + SubId + ")");
-                }
-                else if (ActTodo == "update")
-                {
-                    db.Script("UPDATE [tbl_Product_TagEnums] SET [TE_name] = N'' WHERE id_TE=" + id);
-                }
-                else if (ActTodo == "delete")
-                {
-                    db.Script("DELETE FROM [tbl_Product_tagConnector] WHERE id_TE=" + id);
-                    db.Script("DELETE FROM [tbl_Product_TagEnums] WHERE id_TE=" + id);
-                }
-
-                return Content("Success");
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
-        }
-
-        public ActionResult MainTag_table()
-        {
-            string SSSession = "";
-            if (HttpContext.Request.Cookies["TSHPANDAControll"+ StaticLicense.LicName] != null)
-            {
-                HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"+ StaticLicense.LicName);
-                if (cookie != null)
-                {
-                    SSSession = cookie.Value;
-                }
-                else
-                {
-                    SSSession = "N.A";
-                }
-            }
-            else
-            {
-                SSSession = "N.A";
-            }
-
-            CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
-                ModelFiller MF = new ModelFiller();
-
-                return View(MF.MainTags());
-            }
-            else
-                return RedirectToAction("NotAccess", "MS");
-        }
-
-        public ActionResult TagsTable(int id)
-        {
-             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"+ StaticLicense.LicName] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"+ StaticLicense.LicName); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
-            if (check.HasAccess)
-            {
-                ModelFiller MF = new ModelFiller();
-
-                return View(MF.Tags(id));
             }
             else
                 return RedirectToAction("NotAccess", "MS");

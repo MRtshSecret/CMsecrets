@@ -74,15 +74,15 @@
                                     <form>
                                         <div class="row">
                                             <div class="col-xl-6">
-                                                
+
                                                 <div class="form-group">
                                                     <label>نام محصول</label>
-                                                    <input id="Title_p1" class="form-control" placeholder="" value="@Model.Title"/>
+                                                    <input id="Title_p1" class="form-control" placeholder="" value="@Model.Title" />
                                                     <span class="form-text text-muted">نام و موضوع محصول خود را وارد کنید.</span>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>توضیحات محصول</label>
-                                                    <input id="Description_p1" class="form-control" placeholder="" type="text" value="@Model.Description"/>
+                                                    <input id="Description_p1" class="form-control" placeholder="" type="text" value="@Model.Description" />
                                                     <span class="form-text text-muted">توضیحات محصول خود را وارد کنید.</span>
                                                 </div>
                                                 <div class="form-group">
@@ -92,28 +92,28 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>توضیحات سئو</label>
-                                                    <input id="SEO_description_p1" class="form-control" placeholder="" value="@Model.SEO_Description"/>
+                                                    <input id="SEO_description_p1" class="form-control" placeholder="" value="@Model.SEO_Description" />
                                                     <span class="form-text text-muted">توضیحات برای موتور جست و جوی گوگل.</span>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>ارزش جست و جو</label>
-                                                    <input id="SearchGravity_p1" class="form-control" placeholder="" type="number" value="@Model.SearchGravity"/>
+                                                    <input id="SearchGravity_p1" class="form-control" placeholder="" type="number" value="@Model.SearchGravity" />
                                                     <span class="form-text text-muted">نتایج جست و جوی کاربران براین اساس نمایش داده خواهند شد.</span>
                                                 </div>
                                                 <label class="kt-checkbox kt-checkbox--brand">
-                                                    <input id="IsAd_" class="form-control" type="checkbox"/>تبلیغ شود؟
+                                                    <input id="IsAd_" class="form-control" type="checkbox" />تبلیغ شود؟
                                                     <span></span>
                                                 </label>
-
                                                 <!----------------------------------------------------------------------------------------------->
                                                 <div class="form-group">
                                                     <label>عکس ها</label>
                                                     <button id="picss" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_6" onclick="modalloader()"><i class="fa fa-upload"><span style="font-family: IRANSansWeb;">آپلود عکس</span></i></button>
-                                                    <input type="hidden" id="Pics_p1" class="form-control" placeholder="" value="@Model.Pics"/>
-                                                    <input class="form-text text-muted" id="Pics_p2" readonly="readonly" value="@Model.Pics"/>
+                                                    <input type="hidden" id="Pics_p1" class="form-control" placeholder="" value="@Model.Pics" />
+                                                    <input class="form-text text-muted" id="Pics_p2" readonly="readonly" value="@Model.Pics" />
                                                 </div>
 
                                                 <!----------------------------------------------------------------------------------------------->
+
                                             </div>
                                         </div>
                                     </form>
@@ -241,7 +241,7 @@
                             <button id="btn_Submit" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit" onclick="return submitNextPage()">
                                 ثبت نهایی
                             </button>
-                            <button id="btn_next" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next" >
+                            <button id="btn_next" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
                                 Next Step
                             </button>
                         </div>
@@ -254,14 +254,89 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="kt_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row w-100">
+                    <div class="col-10">
+                        <button class="btn btn-success" id="btnpageUp-0" onclick="return UploadModalPage(this,0)">آپلود</button>
+                        <button class="btn btn-primary" id="btnpageUp-1" onclick="return UploadModalPage(this,1)">گالری</button>
+
+                    </div>
+                    <div class="col-2">
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <input style="width: 100%; height: 50px; display: none" type="text" value="" id="modalRep1">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                <button type="button" class="btn btn-primary" onclick="savePicss()" data-dismiss="modal">اتمام فرایند</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 <!-- end:: Content -->
 <script>
+      function modalloader() {
+        $('#kt_modal_6 .modal-body').load("@Url.Action("UploadPage", "Product", null, Request.Url.Scheme)");
+    }
+
+    function savePicss() {
+        $("#Pics_p1").val($("#modalRep1").val());
+        $("#Pics_p2").val($("#modalRep1").val());
+        console.log("salam, = " + $("#modalRep1").val());
+    }
+
+      function SelectPicID(idparameter) {
+        var PicPosition = $("#CheckPickSelected-" + idparameter);
+        $("gethertags").each(function (e) {
+            $(this).hide(100);
+        });
+        if ($(PicPosition).attr("tshpischeck") == "0") {
+            $("#CheckPickSelected-" + idparameter).show(200);
+            $("#ktportlet-" + idparameter).addClass("bg-success");
+            $("#GetherTagsID-" + idparameter).show(200);
+            $(PicPosition).attr("tshpischeck", "1");
+        } else {
+            $("#CheckPickSelected-" + idparameter).hide(200);
+            $("#ktportlet-" + idparameter).removeClass("bg-success");
+            $("#GetherTagsID-" + idparameter).show(200);
+            $(PicPosition).attr("tshpischeck", "0");
+        }
+        CalcPicSelected();
+    }
+
+    function CalcPicSelected() {
+
+
+        var Allids = "";
+        $(".StatusInputSelected").each(function (e) {
+            console.log($(this).attr("tshpischeck") + " -- " + $(this).attr("tshpdatatargetid"));
+            if ($(this).attr("tshpischeck") == "1") {
+                Allids += $(this).attr("tshpdatatargetid")+",";
+
+            }
+
+        });
+        $("#modalRep1").val(Allids);
+    }
         $(document).ready(function () {
             //========================================Begin :: init
 
            var url = '@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id=@Model.Id';
             $('#optiontable').load(url);
-            
+
             if (@Model.IsAd=="1") {
                 $('#IsAd_').prop("checked", true);
             } else {
@@ -334,7 +409,7 @@
                         $('#optiontable').load(url);
                         $('#Add_Key').val("");
                         $('#Add_Value').val("");
-                        
+
                         $('#SuccesAlertEdit3').show(200);
                         $('#ERRAlertEdit3').hide(200);
                     },
@@ -394,6 +469,6 @@
             });
         }
     }
-      
+
 </script>
 <!--end::Page Scripts -->

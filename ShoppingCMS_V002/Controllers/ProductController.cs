@@ -544,7 +544,8 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult Save_Step1(string Act_ToDo, int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity, int IsAd, string pics, int Mpro_id = 0)
         {
-             string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"+ StaticLicense.LicName] != null)  { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"+ StaticLicense.LicName); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; } CheckAccess check = new CheckAccess(SSSession);
+            string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll" + StaticLicense.LicName] != null) { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll" + StaticLicense.LicName); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; }
+            CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -553,8 +554,14 @@ namespace ShoppingCMS_V002.Controllers
                 PDBC db = new PDBC("PandaMarketCMS", true);
                 db.Connect();
 
+                if (Act_ToDo == "update")
+                {
+                    itmId = Mpro_id.ToString();
+                }
+
                 foreach (var item in pics.Split(','))
                 {
+                    db.Script("DELETE FROM [tbl_BLOG_Pic_Connector] WHERE PostId=" + Mpro_id);
                     db.Script("INSERT INTO [tbl_Product_PicConnector] VALUES (" + itmId + "," + item + ")");
 
                 }

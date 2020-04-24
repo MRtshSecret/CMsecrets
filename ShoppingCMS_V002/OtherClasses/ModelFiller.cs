@@ -326,7 +326,7 @@ namespace ShoppingCMS_V002.OtherClasses
 
         }
 
-       public string Product_Action_Step1(string Action,int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity, int IsAd,int id_pr=0)
+       public string Product_Action_Step1(string Action,string id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity, int IsAd,int id_pr=0)
         {
             List<ExcParameters> paramss = new List<ExcParameters>();
             PDBC db = new PDBC("PandaMarketCMS", true);

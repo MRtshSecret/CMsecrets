@@ -549,7 +549,7 @@ namespace ShoppingCMS_V002.Controllers
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
-                string itmId = MF.Product_Action_Step1(Act_ToDo, id_CreatedByAdmin, Title, Description, SEO_keyword, SEO_description, SearchGravity, IsAd, Mpro_id);
+                string itmId = MF.Product_Action_Step1(Act_ToDo,check.AdminId, Title, Description, SEO_keyword, SEO_description, SearchGravity, IsAd, Mpro_id);
 
                 PDBC db = new PDBC("PandaMarketCMS", true);
                 db.Connect();

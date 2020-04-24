@@ -6816,6 +6816,8 @@
     <Content Include="SQL\FAR99\30\PandaSQL.sql" />
     <Content Include="SQL\FAR99\7\PandaScript.sql" />
     <Content Include="SQL\ORD99\1\PandaSQL.sql" />
+    <Content Include="SQL\ORD99\FinalSQL_5\PandaSQL.sql" />
+    <Content Include="SQL\ORD99\FinalSQL_5\PandaSQL_Data.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -16,7 +16,7 @@ namespace ShoppingCMS_V002
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
-                defaults: new { controller = "BlogAPI_Designer", action = "MainPage" }
+                defaults: new { controller = "MS", action = "LoginAuth" }
                 );
 
 

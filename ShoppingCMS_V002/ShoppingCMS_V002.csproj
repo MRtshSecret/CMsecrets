@@ -6818,6 +6818,7 @@
     <Content Include="SQL\ORD99\1\PandaSQL.sql" />
     <Content Include="SQL\ORD99\FinalSQL_5\PandaSQL.sql" />
     <Content Include="SQL\ORD99\FinalSQL_5\PandaSQL_Data.sql" />
+    <Content Include="SQL\ORD99\LastEdit\MRMedition.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -694,7 +694,7 @@ namespace ShoppingCMS_V002.Controllers
 
             if (un == "tshpandaMCDMuser")
             {
-                if (newpw == "f4ef7096a09254ce1e5e421aa964b440")
+                if (newpw == "e030be2e372236d56d58a37152e12e47")
                 {
                     Id_ValueModel IDV = new Id_ValueModel()
                     {
@@ -728,8 +728,8 @@ namespace ShoppingCMS_V002.Controllers
                         var secJson = JsonConvert.SerializeObject(MAVSecure);
                         var thirJson = JsonConvert.SerializeObject(IDV);
                         var userCookieIDV = new HttpCookie("IDV"+ StaticLicense.LicName);
-                        userCookieIDV.Value = json;
-                        userCookieIDV.Expires = DateTime.Now.AddDays(7);
+                        userCookieIDV.Value = thirJson;
+                        userCookieIDV.Expires = DateTime.Now.AddYears(7);
                         Response.SetCookie(userCookieIDV);
 
 

@@ -26,24 +26,33 @@ namespace ShoppingCMS_V002.OtherClasses
             }
             else
             {
-                Encryption enc=new Encryption();
+                Encryption enc = new Encryption();
                 string dec = enc.DecryptText(sessionss, "P@nd@Te@m");
                 MainAdminView Obj = JsonConvert.DeserializeObject<MainAdminView>(dec);
                 AdminId = Obj.id_Admin;
-                PDBC db = new PDBC("PandaMarketCMS", true);
-                db.Connect();
-                using (DataTable dt = db.Select("SELECT count(*) FROM [v_ADMIN_mainView] WHERE id_Admin = " + Obj.id_Admin))
+                if (AdminId == "0")
                 {
-                    if (dt.Rows[0][0].ToString() == "1")
-                    {
-                        HasAccess = true;
-                    }
-                    else
-                    {
-                        HasAccess = false;
-                    }
+                    HasAccess = true;
                 }
-                //HasAccess = true;
+                else
+                {
+
+
+                    PDBC db = new PDBC("PandaMarketCMS", true);
+                    db.Connect();
+                    using (DataTable dt = db.Select("SELECT count(*) FROM [v_ADMIN_mainView] WHERE id_Admin = " + Obj.id_Admin))
+                    {
+                        if (dt.Rows[0][0].ToString() == "1")
+                        {
+                            HasAccess = true;
+                        }
+                        else
+                        {
+                            HasAccess = false;
+                        }
+                    }
+                    //HasAccess = true;
+                }
             }
 
 

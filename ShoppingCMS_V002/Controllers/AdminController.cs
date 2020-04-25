@@ -83,8 +83,9 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Save_admin(string name, string last, string nick, string phone, string mobile, string email, string image, string Uname, string pass1, string acc)
         {
-            string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null) { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; }
+            string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll" + StaticLicense.LicName] != null) { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll" + StaticLicense.LicName); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; }
             CheckAccess check = new CheckAccess(SSSession);
+
             if (check.HasAccess)
             {
                 PDBC db = new PDBC("PandaMarketCMS", true);
@@ -101,7 +102,7 @@ namespace ShoppingCMS_V002.Controllers
                 Encryption ENC = new Encryption();
                 
                 db.Connect();
-                db.Script("INSERT INTO [tbl_ADMIN_main]VALUES(" + acc + ",N'" + Uname + "',N'" + ENC.MD5Hash(pass1) + "',N'" + name + "',N'" + last + "',N'" + pic + "',N'" + email + "',N'" + phone + "',N'" + mobile + "',0,1,0,GetDate(),GetDate(),Null,GETDATE(),Null,0,N'" + nick + "')");
+            string aaa=    db.Script("INSERT INTO [tbl_ADMIN_main]VALUES(" + acc + ",N'" + Uname + "',N'" + ENC.MD5Hash(pass1) + "',N'" + name + "',N'" + last + "',N'" + pic + "',N'" + email + "',N'" + phone + "',N'" + mobile + "',0,1,0,GetDate(),GetDate(),Null,GETDATE(),Null,0,N'" + nick + "')");
                 return Content("Success");
             }
             else
@@ -124,7 +125,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Admin_Actions(string ActToDo, int id)
         {
-            string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll"] != null) { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll"); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; }
+            string SSSession = ""; if (HttpContext.Request.Cookies["TSHPANDAControll" + StaticLicense.LicName] != null) { HttpCookie cookie = HttpContext.Request.Cookies.Get("TSHPANDAControll" + StaticLicense.LicName); if (cookie != null) { SSSession = cookie.Value; } else { SSSession = "N.A"; } } else { SSSession = "N.A"; }
             CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {

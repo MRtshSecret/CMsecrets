@@ -122,6 +122,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BlogAPI_DesignerController.cs" />
     <Compile Include="Controllers\BlogMainController.cs" />
+    <Compile Include="Controllers\D_APIController.cs" />
     <Compile Include="Controllers\FactorController.cs" />
     <Compile Include="Controllers\MSController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Models\companies.cs" />
     <Compile Include="Models\CustomerDitaile.cs" />
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\D_APIModels\MiniProductModel.cs" />
     <Compile Include="Models\FactorItemModel.cs" />
     <Compile Include="Models\FactorDetailModel.cs" />
     <Compile Include="Models\FactorModel.cs" />
@@ -189,10 +191,12 @@
     <Compile Include="ModelViews\AddProductModelV_4.cs" />
     <Compile Include="ModelViews\AddProductModelV_5.cs" />
     <Compile Include="ModelViews\Blog_Post_insert_Model.cs" />
+    <Compile Include="ModelViews\D_APIModelViews\test.cs" />
     <Compile Include="ModelViews\ProductListModelView.cs" />
     <Compile Include="OtherClasses\Blog\Blog_ModelFiller.cs" />
     <Compile Include="OtherClasses\Blog\Date_TimeStamp.cs" />
     <Compile Include="OtherClasses\CheckAccess.cs" />
+    <Compile Include="OtherClasses\D_APIOtherClasses\D_APIModelFiller.cs" />
     <Compile Include="OtherClasses\Encryption.cs" />
     <Compile Include="OtherClasses\itemclas.cs" />
     <Compile Include="OtherClasses\JaygashtClass.cs" />
@@ -6900,6 +6904,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
+    <Folder Include="Views\D_API\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\Font\fontawesome-webfont.ttf" />

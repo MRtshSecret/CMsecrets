@@ -1,10 +1,12 @@
-﻿using ShoppingCMS_V002.DBConnect;
+﻿using MD.PersianDateTime;
+using ShoppingCMS_V002.DBConnect;
 using ShoppingCMS_V002.Models;
 using ShoppingCMS_V002.Models.D_APIModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace ShoppingCMS_V002.OtherClasses.D_APIOtherClasses
@@ -14,6 +16,121 @@ namespace ShoppingCMS_V002.OtherClasses.D_APIOtherClasses
         public string AppendServername(string url)
         {
             return "https://" + HttpContext.Current.Request.Url.Authority + "/" + url;
+        }
+
+        /// <summary>
+        ///  زمان را به صورت رشته دریافت میکند و به صورت های مختلف تاریخ شمسی تبدیل میکند
+        /// </summary>
+        /// <param name="date_">زمان به صورت رشته</param>
+        /// <param name="DateType">
+        /// Date : تاریخ 
+        /// Time : زمان
+        /// DateTime : تاریخ و زمان به طور کامل
+        /// Ago : چند دقیقه ، ساعت یا روز پیش
+        /// </param>
+        /// <returns>تاریخ تبدیل شده به صورت رشته</returns>
+        public string DateReturner(string date_, string DateType)
+        {
+            DateTime date = Convert.ToDateTime(date_);
+            PersianDateTime persianDateTime = new PersianDateTime(date);
+
+            if (DateType == "Date")
+            {
+                return persianDateTime.ToLongDateString();
+            }
+            else if (DateType == "Time")
+            {
+                return persianDateTime.ToLongTimeString();
+            }
+            else if (DateType == "DateTime")
+            {
+                return persianDateTime.ToLongDateTimeString();
+            }
+            else if (DateType == "Ago")
+            {
+                string LastSeen = "";
+                PersianDateTime PerNow = new PersianDateTime(DateTime.Now);
+                var dateTest = PerNow.Subtract(persianDateTime);
+                if (dateTest.Days < 1)
+                {
+                    if (dateTest.Hours < 1)
+                    {
+                        LastSeen = dateTest.Minutes + " دقیقه ی پیش";
+
+                    }
+                    else
+                    {
+                        LastSeen = dateTest.Hours + "ساعت پیش";
+                    }
+                }
+                else
+                {
+                    LastSeen = dateTest.Days + "روز پیش";
+                }
+                return LastSeen;
+
+            }
+            else
+            {
+                return "";
+            }
+        }
+        /// <summary>
+        /// زمان را به صورت تاریخ وزمان دریافت میکند و به صورت های مختلف تاریخ شمسی تبدیل میکند
+        /// </summary>
+        /// <param name="date_">زمان</param>
+        /// <param name="DateType">
+        /// Date : تاریخ 
+        /// Time : زمان
+        /// DateTime : تاریخ و زمان به طور کامل
+        /// Ago : چند دقیقه ، ساعت یا روز پیش
+        /// </param>
+        /// <returns>تاریخ تبدیل شده به صورت رشته</returns>
+        public string DateReturner(DateTime date_, string DateType)
+        {
+            
+            PersianDateTime persianDateTime = new PersianDateTime(date_);
+
+            if (DateType == "Date")
+            {
+                return persianDateTime.ToLongDateString();
+            }
+            else if (DateType == "Time")
+            {
+                return persianDateTime.ToLongTimeString();
+            }
+            else if (DateType == "DateTime")
+            {
+                return persianDateTime.ToLongDateTimeString();
+            }
+            else if (DateType == "Ago")
+            {
+                string LastSeen = "";
+                PersianDateTime PerNow = new PersianDateTime(DateTime.Now);
+                var dateTest = PerNow.Subtract(persianDateTime);
+                if (dateTest.Days < 1)
+                {
+                    if (dateTest.Hours < 1)
+                    {
+                        LastSeen = dateTest.Minutes + " دقیقه ی پیش";
+
+                    }
+                    else
+                    {
+                        LastSeen = dateTest.Hours + "ساعت پیش";
+                    }
+                }
+                else
+                {
+                    LastSeen = dateTest.Days + "روز پیش";
+                }
+                return LastSeen;
+
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public List<Id_ValueModel> ProductTags(string type,int id)
@@ -268,7 +385,7 @@ namespace ShoppingCMS_V002.OtherClasses.D_APIOtherClasses
             return result;
         }
 
-        public List<MiniProductModel> ChosenProducts(string Type,int numbers)
+        public List<MiniProductModel> ChosenProducts(string Type,int numbers,string DateType)
         {
             var res = new List<MiniProductModel>();
             PDBC db = new PDBC("PandaMarketCMS", true);
@@ -278,22 +395,25 @@ namespace ShoppingCMS_V002.OtherClasses.D_APIOtherClasses
 
             if (Type == "Sale")
             {
-                query = "SELECT top "+numbers+" main.[id_MProduct],[Description],[Title],(SELECT top 1 [PicAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner join [tbl_Product_PicConnector] as B on A.PicID=B.PicID where B.id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType]FROM [tbl_Product] as main where main.IS_AVAILABEL=1 AND main.ISDELETE=0 order by(SELECT Sum([number]) as sale FROM[tbl_FACTOR_Items] as A1 inner join [tlb_Product_MainProductConnector] as B1 on A1.Pro_Id=B1.id_MPC where B1.id_MProduct=main.id_MProduct)DESC ";
+                query = "SELECT top "+numbers+ " main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 [PicAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner join [tbl_Product_PicConnector] as B on A.PicID=B.PicID where B.id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType]FROM [tbl_Product] as main where main.IS_AVAILABEL=1 AND main.ISDELETE=0 order by(SELECT Sum([number]) as sale FROM[tbl_FACTOR_Items] as A1 inner join [tlb_Product_MainProductConnector] as B1 on A1.Pro_Id=B1.id_MPC where B1.id_MProduct=main.id_MProduct)DESC ";
             }else if(Type=="New")
             {
-                query = "SELECT top "+numbers+" main.[id_MProduct],[Description],[Title],(SELECT top 1 [PicAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner join [tbl_Product_PicConnector] as B on A.PicID=B.PicID where B.id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType]FROM [tbl_Product] as main where main.IS_AVAILABEL=1 AND main.ISDELETE=0 order by(DateCreated)DESC ";
+                query = "SELECT top "+numbers+ " main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 [PicAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner join [tbl_Product_PicConnector] as B on A.PicID=B.PicID where B.id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType]FROM [tbl_Product] as main where main.IS_AVAILABEL=1 AND main.ISDELETE=0 order by(DateCreated)DESC ";
             }
 
             DataTable dt = db.Select(query);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
+                DateTime date = Convert.ToDateTime(dt.Rows[i]["DateCreatedDateCreated"]);
+                PersianDateTime persianDateTime = new PersianDateTime(date);
                 var model = new MiniProductModel()
                 {
                     Id = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
                     Title = dt.Rows[i]["Title"].ToString(),
                     Discription = dt.Rows[i]["Description"].ToString(),
                     PicPath = dt.Rows[i]["pic"].ToString(),
-                    OffPrice = dt.Rows[i]["PriceOff"].ToString()
+                    OffPrice = dt.Rows[i]["PriceOff"].ToString(),
+                    date=DateReturner(dt.Rows[i]["DateCreatedDateCreated"].ToString(),DateType)
                 };
 
                 if(dt.Rows[i]["PriceOff"].ToString()=="1")
@@ -312,5 +432,157 @@ namespace ShoppingCMS_V002.OtherClasses.D_APIOtherClasses
             return res;
         }
 
+        public List<Company_Customers_Model> CompanyCustomers()
+        {
+            var res = new List<Company_Customers_Model>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [Id],[name],[Job],[message],[star],[ImagePath]FROM [tbl_BLOG_CustomersMessge]");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new Company_Customers_Model()
+                {
+                    Id= Convert.ToInt32(dt.Rows[i]["Id"]),
+                    Name= dt.Rows[i]["name"].ToString(),
+                    Job = dt.Rows[i]["Job"].ToString(),
+                    Message = dt.Rows[i]["message"].ToString(),
+                    ImagePath = AppendServername(dt.Rows[i]["ImagePath"].ToString()),
+                    stars = Convert.ToInt32(dt.Rows[i]["star"])
+                };
+            }
+
+            return res;
+        }
+
+        public List<MiniProductModel> ProductList(int ProductsInAPage, string Type, int Id,int page,string search,string DateType)
+        {
+            var res = new List<MiniProductModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select(ProList_QueryMaker(Type, ProductsInAPage, Id, search, page));
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new MiniProductModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
+                    Title = dt.Rows[i]["Title"].ToString(),
+                    Discription = dt.Rows[i]["Description"].ToString(),
+                    PicPath = dt.Rows[i]["pic"].ToString(),
+                    OffPrice = dt.Rows[i]["PriceOff"].ToString(),
+                    date = DateReturner(dt.Rows[i]["DateCreatedDateCreated"].ToString(), DateType)
+                };
+
+                if (dt.Rows[i]["PriceOff"].ToString() == "1")
+                {
+                    model.Price = "";
+                }
+                else
+                {
+                    model.Price = dt.Rows[i]["PriceXquantity"].ToString();
+                }
+
+                res.Add(model);
+
+
+            }
+            return res;
+
+        }
+
+        public string ProList_QueryMaker(string Type,int ProductsInAPage,int Id,string search,int page)
+        {
+            StringBuilder query = new StringBuilder();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            int num = 1;
+            if (Type == "همه")
+            {
+                num = Convert.ToInt32(db.Select("SELECT COUNT(*) FROM [tbl_Product] WHERE IS_AVAILABEL=1 AND ISDELETE=0").Rows[0][0]);
+            }
+            else if (Type == "سردسته")
+            {
+                num = Convert.ToInt32(db.Select("SELECT COUNT(*) FROM [tbl_Product] WHERE IS_AVAILABEL=1 AND ISDELETE=0 AND id_Type=" + Id).Rows[0][0]);
+            }
+            else if (Type == "دسته بندی اصلی")
+            {
+                num = Convert.ToInt32(db.Select("SELECT COUNT(*) FROM [tbl_Product] WHERE IS_AVAILABEL=1 AND ISDELETE=0 AND id_MainCategory=" + Id).Rows[0][0]);
+            }
+            else if (Type == "گروه اصلی")
+            {
+                num = Convert.ToInt32(db.Select("SELECT COUNT(*) FROM [tbl_Product] WHERE IS_AVAILABEL=1 AND ISDELETE=0 AND id_SubCategory=" + Id).Rows[0][0]);
+            }
+            else if (Type == "برچسب")
+            {
+                num = Convert.ToInt32(db.Select("SELECT COUNT(*) FROM [tbl_Product] WHERE IS_AVAILABEL=1 AND ISDELETE=0 AND id_MProduct IN(SELECT distinct B.id_MProduct FROM [tbl_Product_tagConnector] as A inner join [tlb_Product_MainProductConnector] as B on A.id_MPC=B.id_MPC where A.id_TE=" + Id+ ")").Rows[0][0]);
+            }
+            else if (Type == "جست و جو")
+            {
+                num = Convert.ToInt32(db.Select("SELECT COUNT(*) FROM [tbl_Product] WHERE IS_AVAILABEL=1 AND ISDELETE=0 AND Title LIKE N'%" + search + "%' OR [Description] LIKE N'%" +search+"%'").Rows[0][0]);
+            }
+            
+
+            if (num % ProductsInAPage == 0)
+            {
+                num = (num / ProductsInAPage);
+            }
+            else
+            {
+                num = (num / ProductsInAPage) + 1;
+            }
+
+            query.Append("select * from(SELECT NTILE(");
+            query.Append(num);
+            query.Append(")over(order by(main.DateCreated)DESC)as tile,main.Search_Gravity,main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 [PicAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner join [tbl_Product_PicConnector] as B on A.PicID=B.PicID where B.id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType]FROM [tbl_Product] as main where main.IS_AVAILABEL=1 AND main.ISDELETE=0 ");
+            if (Type == "همه")
+            {
+                query.Append(")b where b.tile=");
+                query.Append(page);
+            }
+            else if (Type == "سردسته")
+            {
+                query.Append("AND main.id_Type=");
+                query.Append(Id);
+                query.Append(" )b where b.tile=");
+                query.Append(page);
+            }
+            else if (Type == "دسته بندی اصلی")
+            {
+                query.Append("AND main.id_MainCategory=");
+                query.Append(Id);
+                query.Append(" )b where b.tile=");
+                query.Append(page);
+            }
+            else if (Type == "گروه اصلی")
+            {
+                query.Append("AND main.id_SubCategory=");
+                query.Append(Id);
+                query.Append(" )b where b.tile=");
+                query.Append(page);
+            }
+            else if (Type == "برچسب")
+            {
+              query.Append(" AND id_MProduct IN(SELECT distinct B.id_MProduct FROM [tbl_Product_tagConnector] as A inner join [tlb_Product_MainProductConnector] as B on A.id_MPC=B.id_MPC where A.id_TE=");
+                query.Append(Id);
+                query.Append("))b where b.tile=");
+                query.Append(page);
+            }
+            else if (Type == "جست و جو")
+            {
+                query.Append(" AND Title LIKE N'%");
+                query.Append(search);
+                query.Append("%' OR [Description] LIKE N'%");
+                query.Append(search);
+                query.Append("%' )b where b.tile=");
+                query.Append(page);
+                query.Append("order by (b.Search_Gravity)DESC");
+            }
+
+            return query.ToString();
+        }
+
+       
     }
 }

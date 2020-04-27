@@ -23,6 +23,121 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
         {
             TopSelector = top;
         }
+
+        /// <summary>
+        ///  زمان را به صورت رشته دریافت میکند و به صورت های مختلف تاریخ شمسی تبدیل میکند
+        /// </summary>
+        /// <param name="date_">زمان به صورت رشته</param>
+        /// <param name="DateType">
+        /// Date : تاریخ 
+        /// Time : زمان
+        /// DateTime : تاریخ و زمان به طور کامل
+        /// Ago : چند دقیقه ، ساعت یا روز پیش
+        /// </param>
+        /// <returns>تاریخ تبدیل شده به صورت رشته</returns>
+        public string DateReturner(string date_, string DateType)
+        {
+            DateTime date = Convert.ToDateTime(date_);
+            PersianDateTime persianDateTime = new PersianDateTime(date);
+
+            if (DateType == "Date")
+            {
+                return persianDateTime.ToLongDateString();
+            }
+            else if (DateType == "Time")
+            {
+                return persianDateTime.ToLongTimeString();
+            }
+            else if (DateType == "DateTime")
+            {
+                return persianDateTime.ToLongDateTimeString();
+            }
+            else if (DateType == "Ago")
+            {
+                string LastSeen = "";
+                PersianDateTime PerNow = new PersianDateTime(DateTime.Now);
+                var dateTest = PerNow.Subtract(persianDateTime);
+                if (dateTest.Days < 1)
+                {
+                    if (dateTest.Hours < 1)
+                    {
+                        LastSeen = dateTest.Minutes + " دقیقه ی پیش";
+
+                    }
+                    else
+                    {
+                        LastSeen = dateTest.Hours + "ساعت پیش";
+                    }
+                }
+                else
+                {
+                    LastSeen = dateTest.Days + "روز پیش";
+                }
+                return LastSeen;
+
+            }
+            else
+            {
+                return "";
+            }
+        }
+        /// <summary>
+        /// زمان را به صورت تاریخ وزمان دریافت میکند و به صورت های مختلف تاریخ شمسی تبدیل میکند
+        /// </summary>
+        /// <param name="date_">زمان</param>
+        /// <param name="DateType">
+        /// Date : تاریخ 
+        /// Time : زمان
+        /// DateTime : تاریخ و زمان به طور کامل
+        /// Ago : چند دقیقه ، ساعت یا روز پیش
+        /// </param>
+        /// <returns>تاریخ تبدیل شده به صورت رشته</returns>
+        public string DateReturner(DateTime date_, string DateType)
+        {
+
+            PersianDateTime persianDateTime = new PersianDateTime(date_);
+
+            if (DateType == "Date")
+            {
+                return persianDateTime.ToLongDateString();
+            }
+            else if (DateType == "Time")
+            {
+                return persianDateTime.ToLongTimeString();
+            }
+            else if (DateType == "DateTime")
+            {
+                return persianDateTime.ToLongDateTimeString();
+            }
+            else if (DateType == "Ago")
+            {
+                string LastSeen = "";
+                PersianDateTime PerNow = new PersianDateTime(DateTime.Now);
+                var dateTest = PerNow.Subtract(persianDateTime);
+                if (dateTest.Days < 1)
+                {
+                    if (dateTest.Hours < 1)
+                    {
+                        LastSeen = dateTest.Minutes + " دقیقه ی پیش";
+
+                    }
+                    else
+                    {
+                        LastSeen = dateTest.Hours + "ساعت پیش";
+                    }
+                }
+                else
+                {
+                    LastSeen = dateTest.Days + "روز پیش";
+                }
+                return LastSeen;
+
+            }
+            else
+            {
+                return "";
+            }
+        }
         public static string AppendServername(string url)
         {
             return "https://" + HttpContext.Current.Request.Url.Authority + "/" + url;
@@ -100,6 +215,25 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                 {
                     Id = Convert.ToInt32(dt.Rows[i]["Id"]),
                     Value = dt.Rows[i]["name"].ToString()
+                };
+                res.Add(model);
+            }
+
+            return res;
+        }
+        public List<Id_ValueModel> Post_Tags(int PostId)
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            var res = new List<Id_ValueModel>();
+
+            DataTable dt = db.Select("SELECT [Id],[Name] FROM [tbl_BLOG_Tags] as A inner join [tbl_BLOG_TagConnector] as B on A.Id=B.Tag_Id Where [Is_Disabled]=0 AND [Is_Deleted]=0 AND B.Post_Id=" + PostId);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new Id_ValueModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[i]["Id"]),
+                    Value = dt.Rows[i]["Name"].ToString()
                 };
                 res.Add(model);
             }
@@ -540,8 +674,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return res;
         }
 
-
-        public List<PostModel> UserPostModels(string Cat, int Page, int Id, string search)
+        public List<PostModel> UserPostModels(string Cat, int Page, int Id, string search,string DateType= "Date")
         {
             var res = new List<PostModel>();
             PDBC db = new PDBC("PandaMarketCMS", true);
@@ -550,8 +683,6 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                DateTime date = Convert.ToDateTime(dt.Rows[i]["Date"]);
-                PersianDateTime persianDateTime = new PersianDateTime(date);
                 var model = new PostModel()
                 {
                     Id = Convert.ToInt32(dt.Rows[i]["Id"]),
@@ -565,7 +696,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                     text = dt.Rows[i]["Text"].ToString(),
                     title = dt.Rows[i]["Title"].ToString(),
                     text_min = dt.Rows[i]["Text_min"].ToString(),
-                    date = persianDateTime.ToLongDateString(),
+                    date = DateReturner(dt.Rows[i]["Date"].ToString(),DateType),
                     AdminPic = AppendServername(dt.Rows[i]["AdminPic"].ToString()),
                     PostType = dt.Rows[i]["TypeId"].ToString()
                 };
@@ -574,8 +705,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return res;
         }
 
-
-        public string QueryMaker_BlogPost(string Cat, int Page, int Id, string search)
+        public string QueryMaker_BlogPost(string Cat, int Page, int Id, string search,int PostsInPage= 15)
         {
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
@@ -602,13 +732,13 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                 num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post] where Is_Deleted=0 AND Is_Disabled=0 AND GroupId=" + Id).Rows[0][0]);
             }
 
-            if (num % 15 == 0)
+            if (num % PostsInPage == 0)
             {
-                num = (num / 15);
+                num = (num / PostsInPage);
             }
             else
             {
-                num = (num / 15) + 1;
+                num = (num / PostsInPage) + 1;
             }
 
 
@@ -624,7 +754,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                 Query.Append(") * from(SELECT NTILE(");
             }
             Query.Append(num);
-            Query.Append(")over(order by(Date)DESC)as tile, [Id],[Title],[Text_min],[GroupId],[Text],(SELECT [ad_firstname]+ ' '+ [ad_lastname] as name FROM [tbl_ADMIN_main]where id_Admin=[WrittenBy_AdminId])as adminName ,[Date],[IsImportant],[Is_Deleted],[Is_Disabled],(SELECT [name]FROM [tbl_BLOG_Categories] where Id=[Cat_Id]) as Category,(SELECT [name]FROM [tbl_BLOG_Groups] where G_Id=[GroupId]) as GroupName,(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic,(SELECT [ad_avatarprofile] FROM[tbl_ADMIN_main] where id_Admin=WrittenBy_AdminId) as AdminPic ,(SELECT[B_TypeToken] FROM [tbl_BLOG_PostType] WHERE B_TypeId=[TypeId]) as TypeId FROM [tbl_BLOG_Post]");
+            Query.Append(")over(order by(Date)DESC)as tile,[weight], [Id],[Title],[Text_min],[GroupId],[Text],(SELECT [ad_firstname]+ ' '+ [ad_lastname] as name FROM [tbl_ADMIN_main]where id_Admin=[WrittenBy_AdminId])as adminName ,[Date],[IsImportant],[Is_Deleted],[Is_Disabled],(SELECT [name]FROM [tbl_BLOG_Categories] where Id=[Cat_Id]) as Category,(SELECT [name]FROM [tbl_BLOG_Groups] where G_Id=[GroupId]) as GroupName,(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic,(SELECT [ad_avatarprofile] FROM[tbl_ADMIN_main] where id_Admin=WrittenBy_AdminId) as AdminPic ,(SELECT[B_TypeToken] FROM [tbl_BLOG_PostType] WHERE B_TypeId=[TypeId]) as TypeId FROM [tbl_BLOG_Post]");
 
             if (Cat == "همه")
             {
@@ -665,6 +795,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                 Query.Append(search);
                 Query.Append("%')b where b.tile=");
                 Query.Append(Page);
+                Query.Append("order by([weight])DESC");
             }
 
             return Query.ToString();
@@ -713,13 +844,13 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return result;
         }
 
-        public SinglePostPostDetail SinglePostFiller(int idPost)
+        public SinglePostPostDetail SinglePostFiller(int idPost,string DateType="Date")
         {
             SinglePostPostDetail result = new SinglePostPostDetail();
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
             using (DataTable dt = db.Select("SELECT * FROM [v_Blog_SinglePost] WHERE PostID = " + idPost))
-            {
+            {      
                 if (dt.Rows.Count > 0)
                 {
                     result.Cat_Id = dt.Rows[0]["Cat_Id"].ToString();
@@ -729,9 +860,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                     result.Title = dt.Rows[0]["Title"].ToString();
                     result.Text_min = dt.Rows[0]["Text_min"].ToString();
                     result.Text = dt.Rows[0]["Text"].ToString();
-                    DateTime date = Convert.ToDateTime(dt.Rows[0]["Date"]);
-                    PersianDateTime persianDateTime = new PersianDateTime(date);
-                    result.Date = persianDateTime.ToLongDateString();
+                    result.Date = DateReturner(dt.Rows[0]["Date"].ToString(),DateType);
                     result.weight = dt.Rows[0]["weight"].ToString();
                     result.IsImportant = dt.Rows[0]["IsImportant"].ToString();
                     result.PostID = dt.Rows[0]["PostID"].ToString();
@@ -748,7 +877,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             return result;
         }
 
-        public List<PostModel> PostModels_ByType(string Type_token)
+        public List<PostModel> PostModels_ByType(string Type_token,string DateType = "Date")
         {
             var res = new List<PostModel>();
             PDBC db = new PDBC("PandaMarketCMS", true);
@@ -760,8 +889,6 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    DateTime date = Convert.ToDateTime(dt.Rows[i]["Date"]);
-                    PersianDateTime persianDateTime = new PersianDateTime(date);
                     var model = new PostModel()
                     {
                         Id = Convert.ToInt32(dt.Rows[i]["Id"]),
@@ -775,7 +902,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                         text = dt.Rows[i]["Text"].ToString(),
                         title = dt.Rows[i]["Title"].ToString(),
                         text_min = dt.Rows[i]["Text_min"].ToString(),
-                        date = persianDateTime.ToLongDateString(),
+                        date = DateReturner(dt.Rows[i]["Date"].ToString(), DateType),
                         AdminPic = AppendServername(dt.Rows[i]["AdminPic"].ToString()),
                         PostType = dt.Rows[i]["TypeId"].ToString()
                     };
@@ -786,6 +913,51 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
 
             return res;
         }
+
+
+        public List<PostModel> PostModels_Chosen(string Cat, string DateType = "Date")
+        {
+            var res = new List<PostModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            string Query = "";
+            if(Cat=="Popular")
+            {
+
+            }
+            else if(Cat=="New")
+            {
+
+            }
+
+
+
+            DataTable dt = db.Select(Query);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new PostModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[i]["Id"]),
+                    by = dt.Rows[i]["adminName"].ToString(),
+                    Category = dt.Rows[i]["Category"].ToString(),
+                    InGroup = dt.Rows[i]["GroupName"].ToString(),
+                    GPIDforPostPAge = dt.Rows[i]["GroupId"].ToString(),
+                    ImagePath = AppendServername(dt.Rows[i]["Pic"].ToString()),
+                    IsDeleted = Convert.ToInt32(dt.Rows[i]["Is_Deleted"]),
+                    IsDisabled = Convert.ToInt32(dt.Rows[i]["Is_Disabled"]),
+                    text = dt.Rows[i]["Text"].ToString(),
+                    title = dt.Rows[i]["Title"].ToString(),
+                    text_min = dt.Rows[i]["Text_min"].ToString(),
+                    date = DateReturner(dt.Rows[i]["Date"].ToString(), DateType),
+                    AdminPic = AppendServername(dt.Rows[i]["AdminPic"].ToString()),
+                    PostType = dt.Rows[i]["TypeId"].ToString()
+                };
+                res.Add(model);
+            }
+            return res;
+        }
+
 
     }
 

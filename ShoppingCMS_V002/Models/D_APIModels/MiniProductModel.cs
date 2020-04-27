@@ -13,5 +13,6 @@ namespace ShoppingCMS_V002.Models.D_APIModels
         public string Discription { get; set; }
         public string Price { get; set; }
         public string OffPrice { get; set; }
+        public string date { get; set; }
     }
 }

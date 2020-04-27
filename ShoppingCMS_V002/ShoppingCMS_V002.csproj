@@ -160,7 +160,11 @@
     <Compile Include="Models\companies.cs" />
     <Compile Include="Models\CustomerDitaile.cs" />
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\D_APIModels\Company_Customers_Model.cs" />
     <Compile Include="Models\D_APIModels\MiniProductModel.cs" />
+    <Compile Include="Models\D_APIModels\OptionModel.cs" />
+    <Compile Include="Models\D_APIModels\ProductCommentModel.cs" />
+    <Compile Include="Models\D_APIModels\ProductModel.cs" />
     <Compile Include="Models\FactorItemModel.cs" />
     <Compile Include="Models\FactorDetailModel.cs" />
     <Compile Include="Models\FactorModel.cs" />

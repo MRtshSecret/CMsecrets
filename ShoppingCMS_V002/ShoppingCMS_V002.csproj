@@ -148,6 +148,7 @@
     <Compile Include="Models\Blog\BlogPics.cs" />
     <Compile Include="Models\Blog\CategoryModel.cs" />
     <Compile Include="Models\Blog\Comment.cs" />
+    <Compile Include="Models\Blog\CommentsModel.cs" />
     <Compile Include="Models\Blog\Customer.cs" />
     <Compile Include="Models\Blog\CustomerMessage.cs" />
     <Compile Include="Models\Blog\LatestNewsModel.cs" />
@@ -162,9 +163,11 @@
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\D_APIModels\Company_Customers_Model.cs" />
     <Compile Include="Models\D_APIModels\MiniProductModel.cs" />
+    <Compile Include="Models\D_APIModels\FactorPopUpModel.cs" />
     <Compile Include="Models\D_APIModels\OptionModel.cs" />
-    <Compile Include="Models\D_APIModels\ProductCommentModel.cs" />
-    <Compile Include="Models\D_APIModels\ProductModel.cs" />
+    <Compile Include="Models\D_APIModels\Product_DesignerModel.cs" />
+    <Compile Include="Models\D_APIModels\ShoppingCart_item.cs" />
+    <Compile Include="Models\D_APIModels\tbl_BLOG_TeamMembers.cs" />
     <Compile Include="Models\FactorItemModel.cs" />
     <Compile Include="Models\FactorDetailModel.cs" />
     <Compile Include="Models\FactorModel.cs" />

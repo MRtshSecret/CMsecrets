@@ -440,6 +440,12 @@ namespace ShoppingCMS_V002.OtherClasses
 
             string query = "UPDATE [tbl_Product]SET [id_Type] =@id_Type ,[id_MainCategory] =@id_MainCategory ,[id_SubCategory] =@id_SubCategory WHERE [id_MProduct]=@id_MProduct";
 
+            var subk = SubKey.Split(',');
+            for (int i = 0; i < subk.Length; i++)
+            {
+                db.Script("INSERT INTO [tbl_Product_ConnectorSCOK_Product]([id_MProduct],[id_SCOK])VALUES(" + id + "," + subk[i] + ")");
+            }
+
             return db.Script(query, paramss);
         }
 

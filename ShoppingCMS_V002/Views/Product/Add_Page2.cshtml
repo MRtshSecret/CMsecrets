@@ -17,6 +17,7 @@
 
         <div style="display:none" id="Url_3"></div>
         <div style="display:none" id="OptionTbl_3"></div>
+        <div style="display:none" id="SubK"></div>
     </div>
 </div>
 <!-- end:: Tozihat Optional -->
@@ -219,13 +220,13 @@
             } else if ($("#kt_select2_multiple").val() == "") {
                 $("#ERRAlertEdit2").show(300);
             } else {
-
+                $('#SubK').text($("#kt_select2_multiple").val());
                 var PostJson = {
                         'Type': $("#Select2_A option:selected").val(),
                         'Main': $("#Select2_B option:selected").val(),
                         'id': '@Model.Id',
                         'Sub': $("#Select2_C option:selected").val(),
-                        'SubKey':$("#kt_select2_multiple").val()
+                        'SubKey': $('#SubK').text()
                 };
 
                 $.ajax({

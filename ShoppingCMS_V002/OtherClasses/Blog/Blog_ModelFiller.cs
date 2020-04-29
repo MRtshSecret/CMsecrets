@@ -868,6 +868,40 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
                     result.ad_firstname = dt.Rows[0]["ad_firstname"].ToString();
                     result.ad_lastname = dt.Rows[0]["ad_lastname"].ToString();
                     result.ad_avatarprofile = AppendServername(dt.Rows[0]["ad_avatarprofile"].ToString());
+                    DataTable Comments = db.Select("SELECT [Id],[Email],[message],[Name],[ImagePath],[Date] FROM [tbl_BLOG_Comment] where PostId="+idPost);
+                    var Com = new List<CommentsModel>();
+                    for (int i = 0; i < Comments.Rows.Count; i++)
+                    {
+                        var Rep = new List<CommentsModel>();
+                        DataTable rep = db.Select("SELECT [Id],[Email],[Name],[Message],[ImagePath],[Date]FROM [tbl_BLOG_Reply] where commentId="+ Comments.Rows[i]["Id"]);
+                        for (int j = 0; j < rep.Rows.Count; j++)
+                        {
+                            var Rmodel = new CommentsModel()
+                            {
+                                Id=Convert.ToInt32(rep.Rows[j]["Id"]),
+                                Email= rep.Rows[j]["Email"].ToString(),
+                                ImagePath=AppendServername(rep.Rows[j]["ImagePath"].ToString()),
+                                Message= rep.Rows[j]["Message"].ToString(),
+                                Name = rep.Rows[j]["Name"].ToString(),
+                                Date=DateReturner(rep.Rows[j]["Date"].ToString(),DateType)
+                            };
+                            Rep.Add(Rmodel);
+                        }
+
+                        var model = new CommentsModel()
+                        {
+                            Id = Convert.ToInt32(Comments.Rows[i]["Id"]),
+                            Email = Comments.Rows[i]["Email"].ToString(),
+                            ImagePath = AppendServername(Comments.Rows[i]["ImagePath"].ToString()),
+                            Message = Comments.Rows[i]["Message"].ToString(),
+                            Name = Comments.Rows[i]["Name"].ToString(),
+                            Date = DateReturner(Comments.Rows[i]["Date"].ToString(), DateType),
+                            Reply=Rep
+                        };
+                        Com.Add(model);
+                    }
+
+                    result.Comments = Com;
                 }
                 else
                 {
@@ -915,7 +949,7 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
         }
 
 
-        public List<PostModel> PostModels_Chosen(string Cat, string DateType = "Date")
+        public List<PostModel> PostModels_Chosen(string Cat,int TopSelect ,string DateType = "Date")
         {
             var res = new List<PostModel>();
             PDBC db = new PDBC("PandaMarketCMS", true);
@@ -923,11 +957,11 @@ namespace ShoppingCMS_V002.OtherClasses.Blog
             string Query = "";
             if(Cat=="Popular")
             {
-
+                Query = "SELECT top " + TopSelect + " [Id],[Title],[Text_min],[Text],(SELECT [ad_firstname]+ ' '+ [ad_lastname] as name FROM [tbl_ADMIN_main]where id_Admin=[WrittenBy_AdminId])as adminName ,[Date],[IsImportant],[Is_Deleted],[Is_Disabled],(SELECT [name]FROM [tbl_BLOG_Categories] where Id=[Cat_Id]) as Category,(SELECT [name]FROM [tbl_BLOG_Groups] where G_Id=[GroupId]) as GroupName,(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic,(SELECT [ad_avatarprofile] FROM[tbl_ADMIN_main] where id_Admin=WrittenBy_AdminId) as AdminPic ,(SELECT[B_TypeToken] FROM [tbl_BLOG_PostType] WHERE B_TypeId=[TypeId]) as TypeId FROM [tbl_BLOG_Post] Order By(SELECT COUNT(*) FROM [tbl_BLOG_Comment] WHERE PostId=Id) DESC,Date DESC";
             }
             else if(Cat=="New")
             {
-
+                Query = "SELECT top " + TopSelect + " [Id],[Title],[Text_min],[Text],(SELECT [ad_firstname]+ ' '+ [ad_lastname] as name FROM [tbl_ADMIN_main]where id_Admin=[WrittenBy_AdminId])as adminName ,[Date],[IsImportant],[Is_Deleted],[Is_Disabled],(SELECT [name]FROM [tbl_BLOG_Categories] where Id=[Cat_Id]) as Category,(SELECT [name]FROM [tbl_BLOG_Groups] where G_Id=[GroupId]) as GroupName,(SELECT top 1 B.PicAddress FROM [tbl_BLOG_Pic_Connector] as A inner join [tbl_ADMIN_UploadStructure_ImageAddress] as B on A.[PicId]=B.PicID where A.PostId=Id)as Pic,(SELECT [ad_avatarprofile] FROM[tbl_ADMIN_main] where id_Admin=WrittenBy_AdminId) as AdminPic ,(SELECT[B_TypeToken] FROM [tbl_BLOG_PostType] WHERE B_TypeId=[TypeId]) as TypeId FROM [tbl_BLOG_Post] Order By(Date)DESC";
             }
 
 

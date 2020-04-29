@@ -22,5 +22,6 @@ namespace ShoppingCMS_V002.Models.Blog
         public string ad_firstname { get; set; }
         public string ad_lastname { get; set; }
         public string ad_avatarprofile { get; set; }
+        public List<CommentsModel> Comments { get; set; }
     }
 }

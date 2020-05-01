@@ -386,7 +386,7 @@ namespace ShoppingCMS_V002.OtherClasses.D_APIOtherClasses
             return result;
         }
 
-        public List<MiniProductModel> ChosenProducts(string Type,int numbers,string DateType,int MainTagId = 0)
+        public List<MiniProductModel> ChosenProducts(string Type, int numbers, string DateType, int MainTagId = 0)
         {
             var res = new List<MiniProductModel>();
             PDBC db = new PDBC("PandaMarketCMS", true);
@@ -396,13 +396,15 @@ namespace ShoppingCMS_V002.OtherClasses.D_APIOtherClasses
 
             if (Type == "Sale")
             {
-                query = "SELECT top "+numbers+ " main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 [PicAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner join [tbl_Product_PicConnector] as B on A.PicID=B.PicID where B.id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType]FROM [tbl_Product] as main where main.IS_AVAILABEL=1 AND main.ISDELETE=0 order by(SELECT Sum([number]) as sale FROM[tbl_FACTOR_Items] as A1 inner join [tlb_Product_MainProductConnector] as B1 on A1.Pro_Id=B1.id_MPC where B1.id_MProduct=main.id_MProduct)DESC ";
-            }else if(Type=="New")
+                query = "SELECT top " + numbers + " main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 [PicAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner join [tbl_Product_PicConnector] as B on A.PicID=B.PicID where B.id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType] ,(SELECT top 1 [MoneyTypeName]FROM [tbl_Product_MoneyType] as A inner join [tlb_Product_MainProductConnector] as B on A.MoneyId=B.PriceModule WHERE B.id_MProduct=main.id_MProduct) as priceQ FROM [tbl_Product] as main inner join [tlb_Product_MainProductConnector] as MPC on main.id_MProduct=MPC.id_MProduct where main.IS_AVAILABEL=1 AND main.ISDELETE=0 order by(SELECT Sum([number]) as sale FROM[tbl_FACTOR_Items] as A1 inner join [tlb_Product_MainProductConnector] as B1 on A1.Pro_Id=B1.id_MPC where B1.id_MProduct=main.id_MProduct)DESC ";
+            }
+            else if (Type == "New")
             {
-                query = "SELECT top "+numbers+ " main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 [PicAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner join [tbl_Product_PicConnector] as B on A.PicID=B.PicID where B.id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType]FROM [tbl_Product] as main where main.IS_AVAILABEL=1 AND main.ISDELETE=0 order by(DateCreated)DESC ";
-            }else if(Type=="MainTag")
+                query = "SELECT top " + numbers + " main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 [PicAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner join [tbl_Product_PicConnector] as B on A.PicID=B.PicID where B.id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType] ,(SELECT top 1 [MoneyTypeName]FROM [tbl_Product_MoneyType] as A inner join [tlb_Product_MainProductConnector] as B on A.MoneyId=B.PriceModule WHERE B.id_MProduct=main.id_MProduct) as priceQ FROM [tbl_Product] as main inner join [tlb_Product_MainProductConnector] as MPC on main.id_MProduct=MPC.id_MProduct where main.IS_AVAILABEL=1 AND main.ISDELETE=0 order by(DateCreated)DESC ";
+            }
+            else if (Type == "MainTag")
             {
-                query = "SELECT distinct top " + numbers + " main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 [PicAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner join [tbl_Product_PicConnector] as B on A.PicID=B.PicID where B.id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType]FROM [tbl_Product] as main inner join [tlb_Product_MainProductConnector] as MPC on main.id_MProduct=MPC.id_MProduct where main.IS_AVAILABEL=1 AND main.ISDELETE=0 AND MPC.id_MainStarTag=" + MainTagId + " order by(DateCreated)DESC ";
+                query = "SELECT distinct top " + numbers + " main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 [PicAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner join [tbl_Product_PicConnector] as B on A.PicID=B.PicID where B.id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType] ,(SELECT top 1 [MoneyTypeName]FROM [tbl_Product_MoneyType] as A inner join [tlb_Product_MainProductConnector] as B on A.MoneyId=B.PriceModule WHERE B.id_MProduct=main.id_MProduct) as priceQ FROM [tbl_Product] as main inner join [tlb_Product_MainProductConnector] as MPC on main.id_MProduct=MPC.id_MProduct where main.IS_AVAILABEL=1 AND main.ISDELETE=0 AND MPC.id_MainStarTag=" + MainTagId + " order by(DateCreated)DESC ";
             }
 
             DataTable dt = db.Select(query);
@@ -417,13 +419,15 @@ namespace ShoppingCMS_V002.OtherClasses.D_APIOtherClasses
                     Discription = dt.Rows[i]["Description"].ToString(),
                     PicPath = dt.Rows[i]["pic"].ToString(),
                     OffPrice = dt.Rows[i]["PriceOff"].ToString(),
-                    date=DateReturner(dt.Rows[i]["DateCreatedDateCreated"].ToString(),DateType)
+                    date = DateReturner(dt.Rows[i]["DateCreatedDateCreated"].ToString(), DateType),
+                    MoneyQ = dt.Rows[i]["priceQ"].ToString()
                 };
 
-                if(dt.Rows[i]["PriceOff"].ToString()=="1")
+                if (dt.Rows[i]["PriceOff"].ToString() == "1")
                 {
                     model.Price = "";
-                }else
+                }
+                else
                 {
                     model.Price = dt.Rows[i]["PriceXquantity"].ToString();
                 }
@@ -459,7 +463,7 @@ namespace ShoppingCMS_V002.OtherClasses.D_APIOtherClasses
             return res;
         }
 
-        public List<MiniProductModel> ProductList(int ProductsInAPage, string Type, int Id,int page,string search,string DateType)
+        public List<MiniProductModel> ProductList(int ProductsInAPage, string Type, int Id, int page, string search, string DateType)
         {
             var res = new List<MiniProductModel>();
             PDBC db = new PDBC("PandaMarketCMS", true);
@@ -475,7 +479,8 @@ namespace ShoppingCMS_V002.OtherClasses.D_APIOtherClasses
                     Discription = dt.Rows[i]["Description"].ToString(),
                     PicPath = dt.Rows[i]["pic"].ToString(),
                     OffPrice = dt.Rows[i]["PriceOff"].ToString(),
-                    date = DateReturner(dt.Rows[i]["DateCreatedDateCreated"].ToString(), DateType)
+                    date = DateReturner(dt.Rows[i]["DateCreated"].ToString(), DateType),
+                    MoneyQ = dt.Rows[i]["priceQ"].ToString()
                 };
 
                 if (dt.Rows[i]["PriceOff"].ToString() == "1")

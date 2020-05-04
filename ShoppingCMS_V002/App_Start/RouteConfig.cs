@@ -12,11 +12,10 @@ namespace ShoppingCMS_V002
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
-                defaults: new { controller = "MS", action = "LoginAuth" }
+                defaults: new { controller = "BlogAPI_Designer", action = "MainPage" }
                 );
 
 

@@ -427,7 +427,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult ContactUsMessage(string Name, string Email, string Subject, string Message)
         {
-           // PDBC db = new PDBC("PandaMarketCMS", true);
+            PDBC db = new PDBC("PandaMarketCMS", true);
             List<ExcParameters> parss = new List<ExcParameters>();
             ExcParameters par = new ExcParameters()
             {
@@ -457,6 +457,9 @@ namespace ShoppingCMS_V002.Controllers
             };
             parss.Add(par);
 
+            db.Connect();
+            db.Script("INSERT INTO [tbl_CotactUs]VALUES(@Email,@Name,@Subject,@Message)", parss);
+            db.DC();
             return Content("Success");
         }
 

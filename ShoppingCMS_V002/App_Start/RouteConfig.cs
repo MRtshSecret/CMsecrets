@@ -12,23 +12,39 @@ namespace ShoppingCMS_V002
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
-                defaults: new { controller = "BlogAPI_Designer", action = "MainPage" }
+                defaults: new { controller = "D_API", action = "Index" }
                 );
-
+            //routes.MapRoute(
+            //  name: "Default",
+            //  url: "{controller}/{action}",
+            //  defaults: new { controller = "MS", action = "LoginAuth" }
+            //  );
 
             routes.MapRoute(
                 name: "Niky",
                 url: "{controller}/{action}");
 
-            routes.MapRoute(
-                name: "AddProduct",
-                url: "اضافه-کردن-محصول/{Act}/{id}",
-                defaults: new { controller = "Product", action = "Add_Product" }
-                );
+            //routes.MapRoute(
+            //    name: "AddProduct",
+            //    url: "اضافه-کردن-محصول/{Act}/{id}",
+            //    defaults: new { controller = "Product", action = "Add_Product" }
+            //    );
 
+            //routes.MapRoute(
+            //    name: "AboutUs",
+            //    url: "درباره-ما",
+            //    defaults: new { controller = "D_API", action = "AboutUs" }
+            //    );
+
+            //routes.MapRoute(
+            //   name: "Terms",
+            //   url: "قوانین-و-مقررات",
+            //   defaults: new { controller = "D_API", action = "Terms" }
+            //   );
         }
     }
 }

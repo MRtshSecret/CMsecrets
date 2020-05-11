@@ -77,9 +77,9 @@
             </div>
         </div>
     </div>
-<input style="display: none" id="PicSelectedIDNAme--@mymodel.id" value=""/>
-<input style="display: none" id="PicSelectedIDLable--@mymodel.id" value=""/>
-<input style="display: none" id="PicSelectedIDDescription--@mymodel.id" value=""/>
+    <input style="display: none" id="PicSelectedIDNAme--@mymodel.id" value="" />
+    <input style="display: none" id="PicSelectedIDLable--@mymodel.id" value="" />
+    <input style="display: none" id="PicSelectedIDDescription--@mymodel.id" value="" />
 }
 <script>
     function GalleryActionLoadGalleryActions(idPic, Action) {
@@ -126,7 +126,7 @@
                         $("#MainDivktportlet-" + idPic).hide(300);
                     }
                 });
-           
+
         } else if (Action === 'AccEdit') {
             $.get("@Url.Action("UploadEditorResultActions", "Product", null, Request.Url.Scheme)?IDToEdit="+idPic+"&picname="+$("#PicSelectedIDNAme-" + idPic).val()+"&"+"picdesc="+$("#PicSelectedIDLable-" + idPic).val()+"&"+"picWords="+$("#PicSelectedIDDescription-" + idPic).val())
                 .done(function (dataa) {

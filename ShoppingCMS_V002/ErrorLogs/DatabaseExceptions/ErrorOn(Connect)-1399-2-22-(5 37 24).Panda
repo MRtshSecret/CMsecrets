@@ -1,0 +1,6 @@
+Exception : System.InvalidOperationException: The connection was not closed. The connection's current state is open.
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at ShoppingCMS_V002.DBConnect.PDBC.Connect() in D:\projects\Main Projects\CMsecrets\ShoppingCMS_V002\DBConnect\PDBC.cs:line 30/nConnectionString : Data Source=.;Initial Catalog=PandaMarketCMS;Integrated Security=True

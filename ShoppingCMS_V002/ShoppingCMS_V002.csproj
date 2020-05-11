@@ -51,6 +51,15 @@
     </Reference>
     <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="SmsIrRestful, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SmsIrRestful.1.1.3\lib\SmsIrRestful.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -120,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\API_FunctionsController.cs" />
     <Compile Include="Controllers\BlogAPI_DesignerController.cs" />
     <Compile Include="Controllers\BlogMainController.cs" />
     <Compile Include="Controllers\D_APIController.cs" />
@@ -161,13 +171,20 @@
     <Compile Include="Models\companies.cs" />
     <Compile Include="Models\CustomerDitaile.cs" />
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\D_APIModels\blogclass.cs" />
     <Compile Include="Models\D_APIModels\Company_Customers_Model.cs" />
+    <Compile Include="Models\D_APIModels\FactorMasterModel.cs" />
+    <Compile Include="Models\D_APIModels\MiniFactorModel.cs" />
     <Compile Include="Models\D_APIModels\MiniProductModel.cs" />
     <Compile Include="Models\D_APIModels\FactorPopUpModel.cs" />
+    <Compile Include="Models\D_APIModels\MPCModel.cs" />
     <Compile Include="Models\D_APIModels\OptionModel.cs" />
+    <Compile Include="Models\D_APIModels\page.cs" />
     <Compile Include="Models\D_APIModels\Product_DesignerModel.cs" />
     <Compile Include="Models\D_APIModels\ShoppingCart_item.cs" />
+    <Compile Include="Models\D_APIModels\tbl_BLOG.cs" />
     <Compile Include="Models\D_APIModels\tbl_BLOG_TeamMembers.cs" />
+    <Compile Include="Models\D_APIModels\tbl_Customer_Main.cs" />
     <Compile Include="Models\FactorItemModel.cs" />
     <Compile Include="Models\FactorDetailModel.cs" />
     <Compile Include="Models\FactorModel.cs" />
@@ -198,11 +215,16 @@
     <Compile Include="ModelViews\AddProductModelV_4.cs" />
     <Compile Include="ModelViews\AddProductModelV_5.cs" />
     <Compile Include="ModelViews\Blog_Post_insert_Model.cs" />
+    <Compile Include="ModelViews\D_APIModelViews\D_ProductList_ModelView.cs" />
+    <Compile Include="ModelViews\D_APIModelViews\MainPage_ModelView.cs" />
+    <Compile Include="ModelViews\D_APIModelViews\ProductDetail_ModelView.cs" />
+    <Compile Include="ModelViews\D_APIModelViews\ShoppingCartModelView.cs" />
     <Compile Include="ModelViews\D_APIModelViews\test.cs" />
     <Compile Include="ModelViews\ProductListModelView.cs" />
     <Compile Include="OtherClasses\Blog\Blog_ModelFiller.cs" />
     <Compile Include="OtherClasses\Blog\Date_TimeStamp.cs" />
     <Compile Include="OtherClasses\CheckAccess.cs" />
+    <Compile Include="OtherClasses\D_APIOtherClasses\DataClass.cs" />
     <Compile Include="OtherClasses\D_APIOtherClasses\D_APIModelFiller.cs" />
     <Compile Include="OtherClasses\Encryption.cs" />
     <Compile Include="OtherClasses\itemclas.cs" />
@@ -215,11 +237,10 @@
     <Compile Include="OtherClasses\ProductGroup_ModelFiller.cs" />
     <Compile Include="OtherClasses\SearchClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SMS_Module\SMS_ir.cs" />
+    <Compile Include="SMS_Module\SMS_ir_Status.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\boss.png" />
-    <Content Include="assets\MasterAfra.jpg" />
-    <Content Include="assets\app\custom\pages\faq\faq-1.rtl.html" />
     <Content Include="assetsAfra\css\bootstrap.min.css" />
     <Content Include="assetsAfra\css\colors.css" />
     <Content Include="assetsAfra\css\icons.min.css" />
@@ -295,6 +316,9 @@
     <Content Include="assetsAfra\js\jquery.min.js" />
     <Content Include="assetsAfra\js\main-scripts.js" />
     <Content Include="assetsAfra\js\plugins.min.js" />
+    <Content Include="assets\boss.png" />
+    <Content Include="assets\MasterAfra.jpg" />
+    <Content Include="assets\app\custom\pages\faq\faq-1.rtl.html" />
     <Content Include="assets\Auth\css\LoginAuthCustomCss.css" />
     <Content Include="assets\Auth\css\MainLoginCss.css" />
     <Content Include="assets\Auth\css\panda.css" />
@@ -6580,6 +6604,7 @@
     <Content Include="assets\plugins\global\images\owl.carousel\owl.video.play.png" />
     <Content Include="assets\plugins\global\plugins.bundle.js" />
     <Content Include="assets\plugins\global\plugins.bundle.rtl.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.css</DependentUpon>
@@ -6822,7 +6847,11 @@
     <Content Include="SQL\FAR99\30\PandaSQL.sql" />
     <Content Include="SQL\FAR99\7\PandaScript.sql" />
     <Content Include="SQL\ORD99\11\PandaSQL.sql" />
+    <Content Include="SQL\ORD99\15\PandaSQL.sql" />
+    <Content Include="SQL\ORD99\18\PandaSQL.sql" />
+    <Content Include="SQL\ORD99\18\PandaSQL_Data.sql" />
     <Content Include="SQL\ORD99\1\PandaSQL.sql" />
+    <Content Include="SQL\ORD99\21\EmptyDB.sql" />
     <Content Include="SQL\ORD99\FinalSQL_5\PandaSQL.sql" />
     <Content Include="SQL\ORD99\FinalSQL_5\PandaSQL_Data.sql" />
     <Content Include="SQL\ORD99\LastEdit\MRMedition.sql" />
@@ -6880,11 +6909,10 @@
     <Content Include="Views\BlogMain\Blog_TagTable.cshtml" />
     <Content Include="Views\BlogMain\PostTable.cshtml" />
     <Content Include="Views\BlogAPI_Designer\BlogPosts.cshtml" />
-    <Content Include="Views\Master\AfraMater.cshtml" />
     <Content Include="Views\BlogAPI_Designer\PostList.cshtml" />
     <Content Include="Views\BlogAPI_Designer\PostDetails.cshtml" />
     <Content Include="Views\BlogAPI_Designer\MainPage.cshtml" />
-    <Content Include="Views\BlogAPI_Designer\AfraMaterPostsTypes.cshtml" />
+    <Content Include="Views\D_API\AfraMaterPostsTypes.cshtml" />
     <Content Include="Views\Admin\Add_Admin.cshtml" />
     <Content Include="Views\BlogMain\EditPost.cshtml" />
     <Content Include="Views\Admin\ShowAdmins.cshtml" />
@@ -6908,11 +6936,22 @@
     <Content Include="Views\ProductGroup\ProTagsTbl.cshtml" />
     <Content Include="Views\ProductGroup\AddMainTag.cshtml" />
     <Content Include="Views\ProductGroup\MainTagsTbl.cshtml" />
+    <Content Include="Views\Master\Design_Master.cshtml" />
+    <Content Include="Views\D_API\Index.cshtml" />
+    <Content Include="Views\D_API\AboutUs.cshtml" />
+    <Content Include="Views\D_API\Terms.cshtml" />
+    <Content Include="Views\D_API\ShoppingCartPopup.cshtml" />
+    <Content Include="Views\D_API\ShoppingCart.cshtml" />
+    <Content Include="Views\D_API\Product_Detail.cshtml" />
+    <Content Include="Views\D_API\Product_List.cshtml" />
+    <Content Include="Views\D_API\MyAccount.cshtml" />
+    <Content Include="Views\D_API\Blog.cshtml" />
+    <Content Include="Views\D_API\Blog_Post.cshtml" />
+    <Content Include="Views\D_API\ContactUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Data\" />
-    <Folder Include="Views\D_API\" />
+    <Folder Include="Views\API_Functions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\Font\fontawesome-webfont.ttf" />

@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "ارتباط با ما";
+    Layout = "~/Views/Master/Design_Master.cshtml";
+}
+
+<!--====================================================================
+                               Start Section Breadcrumb
+   ====================================================================-->
+<section class="section-breadcrumb overlay-color" style="background-image:url(@Url.Content("~/assetsAfra/images/breadcrumb/1.jpg"))">
+    <span class="bg-color bg-dark-60"></span>
+    <div class="container pt-90 pb-90 vertical-wrap">
+        <div class="vertical-inner text-center">
+            <h1>تماس با ما<span>و ما می توانیم زندگی شما را تغییر دهیم</span></h1>
+        </div>
+        <div class="breadcrumb-box">
+            <div class="row row-0">
+                <div class="col-12 col-sm-8">
+                    <ol class="breadcrumb text-light">
+                        <li>
+                            <a href="#" class="breadcrumb-icon">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">صفحات</a>
+                        </li>
+                        <li>
+                            <a href="#">تماس</a>
+                        </li>
+                        <li class="active">ارتباط</li>
+                    </ol>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div class="breadcrumb-search text-right">
+                        <button class="button button-circle">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <input type="text" placeholder="جستجو ...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====================================================================
+                            End Section Breadcrumb
+====================================================================-->
+<!--====================================================================
+                                Start Section Contact Us
+====================================================================-->
+<section class="section section-contact-us section-contact-us-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-8">
+                <h3 class="mb-30">نیاز به کمک دارید؟ در تماس باشید.</h3>
+                <form class="form form-simple">
+                    <div class="row row-sm">
+                        <div class="form-item col-12 col-sm-6">
+                            <input id="name" type="text" placeholder="نام">
+                        </div>
+                        <div class="form-item col-12 col-sm-6">
+                            <input id="email" type="text" placeholder="ایمیل">
+                        </div>
+                        <div class="form-item col-12 col-sm-12">
+                            <textarea id="input-message" placeholder="پیام"></textarea>
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <button onclick="return ContactUsMessage()" class="button button-md button-primary">ارسال پیام</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-md-12 col-lg-4">
+                <div class="contact-us-info">
+                    <div class="contact-us-info-inner">
+                        <h4>
+                            اینجا<br />
+                            <span>ما هستیم</span>
+                        </h4>
+                        <p>
+                            <i class="fa fa-map-marker"></i>
+                            ایران، ارومیه، شاهین دژ
+                        </p>
+                        <p>
+                            <i class="fa fa-phone"></i>
+                            0933 899 !!!!
+                            0990 !!! 9593
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====================================================================
+                            End Section Contact Us
+====================================================================-->
+<script>
+    function ContactUsMessage()
+{
+
+    var Name = $('#name').val();
+    var Email = $('#email').val();
+    var Subject = "";
+    var Message = $('#input-message').val();
+
+    if (Name == "" || Email == "" || Message == "") {
+        alert("لطفا همه ی مقادیر ورودی را پر کنید");
+    } else {
+
+        PostJson1 = {
+            'Name': Name,
+            'Email': Email,
+            'Subject': Subject,
+            'Message': Message
+        };
+
+        $.ajax({
+            url: '/API_Functions/ContactUsMessage',
+            type: "post",
+            data: JSON.stringify(PostJson1),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response == "Success") {
+                    alert("پیام شما با موفقیت ثبت شد !");
+
+                    $('#name').val("");
+                    $('#email').val("");
+                    $('#input-message').val("");
+                }
+               
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus);
+                return "";
+            }
+        });
+
+    }
+
+    return false;
+}
+
+</script>

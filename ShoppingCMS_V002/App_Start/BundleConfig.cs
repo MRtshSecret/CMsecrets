@@ -80,6 +80,25 @@ namespace ShoppingCMS_V002
             bundles.Add(new StyleBundle("~/assets/jstree.css").Include(
                "~/assets/plugins/custom/jstree/jstree.bundle.rtl.css"
            ));
+
+	/////Afra bundles
+	
+	 bundles.Add(new ScriptBundle("~/bundles/Afra.js").Include(
+                "~/assetsAfra/js/jquery.min.js",
+                "~/assetsAfra/js/bootstrap.min.js",
+                "~/assetsAfra/js/plugins.min.js",
+                "~/assetsAfra/js/main-scripts.js"));
+
+            bundles.Add(new StyleBundle("~/assets/Afra.css").Include(
+               "~/assetsAfra/css/icons.min.css",
+               "~/assetsAfra/css/bootstrap.min.css",
+               "~/assetsAfra/css/plugins.min.css",
+               "~/assetsAfra/css/colors.css",
+               "~/assetsAfra/css/styles.css"
+           ));
+
+
+          
         }
     }
 }

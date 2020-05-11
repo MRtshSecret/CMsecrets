@@ -19,13 +19,13 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult BlogPosts(string Cat = "همه", int Page = 1, int Id = 0,string search="")
         {
             PDBC db = new PDBC("PandaMarketCMS", true);
-            db.Connect();
             string SearchNAmeHeader = "تمامی مطالب";
             int num = 1;
+            db.Connect();
             if (Cat == "همه")
             {
                 num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post]  where Is_Deleted=0 AND Is_Disabled=0").Rows[0][0]);
-                
+                db.DC();
             }
             else if (Cat == "دسته بندی")
             {
@@ -34,6 +34,7 @@ namespace ShoppingCMS_V002.Controllers
                 {
                     SearchNAmeHeader = dt2.Rows[0][0].ToString();
                 }
+                db.DC();
             }
             else if (Cat == "گروه بندی")
             {
@@ -42,6 +43,7 @@ namespace ShoppingCMS_V002.Controllers
                 {
                     SearchNAmeHeader = dt2.Rows[0][0].ToString();
                 }
+                db.DC();
             }
             else if (Cat == "برچسب")
             {
@@ -50,10 +52,12 @@ namespace ShoppingCMS_V002.Controllers
                 {
                     SearchNAmeHeader = dt2.Rows[0][0].ToString();
                 }
+                db.DC();
             }
             else if (Cat == "جست و جو")
             {
                 num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_BLOG_Post] where (Is_Deleted=0 AND Is_Disabled=0) AND (Title Like N'%" + search + "%' OR Text_min Like N'%" + search + "%' OR [Text] Like N'%" + search + "%') ").Rows[0][0]);
+                db.DC();
             }
 
             if (num % 15 == 0)
@@ -84,23 +88,14 @@ namespace ShoppingCMS_V002.Controllers
 
             return View(model);
         }
-
+        /////
         public ActionResult PostList(string search)
         {
             Blog_ModelFiller BMF = new Blog_ModelFiller();
 
             return View(BMF.SearchResult(search));
         }
-        public ActionResult AfraMaterPostsTypes()
-        {
-
-            Blog_ModelFiller BMF = new Blog_ModelFiller();
-            BlogPostsModel bpm =new BlogPostsModel()
-            {
-                GroupsList = BMF.Groups_Filler()
-            };
-            return View(bpm);
-        }
+      
         public ActionResult PostDetails(int Id)
         {
             Blog_ModelFiller BMF = new Blog_ModelFiller(3);

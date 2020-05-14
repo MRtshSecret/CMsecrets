@@ -33,36 +33,14 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult AboutUs()
         {
-            if (HttpContext.Request.Cookies[StaticLicense.LicName + "Factor"] != null)
-            {
-                string SSSession = "";
-                HttpCookie cookie = HttpContext.Request.Cookies.Get(StaticLicense.LicName + "Factor");
-                if (cookie != null)
-                {
-                    Encryption ENC = new Encryption();
-                    SSSession = ENC.DecryptText(cookie.Value, "OMD_FACTOR");
-                    MiniFactorModel minif = JsonConvert.DeserializeObject<MiniFactorModel>(SSSession);
-                    D_APIModelFiller dmf = new D_APIModelFiller();
-                    FactorPopUpModel FPM = dmf.shoppingCart(minif.Id);
-                    FactorMasterModel modell = new FactorMasterModel()
-                    {
-                        ListOfProducts = FPM,
-                        Totality = minif
-                    };
-                    ViewBag.factorMasterModel = modell;
-
-                }
-                else
-                {
-                    ViewBag.factorMasterModel = null;
-                }
-            }
-            else
-            {
-                ViewBag.factorMasterModel = null;
-            }
+            
             D_APIModelFiller DMF = new D_APIModelFiller();
-            return View(DMF.TeamMembers());
+            var model = new AboutUsModelView()
+            {
+                CompanyCustomers=DMF.CompanyCustomers(),
+                TeamMembers=DMF.TeamMembers()
+            };
+            return View(model);
         }
 
         public ActionResult Terms()

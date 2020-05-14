@@ -1,5 +1,4 @@
-﻿@using ShoppingCMS_V002.Models.D_APIModels
-@model List<tbl_BLOG_TeamMembers>
+﻿@model ShoppingCMS_V002.ModelViews.D_APIModelViews.AboutUsModelView
 @{
     ViewBag.Title = "AboutUs";
     Layout = "~/Views/Master/Design_Master.cshtml";
@@ -120,130 +119,36 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-6 col-sm-6 col-md-6 col-lg-3">
-                <div class="user-item bg-gradient-180">
-                    <div class="user-image" style="background-image: url(@Url.Content("~/assetsAfra/images/team/person-1.jpg"));"></div>
-                    <div class="user-details">
-                        <h4 class="user-name">جعفر عباسی</h4>
-                        <p>سئو و بازاریاب</p>
-                        <ul class="user-social-icons">
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-instagram"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                            </li>
-                        </ul>
+            @foreach (var item in Model.TeamMembers)
+            {
+                <div class="col-6 col-sm-6 col-md-6 col-lg-3">
+                    <div class="user-item bg-gradient-180">
+                        <div class="user-image" style="background-image: url(@item.ImagePath);"></div>
+                        <div class="user-details">
+                            <h4 class="user-name">@item.Name</h4>
+                            <p>@item.Job</p>
+                            <ul class="user-social-icons">
+                                <li>
+                                    <a href="@item.Instagram">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@item.github">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@item.Linkedin">
+                                        <i class="fa fa-linkedin"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-6 col-lg-3">
-                <div class="user-item bg-gradient-180">
-                    <div class="user-image" style="background-image: url(@Url.Content("~/assetsAfra/images/team/person-2.jpg"));"></div>
-                    <div class="user-details">
-                        <h4 class="user-name">جعفر عباسی</h4>
-                        <p>سئو و بازاریاب</p>
-                        <ul class="user-social-icons">
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-instagram"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-6 col-lg-3">
-                <div class="user-item bg-gradient-180">
-                    <div class="user-image" style="background-image: url(@Url.Content("~/assetsAfra/images/team/person-3.jpg"));"></div>
-                    <div class="user-details">
-                        <h4 class="user-name">جعفر عباسی</h4>
-                        <p>سئو و بازاریاب</p>
-                        <ul class="user-social-icons">
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-instagram"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-6 col-lg-3">
-                <div class="user-item bg-gradient-180">
-                    <div class="user-image" style="background-image: url(@Url.Content("~/assetsAfra/images/team/person-4.jpg"));"></div>
-                    <div class="user-details">
-                        <h4 class="user-name">جعفر عباسی</h4>
-                        <p>سئو و بازاریاب</p>
-                        <ul class="user-social-icons">
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-instagram"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            }
+
         </div>
     </div>
 </section>
@@ -366,70 +271,25 @@ End Section About Us
     </div>
     <span class="bg-color bg-dark-90"></span>
     <div class="owl-carousel carousel-style-1 carousel-dark" data-margin="30" data-nav="true" data-dots="true" data-loop="true" data-center="true" data-breakpoint="768:2,992:2,1200:3">
-        <div class="testimonial-item">
-            <div class="testimonial-content">
-                <i class="fa fa-quote-right"></i>
-                <h5>پشتیبانی قدرتمند</h5>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
-            </div>
-            <div class="testimonial-details">
-                <div class="testimonial-image">
-                    <img src="@Url.Content("~/assetsAfra/images/team/person-1.jpg")" alt="Relevant textual alternative to the author-1 image" />
+        @foreach (var item in Model.CompanyCustomers)
+        {
+            <div class="testimonial-item">
+                <div class="testimonial-content">
+                    <i class="fa fa-quote-right"></i>
+                    <h5></h5>
+                    <p>@item.Message</p>
                 </div>
-                <h4>
-                    جعفر عباسی
-                    <span>همکار ما</span>
-                </h4>
-            </div>
-        </div>
-        <div class="testimonial-item">
-            <div class="testimonial-content">
-                <i class="fa fa-quote-right"></i>
-                <h5>پشتیبانی قدرتمند</h5>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
-            </div>
-            <div class="testimonial-details">
-                <div class="testimonial-image">
-                    <img src="@Url.Content("~/assetsAfra/images/team/person-2.jpg")" alt="Relevant textual alternative to the author-2 image" />
+                <div class="testimonial-details">
+                    <div class="testimonial-image">
+                        <img src="@item.ImagePath" alt="Relevant textual alternative to the author-1 image" />
+                    </div>
+                    <h4>
+                        @item.Name
+                        <span>@item.Job</span>
+                    </h4>
                 </div>
-                <h4>
-                    ناصر علی یاری
-                    <span>مشتری ما</span>
-                </h4>
             </div>
-        </div>
-        <div class="testimonial-item">
-            <div class="testimonial-content">
-                <i class="fa fa-quote-right"></i>
-                <h5>پشتیبانی قدرتمند</h5>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
-            </div>
-            <div class="testimonial-details">
-                <div class="testimonial-image">
-                    <img src="@Url.Content("~/assetsAfra/images/team/person-3.jpg")" alt="Relevant textual alternative to the author-3 image" />
-                </div>
-                <h4>
-                    مجتبی شاهی
-                    <span>همکار ما</span>
-                </h4>
-            </div>
-        </div>
-        <div class="testimonial-item">
-            <div class="testimonial-content">
-                <i class="fa fa-quote-right"></i>
-                <h5>پشتیبانی قدرتمند</h5>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
-            </div>
-            <div class="testimonial-details">
-                <div class="testimonial-image">
-                    <img src="@Url.Content("~/assetsAfra/images/team/person-4.jpg")" alt="Relevant textual alternative to the author-4 image" />
-                </div>
-                <h4>
-                    مایکل آردص
-                    <span>رئیس ما</span>
-                </h4>
-            </div>
-        </div>
+        }
     </div>
 </section>
 <!--====================================================================

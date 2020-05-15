@@ -12,6 +12,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using Newtonsoft.Json;
 using ShoppingCMS_V002.OtherClasses.MasterChi_Fu;
 using ShoppingCMS_V002.Models.Blog;
@@ -45,67 +46,13 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Terms()
         {
-            if (HttpContext.Request.Cookies[StaticLicense.LicName + "Factor"] != null)
-            {
-                string SSSession = "";
-                HttpCookie cookie = HttpContext.Request.Cookies.Get(StaticLicense.LicName + "Factor");
-                if (cookie != null)
-                {
-                    Encryption ENC = new Encryption();
-                    SSSession = ENC.DecryptText(cookie.Value, "OMD_FACTOR");
-                    MiniFactorModel minif = JsonConvert.DeserializeObject<MiniFactorModel>(SSSession);
-                    D_APIModelFiller dmf = new D_APIModelFiller();
-                    FactorPopUpModel FPM = dmf.shoppingCart(minif.Id);
-                    FactorMasterModel modell = new FactorMasterModel()
-                    {
-                        ListOfProducts = FPM,
-                        Totality = minif
-                    };
-                    ViewBag.factorMasterModel = modell;
 
-                }
-                else
-                {
-                    ViewBag.factorMasterModel = null;
-                }
-            }
-            else
-            {
-                ViewBag.factorMasterModel = null;
-            }
             return View();
         }
 
         public ActionResult ContactUs()
         {
-            if (HttpContext.Request.Cookies[StaticLicense.LicName + "Factor"] != null)
-            {
-                string SSSession = "";
-                HttpCookie cookie = HttpContext.Request.Cookies.Get(StaticLicense.LicName + "Factor");
-                if (cookie != null)
-                {
-                    Encryption ENC = new Encryption();
-                    SSSession = ENC.DecryptText(cookie.Value, "OMD_FACTOR");
-                    MiniFactorModel minif = JsonConvert.DeserializeObject<MiniFactorModel>(SSSession);
-                    D_APIModelFiller dmf = new D_APIModelFiller();
-                    FactorPopUpModel FPM = dmf.shoppingCart(minif.Id);
-                    FactorMasterModel modell = new FactorMasterModel()
-                    {
-                        ListOfProducts = FPM,
-                        Totality = minif
-                    };
-                    ViewBag.factorMasterModel = modell;
-
-                }
-                else
-                {
-                    ViewBag.factorMasterModel = null;
-                }
-            }
-            else
-            {
-                ViewBag.factorMasterModel = null;
-            }
+            
             return View();
         }
 
@@ -474,9 +421,25 @@ namespace ShoppingCMS_V002.Controllers
             return View(bpm);
         }
         /// /////////////////////{ end : blog_post }////////////////////////
+        public ActionResult BlogMainPageSectionofPost()
+        {
+
+            Blog_ModelFiller BMF = new Blog_ModelFiller();
+            var model = new BlogPostsModel()
+            {
+                Posts = BMF.UserPostModels("همه", 1, 7, "")
+
+            };
+
+            return View(model);
+        }
+
+        public ActionResult LoginAndRegister()
+        {
 
 
-
+            return View();
+        }
 
 
 

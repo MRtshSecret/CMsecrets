@@ -1290,9 +1290,46 @@ Header
 /*
 * Header Menu
 */
-
+.login-register{
+  float: left;
+  text-align: center;
+  margin-left: 30px;
+}
+.login-register2 {
+  text-align: center;
+}
+.login-register2 a span {
+  border:2px solid #000;
+  transition: all ease .5s;
+  padding: 8px 11px;
+  color: #000;
+  border-radius: 30px;
+  width: 100%;
+}
+.scroll-login-register {
+  border: 2px solid black!important;
+  transition: all ease .5s;
+}
+.login-register a span {
+  border:2px solid white;
+  transition: all ease .5s;
+  padding: 8px 11px;
+  border-radius: 30px;
+}
+.login-register a span:hover {
+  background-color: white;
+  color: black;
+}
+.scroll-login-register:hover {
+  color:white!important;
+  background-color: #000!important;
+}
 .site-header .menu {
-  float: ri;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  text-align: center;
   list-style: none;
   padding: 0;
   margin: 0 -15px;
@@ -1397,7 +1434,7 @@ Header
 */
 
 .site-header .button {
-  float: right;
+  float: left;
   display: none;
   margin-top: 30px;
   text-align: center;
@@ -5826,5 +5863,71 @@ Animations
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+.loginregister h3{
+  border-bottom: 1px solid black;
+  width: auto;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+.loginregister small{
+  cursor: pointer;
+  display: block;
+  margin-top: 5px;
+  width: 100%;
+  text-align: left;
+  opacity: 1;
+  transition: all ease .5s;
+}
+.loginregister small:hover {
+  opacity: .6;
+  transition: all ease .5s;
+}
+.error {
+  margin-top: 5px;
+  color: #dc3545!important;
+}
+#so {
+  color: #000!important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.emc {
+  float: left;
+  cursor: pointer;
+  opacity: 1;
+  transition: all ease .5s;
+}
+.emc:hover {
+  opacity: .6;
+  transition: all ease .5s;
+}
+.change-phone {
+  float: right;
+  cursor: pointer;
+  opacity: 1;
+  transition: all ease .5s;
+}
+.change-phone:hover {
+  opacity: .6;
+  transition: all ease .5s;
+}
+.small-div {
+  margin-top: 5px;
+}
+@media screen and (max-width: 768px){
+  .verify h4 {
+    font-size: 16px!important;
+    line-height: 28px!important;
+  }
+  .verify-img {
+    margin-bottom: 30px!important;
   }
 }

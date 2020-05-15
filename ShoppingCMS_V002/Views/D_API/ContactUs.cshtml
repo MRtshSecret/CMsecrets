@@ -5,8 +5,26 @@
 }
 
 <!--====================================================================
-                               Start Section Breadcrumb
-   ====================================================================-->
+Start Section Breadcrumb
+====================================================================-->
+<div class="modal fade" id="modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="border: none!important;">
+            <div class="modal-header" style="background-color: #28a745;width: 100%;">
+                <h5 class="modal-title" id="modal-title" style="float: right;color:#fff;">title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: left;color: white">
+                    <span style="color: white!important;" aria-hidden="true"><i style="color: white!important;" class="fa fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                body
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="float:left;background-color: #000;color: #fff;" data-dismiss="modal">تایید</button>
+            </div>
+        </div>
+    </div>
+</div>
 <section class="section-breadcrumb overlay-color" style="background-image:url(@Url.Content("~/assetsAfra/images/breadcrumb/1.jpg"))">
     <span class="bg-color bg-dark-60"></span>
     <div class="container pt-90 pb-90 vertical-wrap">
@@ -15,29 +33,16 @@
         </div>
         <div class="breadcrumb-box">
             <div class="row row-0">
-                <div class="col-12 col-sm-8">
+                <div class="col-12 col-sm-12">
                     <ol class="breadcrumb text-light">
                         <li>
-                            <a href="#" class="breadcrumb-icon">
+                            <a href="." class="breadcrumb-icon">
                                 <i class="fa fa-home"></i>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">صفحات</a>
-                        </li>
-                        <li>
-                            <a href="#">تماس</a>
-                        </li>
-                        <li class="active">ارتباط</li>
+
+                        <li class="active">تماس با ما</li>
                     </ol>
-                </div>
-                <div class="col-12 col-sm-4">
-                    <div class="breadcrumb-search text-right">
-                        <button class="button button-circle">
-                            <i class="fa fa-search"></i>
-                        </button>
-                        <input type="text" placeholder="جستجو ...">
-                    </div>
                 </div>
             </div>
         </div>
@@ -97,50 +102,66 @@
                             End Section Contact Us
 ====================================================================-->
 <script>
-    function ContactUsMessage()
-{
-
-    var Name = $('#name').val();
-    var Email = $('#email').val();
-    var Subject = "";
-    var Message = $('#input-message').val();
-
-    if (Name == "" || Email == "" || Message == "") {
-        alert("لطفا همه ی مقادیر ورودی را پر کنید");
-    } else {
-
-        PostJson1 = {
-            'Name': Name,
-            'Email': Email,
-            'Subject': Subject,
-            'Message': Message
-        };
-
-        $.ajax({
-            url: '/API_Functions/ContactUsMessage',
-            type: "post",
-            data: JSON.stringify(PostJson1),
-            contentType: "application/json; charset=utf-8",
-            success: function (response) {
-                if (response == "Success") {
-                    alert("پیام شما با موفقیت ثبت شد !");
-
-                    $('#name').val("");
-                    $('#email').val("");
-                    $('#input-message').val("");
-                }
-               
-
+    function success(title,body){
+        $(".modal-title").text(title);
+        $(".modal-body").text(body);
+        setTimeout(function() {
+                $("#modal").modal();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(textStatus);
-                return "";
-            }
-        });
+            200);
+    }
+    function danger(title,body){
+        $(".modal-header").css({"background-color":"#dc3545"});
+        $(".modal-title").text(title);
+        $(".modal-body").text(body);
+        setTimeout(function() {
+                $("#modal").modal();
+            },
+            200);
+    }
+    function ContactUsMessage()
+    {
 
+        var Name = $('#name').val();
+        var Email = $('#email').val();
+        var Subject = "";
+        var Message = $('#input-message').val();
+
+        if (Name == "" || Email == "" || Message == "") {
+            alert("لطفا همه ی مقادیر ورودی را پر کنید");
+        } else {
+
+            PostJson1 = {
+                'Name': Name,
+                'Email': Email,
+                'Subject': Subject,
+                'Message': Message
+            };
+
+            $.ajax({
+                url: '/API_Functions/ContactUsMessage',
+                type: "post",
+                data: JSON.stringify(PostJson1),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    if (response == "Success") {
+                        $('#name').val("");
+                        $('#email').val("");
+                        $('#input-message').val("");
+                    }
+                    success("ارسال پیام", "پیام شما باموفقیت برای ما ثبت گردید.");
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    danger("خطا رخ داده است","متاسفانه خطایی در ثبت درخواست شما رخ داده است لطفا با ما بصورت تلفنی در میان بگذارید!")
+                    return "";
+                }
+            });
+
+        }
+
+        return false;
     }
 
-    return false;
-}
 
 </script>

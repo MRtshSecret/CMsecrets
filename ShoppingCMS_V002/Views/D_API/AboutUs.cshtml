@@ -1,6 +1,6 @@
 ﻿@model ShoppingCMS_V002.ModelViews.D_APIModelViews.AboutUsModelView
 @{
-    ViewBag.Title = "AboutUs";
+    ViewBag.Title = "درباره ما";
     Layout = "~/Views/Master/Design_Master.cshtml";
 }
 
@@ -15,30 +15,17 @@
         </div>
         <div class="breadcrumb-box">
             <div class="row row-0">
-                <div class="col-12 col-sm-8">
+                <div class="col-12 col-sm-12">
                     <ol class="breadcrumb text-light">
                         <li>
-                            <a href="#" class="breadcrumb-icon">
+                            <a href="@Url.Action("Index", "D_API")" class="breadcrumb-icon">
                                 <i class="fa fa-home"></i>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">صفحات</a>
-                        </li>
-                        <li>
-                            <a href="#">گالری</a>
-                        </li>
-                        <li class="active">تخت</li>
+                        <li class="active">درباره ما</li>
                     </ol>
                 </div>
-                <div class="col-12 col-sm-4">
-                    <div class="breadcrumb-search text-right">
-                        <button class="button button-circle">
-                            <i class="fa fa-search"></i>
-                        </button>
-                        <input type="text" placeholder="جستجو ...">
-                    </div>
-                </div>
+               
             </div>
         </div>
     </div>
@@ -94,7 +81,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                 <div class="about-us-box overlay-pattern">
-                    <img src="~/assetsAfra/images/about/about-us-1-1.jpg" alt="Relevant textual alternative to the about us image">
+                    <img src="@Url.Content("~/assetsAfra/images/about/about-us-1-1.jpg")" alt="Relevant textual alternative to the about us image">
                 </div>
             </div>
         </div>

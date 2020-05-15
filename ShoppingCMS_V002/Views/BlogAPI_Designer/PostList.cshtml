@@ -7,7 +7,7 @@
 @foreach (var item in Model)
 {
     <div class="post-meta">
-        <a href="@Url.Action("PostDetails","BlogAPI_Designer",new { Id=item.Id })" class="post-author-image" style="margin">
+        <a href="@Url.Action("PostDetails","BlogAPI_Designer",new { Id=item.Id })" class="post-author-image">
             <img src="@item.Group1" alt="Miranda Fox image">
         </a>
         <div class="post-author-name">

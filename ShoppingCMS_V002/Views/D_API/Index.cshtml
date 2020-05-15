@@ -20,11 +20,11 @@
                             </span>
                         </h1>
                         <p>تصمیم گیری چندمعیاره به کمک نرم افزار mcdmsolver</p>
-                        <a href="#" class="button button-md button-radius button-primary">
+                        <button onclick="return scrolldw()" href="#" class="button button-md button-radius button-primary">
                             <i class="fa fa-long-arrow-right"></i>
                             شروع کنید
-                        </a>
-                        <a href="https://youtu.be/l-epKcOA7RQ" class="button button-md button-radius button-secondary">
+                        </button>
+                        <a href="@Url.Action("Blog","D_API",new {Cat="گروه بندی",Id=3 })" class="button button-md button-radius button-secondary">
                             <i class="fa fa-play"></i>
                             آموزش نرم افزار
                         </a>
@@ -55,7 +55,7 @@
 <!--====================================================================
                             Start Section Features
 ====================================================================-->
-<section class="section section-features section-features-3 section-divider">
+<section id="sec2" class="section section-features section-features-3 section-divider">
     <div class="container">
         <div class="section-title section-title-2 div-center text-center max-w-576">
             <h2>خدمات پایه</h2>
@@ -187,7 +187,7 @@
                                         <i class="fa fa-group"></i>
                                         @item.InGroup
                                     </a> :
-                                    <a href="@Url.Action("Blog","D_API", new {Id = item.Id})">
+                                    <a href="@Url.Action("Blog_Post","D_API", new {Id = item.Id})">
                                         @item.title
                                     </a>
                                 </h3>
@@ -197,7 +197,7 @@
                                 <p>
                                     @item.text_min
                                 </p>
-                                <a href="@Url.Action("Blog","D_API", new {Id = item.Id})" class="button-read-more">
+                                <a href="@Url.Action("Blog_Post","D_API", new {Id = item.Id})" class="button-read-more">
                                     مطالعه بیشتر
                                     <i class="fa fa-long-arrow-right"></i>
                                 </a>
@@ -231,7 +231,7 @@ Start Section Call To Action
         <div class="div-center text-center max-w-576 box">
             <h3>آموزش ها</h3>
             <p>با ما ساده یاد بگیرید</p>
-            <a href="#" class="button button-md button-radius button-primary">
+            <a href="@Url.Action("Blog","D_API",new {Cat="گروه بندی",Id=3 })" class="button button-md button-radius button-primary">
                 <i class="fa fa-long-arrow-right"></i>
                 همه آموزش ها
             </a>
@@ -244,72 +244,7 @@ End Section Call To Action
 <!--====================================================================
                             Start Section About Us
 ====================================================================-->
-<section class="section section-about-us section-about-us-2 section-divider">
-    <div class="container">
-        <div class="owl-carousel" data-items="1" data-nav="true">
-            <div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                        <div class="about-us-box">
-                            <div class="about-us-image" style="background-image: url('@Url.Content("~/assetsAfra/images/about/about-us-2-1.jpg")')"></div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                        <div class="inner text-left">
-                            <h2>
-                                <span>ما چه کاری انجام میدهیم</span>
-                                استراتژی بسازید ، تجارت خود را بسازید.
-                            </h2>
-                            <div class="divider divider-line"></div>
-                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
-                            <div class="feature-item pt-30">
-                                <div class="row row-sm">
-                                    <div class="col-3 col-sm-2">
-                                        <i class="fa fa-flask"></i>
-                                    </div>
-                                    <div class="col-9 col-sm-10">
-                                        <b>ما آینده می سازیم</b>
-                                        <p>طراحی و توسعه انواع سایت در کوتاه ترین زمان</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                        <div class="about-us-box">
-                            <div class="about-us-image" style="background-image: url('@Url.Content("~/assetsAfra/images/about/about-us-2-2.jpg")')"></div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                        <div class="inner text-left">
-                            <h2>
-                                <span>کاری که ما انجام می دهیم</span>
-                                طراحی، توسعه، پردازش و ارائه
-                            </h2>
-                            <div class="divider divider-line"></div>
-                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
-                            <div class="feature-item pt-30">
-                                <div class="row row-sm">
-                                    <div class="col-3 col-sm-2">
-                                        <i class="fa fa-trophy"></i>
-                                    </div>
-                                    <div class="col-9 col-sm-10">
-                                        <b>ماموریت و چشم انداز ما</b>
-                                        <p>طراحی و توسعه انواع سایت در کوتاه ترین زمان</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@{ Html.RenderAction("BlogMainPageSectionofPost", "D_API"); }
 <!--====================================================================
 End Section About Us
 ====================================================================-->
@@ -806,3 +741,11 @@ End Section About Us
 <!--====================================================================
                         End Section Call To Action
 ====================================================================-->
+<script>
+    function scrolldw() {
+        $('html, body').animate({
+            scrollTop: $("#sec2").offset().top
+        }, 1500);
+        return false;
+    }
+</script>

@@ -1,7 +1,7 @@
 ﻿@model ShoppingCMS_V002.Models.BlogPostsModel
 @{
     ViewBag.Title = "خانه-MCDMSolver";
-    Layout = "~/Views/Master/AfraMater.cshtml";
+    Layout = "~/Views/Master/Design_Master.cshtml";
 }
 
 <!--====================================================================
@@ -231,7 +231,7 @@ Start Section Call To Action
         <div class="div-center text-center max-w-576 box">
             <h3>آموزش ها</h3>
             <p>با ما ساده یاد بگیرید</p>
-            <a href="#" class="button button-md button-radius button-primary">
+            <a href="@Url.Action("MainPage", "BlogAPI_Designer")" class="button button-md button-radius button-primary">
                 <i class="fa fa-long-arrow-right"></i>
                 همه آموزش ها
             </a>

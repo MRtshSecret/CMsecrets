@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "LoginAndRegister";
+    Layout = "~/Views/Master/Design_Master.cshtml";
+}
+
+<!--====================================================================
+                            Start Section Breadcrumb
+====================================================================-->
+<section class="section-breadcrumb overlay-color" style="background-image: url(@Url.Content("~/assets/MasterAfra.jpg"));">
+    <span class="bg-color bg-dark-60"></span>
+    <div class="container pt-90 pb-90 vertical-wrap">
+        <div class="vertical-inner text-center">
+            <h1>ثبت نام در سامانه<span>برای تعامل بیشتر و استفاده از نرم افزار میتوانید از این قسمت ثبت نام فرمایید</span></h1>
+        </div>
+        <!--<div class="breadcrumb-box">
+            <div class="row row-0">
+                <div class="col-12 col-sm-8">
+                    <ol class="breadcrumb text-light">
+                        <li>
+                            <a href="#" class="breadcrumb-icon">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">صفحات</a>
+                        </li>
+                        <li>
+                            <a href="#">تماس</a>
+                        </li>
+                        <li class="active">ارتباط</li>
+                    </ol>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div class="breadcrumb-search text-right">
+                        <button class="button button-circle">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <input type="text" placeholder="جستجو ...">
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </div>
+</section>
+
+<section class="section section-contact-us section-contact-us-1">
+    <div class="container">
+        <div class="row loginregister">
+            <div class="col-12 col-md-12 col-lg-6">
+                <h3 class="mb-30">ورود</h3>
+                <form class="form form-simple" id="loginform">
+                    <div class="row row-sm">
+                        <div class="form-item col-12 col-sm-12">
+                            <input type="number" name="phone" placeholder="شماره موبایل">
+                        </div>
+                        <div class="form-item col-12 col-sm-12">
+                            <input type="text" name="pw" placeholder="رمز عبور">
+                            @*<small class="forgot-pw">رمز عبور خود را فراموش کرده اید؟</small>*@
+                        </div>
+                        <div class="col-12 col-sm-12" style="text-align: left">
+                            <button class="button button-md button-primary" onclick="return reglog()">ورود</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            @*<div class="modal fade" id="forgot-pw-div">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="forgot-pw-div-title" style="float: right">دریافت رمز عبور جدید</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: left;position: absolute;left: 0;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form form-simple" id="pw-form">
+                                <div class="form-item col-12 col-sm-12 mt-25">
+                                    <input type="number" name="phone2" placeholder="شماره موبایل">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary send-pw-btn">ارسال</button>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            <div class="col-12 col-md-12 col-lg-6">
+                <h3 class="mb-30">عضویت</h3>
+                <form class="form form-simple" id="reg-form">
+                    <div class="row row-sm">
+                        <div class="form-item col-12 col-sm-6">
+                            <input name="fn" type="text" placeholder="نام">
+                        </div>
+                        <div class="form-item col-12 col-sm-6">
+                            <input name="ln" type="text" placeholder="نام خانوادگی">
+                        </div>
+                        <div class="form-item col-12 col-sm-6">
+                            <input name="phone" type="number" placeholder="شماره موبایل">
+                        </div>
+                        <div class="form-item col-12 col-sm-6">
+                            <select id="so" name="so">
+                                <option value="" selected>انتخاب کنید</option>
+                                <option value="">هیات علمی</option>
+                                <option value="">دانشجو</option>
+                            </select>
+                        </div>
+                        <div class="form-item col-12 col-sm-6">
+                            <input name="pw" type="text" placeholder="رمز عبور">
+                        </div>
+                        <div class="form-item col-12 col-sm-6">
+                            <input name="pwr" type="text" placeholder="تکرار رمز عبور">
+                        </div>
+                        <div class="col-12 col-sm-12" style="text-align: left">
+                            <button class="button button-md button-primary" onclick="return reglog()">عضویت</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====================================================================
+                            End Section Breadcrumb
+====================================================================-->
+<div class="modal fade" id="modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="border: none!important;">
+            <div class="modal-header" style="background-color: #28a745;width: 100%;">
+                <h5 class="modal-title" id="modal-title" style="float: right;color:#fff;">title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: left;color: white">
+                    <span style="color: white!important;" aria-hidden="true"><i style="color: white!important;" class="fa fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                body
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="float:left;background-color: #000;color: #fff;" data-dismiss="modal">تایید</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function danger(title,body){
+        $(".modal-header").css({"background-color":"#dc3545"});
+        $(".modal-title").text(title);
+        $(".modal-body").text(body);
+        setTimeout(function() {
+                $("#modal").modal();
+            },
+            200);
+    }
+
+    function reglog() {
+        danger("مشترک گرانقدر", "متاسفانه تا زمان بارگزاری اپلیکیشن MCDM بخش ثبت نام در دسترس نمیباشد");
+        return false;
+    }
+
+
+</script>

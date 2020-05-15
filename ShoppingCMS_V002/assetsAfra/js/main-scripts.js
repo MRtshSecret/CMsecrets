@@ -7,7 +7,6 @@
         var header = $(".site-header");
         var height = header.innerHeight();
         var scroll = $(this).scrollTop();
-      
         if (scroll >= height) {
             header.addClass("fixed");
             $(".navbar .navbar-brand img").attr("src", "../images/logo-light");
@@ -25,7 +24,7 @@
 
     /*====== Scroll Up Setting ======*/
     $(".scroll-up").on("click", function () {
-        $("html, body").animate({scrollTop: 0}, 1000);
+        $("html, body").animate({ scrollTop: 0 }, 1000);
     });
 
     /*====== Mousemove Parallax Setting ======*/
@@ -123,7 +122,7 @@
             navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>']
         };
         params.responsive = {
-            0: {items: 1}
+            0: { items: 1 }
         };
         if (typeof $(this).data("breakpoint") != "undefined") {
             var j;
@@ -156,3 +155,18 @@
     $(".owl-carousel").each(owlEvent);
 
 })($);
+
+$(document).ready(function () {
+    $(".forgot-pw").on("click", function () {
+        $("#forgot-pw-div").modal();
+    })
+    $(".change-phone").on("click", function () {
+        $("#edit-phone").modal();
+    })
+    $(".send-pw-btn").on("click", function () {
+        $("#pw-form").submit();
+    })
+    $(".change-phone-btn").on("click", function () {
+        $("#change-form").submit();
+    })
+})

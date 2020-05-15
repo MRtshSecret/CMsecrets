@@ -74,7 +74,7 @@
                     {
                         <div class="post-item col-10" style="margin: auto; margin-top: 3%">
                             <div class="post-image bg-gradient-180">
-                                <a href="@Url.Action("Blog", "D_API", new {Id = item.Id})">
+                                <a href="@Url.Action("Blog_Post", "D_API", new {Id = item.Id})">
                                     <img src="@item.ImagePath" alt="@item.title">
                                 </a>
                             </div>
@@ -92,7 +92,7 @@
                             </div>
                             <div class="post-info">
                                 <h3>
-                                    <a href="@Url.Action("Blog", "D_API", new {Id = item.Id})">@item.title</a>
+                                    <a href="@Url.Action("Blog_Post", "D_API", new {Id = item.Id})">@item.title</a>
                                 </h3>
                                 <div class="widget widget-categories">
 
@@ -143,7 +143,7 @@
                             <div id="SearchB"></div>
                         </div>
                     </div>
-                    <div class="widget widget-categories">
+                    <div class="widget widget-tags">
                         <div class="widget-head">
                             <h3 class="widget-title">گروه بندی مطالب</h3>
                             <div class="divider divider-line"></div>
@@ -163,7 +163,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="widget widget-categories">
+                    <div class="widget widget-tags">
                         <div class="widget-head">
                             <h3 class="widget-title">دسته بندی ها</h3>
                             <div class="divider divider-line"></div>
